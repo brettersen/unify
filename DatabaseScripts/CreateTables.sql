@@ -87,30 +87,32 @@ CREATE TABLE [Exemption]
 (
 	ExemptionId				INT				PRIMARY KEY IDENTITY NOT NULL,
 	TaskId					INT				FOREIGN KEY REFERENCES Task(TaskId) NOT NULL,
-	ExemptionEntityId		INT
-	ExemptionOperatorId		INT
-	ExemptionIndex			INT
-	ExemptionValue			VARCHAR(500)
+	ExemptionEntityId		INT				FOREIGN KEY REFERENCES ExemptionEntity(ExemptionEntityId) NOT NULL,
+	ExemptionOperatorId		INT				FOREIGN KEY REFERENCES ExemptionOperator(ExemptionOperatorId) NOT NULL,
+	ExemptionIndex			INT				NOT NULL,
+	ExemptionValue			VARCHAR(255)	NOT NULL
 )
 
-CREATE TABLE [ExecutionSchedule]
+CREATE TABLE [Schedule]
 (
-	ExecutionScheduleId		INT				PRIMARY KEY IDENTITY NOT NULL,
-	
+	ScheduleId				INT				PRIMARY KEY IDENTITY NOT NULL,
+	ScheduleName			VARCHAR(100)	UNIQUE NOT NULL,
+	ScheduleDescription		VARCHAR(500)	NULL,
+	CreatedOn				DATETIME2		DEFAULT GETDATE() NOT NULL,
+	UpdatedOn				DATETIME2		DEFAULT GETDATE() NOT NULL
 )
 
-CREATE TABLE [ExecutionScheduleMonths]
-
-CREATE TABLE [ExecutionSchedule
-
-CREATE TABLE [ExecutionScheduleTask]
+CREATE TABLE [ScheduleTime]
 (
-	ExecutionScheduleId		INT				FOREIGN KEY REFERENCES ExecutionSchedule(ExecutionScheduleId) NOT NULL,
+	ScheduleId				INT				FOREIGN KEY REFERENCES Schedule(ScheduleId) NOT NULL,
+	ScheduleDays			TINYINT			NOT NULL,
+	ScheduleTime			SMALLINT		NOT NULL
+)
+
+CREATE TABLE [ScheduleTask]
+(
+	ScheduleId				INT				FOREIGN KEY REFERENCES Schedule(ScheduleId) NOT NULL,
 	TaskId					INT				FOREIGN KEY REFERENCES Task(TaskId) NOT NULL,
 	TaskIndex				TINYINT			NOT NULL
 )
 
-CREATE TABLE [ExecutionHistory]
-(
-	
-)

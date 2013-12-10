@@ -24,7 +24,6 @@ Partial Class frmTask
     Private Sub InitializeComponent()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.CheckBox3 = New System.Windows.Forms.CheckBox()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
@@ -35,8 +34,12 @@ Partial Class frmTask
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.CheckBox4 = New System.Windows.Forms.CheckBox()
-        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TextBox1
@@ -53,51 +56,39 @@ Partial Class frmTask
         Me.TextBox2.Size = New System.Drawing.Size(390, 20)
         Me.TextBox2.TabIndex = 1
         '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.CheckBox3)
-        Me.GroupBox1.Controls.Add(Me.CheckBox2)
-        Me.GroupBox1.Controls.Add(Me.CheckBox1)
-        Me.GroupBox1.Location = New System.Drawing.Point(249, 100)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(94, 94)
-        Me.GroupBox1.TabIndex = 2
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Operations"
-        '
         'CheckBox3
         '
         Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Location = New System.Drawing.Point(9, 21)
+        Me.CheckBox3.Location = New System.Drawing.Point(9, 20)
         Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(57, 17)
+        Me.CheckBox3.Size = New System.Drawing.Size(45, 17)
         Me.CheckBox3.TabIndex = 2
-        Me.CheckBox3.Text = "Create"
+        Me.CheckBox3.Text = "Add"
         Me.CheckBox3.UseVisualStyleBackColor = True
         '
         'CheckBox2
         '
         Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(9, 67)
+        Me.CheckBox2.Location = New System.Drawing.Point(132, 20)
         Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(57, 17)
+        Me.CheckBox2.Size = New System.Drawing.Size(66, 17)
         Me.CheckBox2.TabIndex = 1
-        Me.CheckBox2.Text = "Delete"
+        Me.CheckBox2.Text = "Remove"
         Me.CheckBox2.UseVisualStyleBackColor = True
         '
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(9, 44)
+        Me.CheckBox1.Location = New System.Drawing.Point(60, 20)
         Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(61, 17)
+        Me.CheckBox1.Size = New System.Drawing.Size(66, 17)
         Me.CheckBox1.TabIndex = 0
-        Me.CheckBox1.Text = "Update"
+        Me.CheckBox1.Text = "Replace"
         Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(357, 142)
+        Me.Button1.Location = New System.Drawing.Point(357, 212)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 3
@@ -106,7 +97,7 @@ Partial Class frmTask
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(357, 171)
+        Me.Button2.Location = New System.Drawing.Point(357, 241)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 4
@@ -115,11 +106,11 @@ Partial Class frmTask
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(12, 171)
+        Me.Button3.Location = New System.Drawing.Point(357, 169)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(100, 23)
+        Me.Button3.Size = New System.Drawing.Size(75, 23)
         Me.Button3.TabIndex = 5
-        Me.Button3.Text = "File exclusions..."
+        Me.Button3.Text = "Manage..."
         Me.Button3.UseVisualStyleBackColor = True
         '
         'Button4
@@ -158,13 +149,42 @@ Partial Class frmTask
         Me.Label2.TabIndex = 9
         Me.Label2.Text = "Destination Directory"
         '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.CheckBox2)
+        Me.GroupBox2.Controls.Add(Me.CheckBox1)
+        Me.GroupBox2.Controls.Add(Me.CheckBox3)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 100)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(202, 45)
+        Me.GroupBox2.TabIndex = 10
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "File Operations"
+        '
+        'DataGridView1
+        '
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Location = New System.Drawing.Point(12, 170)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.Size = New System.Drawing.Size(332, 95)
+        Me.DataGridView1.TabIndex = 12
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(9, 153)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(61, 13)
+        Me.Label3.TabIndex = 13
+        Me.Label3.Text = "Exemptions"
+        '
         'CheckBox4
         '
         Me.CheckBox4.AutoSize = True
-        Me.CheckBox4.Location = New System.Drawing.Point(12, 133)
+        Me.CheckBox4.Location = New System.Drawing.Point(249, 100)
         Me.CheckBox4.Name = "CheckBox4"
         Me.CheckBox4.Size = New System.Drawing.Size(74, 17)
-        Me.CheckBox4.TabIndex = 0
+        Me.CheckBox4.TabIndex = 14
         Me.CheckBox4.Text = "Recursive"
         Me.CheckBox4.UseVisualStyleBackColor = True
         '
@@ -172,10 +192,12 @@ Partial Class frmTask
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(444, 206)
-        Me.Controls.Add(Me.Button3)
+        Me.ClientSize = New System.Drawing.Size(444, 321)
         Me.Controls.Add(Me.CheckBox4)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.DataGridView1)
+        Me.Controls.Add(Me.GroupBox2)
+        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Button5)
@@ -189,15 +211,15 @@ Partial Class frmTask
         Me.MinimizeBox = False
         Me.Name = "frmTask"
         Me.Text = "frmTask"
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
     Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents Button3 As System.Windows.Forms.Button
@@ -208,5 +230,8 @@ Partial Class frmTask
     Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
+    Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents CheckBox4 As System.Windows.Forms.CheckBox
 End Class

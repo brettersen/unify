@@ -70,10 +70,10 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmExclusions.Designer.vb">
-      <DependentUpon>frmExclusions.vb</DependentUpon>
+    <Compile Include="frmExemption.Designer.vb">
+      <DependentUpon>frmExemption.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmExclusions.vb">
+    <Compile Include="frmExemption.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMain.vb">
@@ -106,6 +106,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmExemption.resx">
+      <DependentUpon>frmExemption.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmTask.resx">
       <DependentUpon>frmTask.vb</DependentUpon>
     </EmbeddedResource>
