@@ -6,7 +6,7 @@ Public Enum OperationType
     Delete
 End Enum
 
-Public Class Action
+Public Class Operation
 
     Public Sub New()
 

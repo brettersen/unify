@@ -4,7 +4,7 @@ Imports System.IO
 Public Class AnalyzedTask
 
     Private _task As Task
-    Private _pendingActions As ConcurrentQueue(Of Action)
+    Private _pendingActions As ConcurrentQueue(Of Operation)
     Private _sourceFiles As IEnumerable(Of FileInfo)
     Private _destinationFiles As IEnumerable(Of FileInfo)
     Private _sourcePaths As IEnumerable(Of String)
@@ -17,7 +17,7 @@ Public Class AnalyzedTask
     Friend Sub New(ByRef t As Task)
 
         Me.Task = t
-        Me.PendingActions = New ConcurrentQueue(Of Action)
+        Me.PendingActions = New ConcurrentQueue(Of Operation)
 
         Analyze()
 
@@ -36,11 +36,11 @@ Public Class AnalyzedTask
         End Set
     End Property
 
-    Public Property PendingActions() As ConcurrentQueue(Of Action)
+    Public Property PendingActions() As ConcurrentQueue(Of Operation)
         Get
             Return _pendingActions
         End Get
-        Set(value As ConcurrentQueue(Of Action))
+        Set(value As ConcurrentQueue(Of Operation))
             _pendingActions = value
         End Set
     End Property
@@ -139,7 +139,7 @@ Public Class AnalyzedTask
         Me.DestinationPaths = determineRelativePaths(Me.DestinationFiles, Me.Task.DestinationDirectory)
 
         For Each p In Me.NewPaths.AsParallel
-            Dim a = New Action(Me.Task.SourceDirectory.FullName & p, _
+            Dim a = New Operation(Me.Task.SourceDirectory.FullName & p, _
                                Me.Task.DestinationDirectory.FullName & p, _
                                File.GetAttributes(Me.Task.SourceDirectory.FullName & p), _
                                OperationType.Create)
@@ -154,7 +154,7 @@ Public Class AnalyzedTask
                       Where f.FullName.Replace(Me.Task.DestinationDirectory.FullName, Space(0)).Equals(p)
                       Select f).First()
             If Not AreIdentical(sf, df) Then
-                Me.PendingActions.Enqueue(New Action(sf.FullName, df.FullName, sf.Attributes, OperationType.Update))
+                Me.PendingActions.Enqueue(New Operation(sf.FullName, df.FullName, sf.Attributes, OperationType.Update))
             End If
         Next
 
@@ -163,7 +163,7 @@ Public Class AnalyzedTask
             Dim df = (From f In Me.DestinationFiles
                       Where f.FullName = dp
                       Select f).First()
-            Me.PendingActions.Enqueue(New Action(Nothing, df.FullName, df.Attributes, OperationType.Delete))
+            Me.PendingActions.Enqueue(New Operation(Nothing, df.FullName, df.Attributes, OperationType.Delete))
         Next
 
     End Sub

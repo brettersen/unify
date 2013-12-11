@@ -1,3 +1,16 @@
+USE [Unify]
+
+DROP TABLE ScheduleTask
+DROP TABLE ScheduleTime
+DROP TABLE Schedule
+DROP TABLE Exemption
+DROP TABLE ExemptionEntityOperator
+DROP TABLE ExemptionEntity
+DROP TABLE ExemptionOperator
+DROP TABLE RoutineTask
+DROP TABLE Task
+DROP TABLE Routine
+
 CREATE TABLE [Routine]
 (
 	RoutineId				INT				PRIMARY KEY IDENTITY NOT NULL,
@@ -14,10 +27,11 @@ CREATE TABLE [Task]
 	TaskDescription			VARCHAR(500)	NULL,
 	SourceDirectory			VARCHAR(255)	NOT NULL,
 	DestinationDirectory	VARCHAR(255)	NOT NULL,
-	SearchRecursively		BIT				NOT NULL,
 	AddFiles				BIT				NOT NULL,
 	ReplaceFiles			BIT				NOT NULL,
 	RemoveFiles				BIT				NOT NULL,
+	SearchRecursively		BIT				NOT NULL,
+	ExcludeHiddenFiles		BIT				NOT NULL,
 	CreatedOn				DATETIME2		DEFAULT GETDATE() NOT NULL,
 	UpdatedOn				DATETIME2		DEFAULT GETDATE() NOT NULL
 )

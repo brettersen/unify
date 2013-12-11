@@ -22,39 +22,42 @@ Partial Class frmTask
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.txtSourceDirectory = New System.Windows.Forms.TextBox()
+        Me.txtDestinationDirectory = New System.Windows.Forms.TextBox()
         Me.CheckBox3 = New System.Windows.Forms.CheckBox()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
+        Me.btnSourceDirectory = New System.Windows.Forms.Button()
+        Me.btnDestinationDirectory = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.CheckBox4 = New System.Windows.Forms.CheckBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
         Me.GroupBox2.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'TextBox1
+        'txtSourceDirectory
         '
-        Me.TextBox1.Location = New System.Drawing.Point(12, 25)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(390, 20)
-        Me.TextBox1.TabIndex = 0
+        Me.txtSourceDirectory.Location = New System.Drawing.Point(12, 25)
+        Me.txtSourceDirectory.Name = "txtSourceDirectory"
+        Me.txtSourceDirectory.Size = New System.Drawing.Size(390, 20)
+        Me.txtSourceDirectory.TabIndex = 0
         '
-        'TextBox2
+        'txtDestinationDirectory
         '
-        Me.TextBox2.Location = New System.Drawing.Point(12, 69)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(390, 20)
-        Me.TextBox2.TabIndex = 1
+        Me.txtDestinationDirectory.Location = New System.Drawing.Point(12, 69)
+        Me.txtDestinationDirectory.Name = "txtDestinationDirectory"
+        Me.txtDestinationDirectory.Size = New System.Drawing.Size(390, 20)
+        Me.txtDestinationDirectory.TabIndex = 1
         '
         'CheckBox3
         '
@@ -69,7 +72,7 @@ Partial Class frmTask
         'CheckBox2
         '
         Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(132, 20)
+        Me.CheckBox2.Location = New System.Drawing.Point(124, 20)
         Me.CheckBox2.Name = "CheckBox2"
         Me.CheckBox2.Size = New System.Drawing.Size(66, 17)
         Me.CheckBox2.TabIndex = 1
@@ -79,7 +82,7 @@ Partial Class frmTask
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(60, 20)
+        Me.CheckBox1.Location = New System.Drawing.Point(56, 20)
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(66, 17)
         Me.CheckBox1.TabIndex = 0
@@ -88,7 +91,7 @@ Partial Class frmTask
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(357, 212)
+        Me.Button1.Location = New System.Drawing.Point(357, 213)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 3
@@ -97,7 +100,7 @@ Partial Class frmTask
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(357, 241)
+        Me.Button2.Location = New System.Drawing.Point(357, 242)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 4
@@ -113,23 +116,23 @@ Partial Class frmTask
         Me.Button3.Text = "Manage..."
         Me.Button3.UseVisualStyleBackColor = True
         '
-        'Button4
+        'btnSourceDirectory
         '
-        Me.Button4.Location = New System.Drawing.Point(408, 23)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(24, 23)
-        Me.Button4.TabIndex = 6
-        Me.Button4.Text = "..."
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.btnSourceDirectory.Location = New System.Drawing.Point(408, 23)
+        Me.btnSourceDirectory.Name = "btnSourceDirectory"
+        Me.btnSourceDirectory.Size = New System.Drawing.Size(24, 23)
+        Me.btnSourceDirectory.TabIndex = 6
+        Me.btnSourceDirectory.Text = "..."
+        Me.btnSourceDirectory.UseVisualStyleBackColor = True
         '
-        'Button5
+        'btnDestinationDirectory
         '
-        Me.Button5.Location = New System.Drawing.Point(408, 67)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(24, 23)
-        Me.Button5.TabIndex = 7
-        Me.Button5.Text = "..."
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.btnDestinationDirectory.Location = New System.Drawing.Point(408, 67)
+        Me.btnDestinationDirectory.Name = "btnDestinationDirectory"
+        Me.btnDestinationDirectory.Size = New System.Drawing.Size(24, 23)
+        Me.btnDestinationDirectory.TabIndex = 7
+        Me.btnDestinationDirectory.Text = "..."
+        Me.btnDestinationDirectory.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -172,7 +175,7 @@ Partial Class frmTask
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(9, 153)
+        Me.Label3.Location = New System.Drawing.Point(9, 154)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(61, 13)
         Me.Label3.TabIndex = 13
@@ -181,31 +184,52 @@ Partial Class frmTask
         'CheckBox4
         '
         Me.CheckBox4.AutoSize = True
-        Me.CheckBox4.Location = New System.Drawing.Point(249, 100)
+        Me.CheckBox4.Location = New System.Drawing.Point(9, 20)
         Me.CheckBox4.Name = "CheckBox4"
         Me.CheckBox4.Size = New System.Drawing.Size(74, 17)
         Me.CheckBox4.TabIndex = 14
         Me.CheckBox4.Text = "Recursive"
         Me.CheckBox4.UseVisualStyleBackColor = True
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.CheckBox5)
+        Me.GroupBox1.Controls.Add(Me.CheckBox4)
+        Me.GroupBox1.Location = New System.Drawing.Point(225, 100)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(207, 45)
+        Me.GroupBox1.TabIndex = 15
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Sync Options"
+        '
+        'CheckBox5
+        '
+        Me.CheckBox5.AutoSize = True
+        Me.CheckBox5.Location = New System.Drawing.Point(85, 20)
+        Me.CheckBox5.Name = "CheckBox5"
+        Me.CheckBox5.Size = New System.Drawing.Size(120, 17)
+        Me.CheckBox5.TabIndex = 15
+        Me.CheckBox5.Text = "Exclude hidden files"
+        Me.CheckBox5.UseVisualStyleBackColor = True
+        '
         'frmTask
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(444, 321)
-        Me.Controls.Add(Me.CheckBox4)
+        Me.ClientSize = New System.Drawing.Size(444, 277)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Button5)
-        Me.Controls.Add(Me.Button4)
+        Me.Controls.Add(Me.btnDestinationDirectory)
+        Me.Controls.Add(Me.btnSourceDirectory)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.TextBox2)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.txtDestinationDirectory)
+        Me.Controls.Add(Me.txtSourceDirectory)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -214,17 +238,19 @@ Partial Class frmTask
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
-    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
+    Friend WithEvents txtSourceDirectory As System.Windows.Forms.TextBox
+    Friend WithEvents txtDestinationDirectory As System.Windows.Forms.TextBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents Button3 As System.Windows.Forms.Button
-    Friend WithEvents Button4 As System.Windows.Forms.Button
-    Friend WithEvents Button5 As System.Windows.Forms.Button
+    Friend WithEvents btnSourceDirectory As System.Windows.Forms.Button
+    Friend WithEvents btnDestinationDirectory As System.Windows.Forms.Button
     Friend WithEvents CheckBox3 As System.Windows.Forms.CheckBox
     Friend WithEvents CheckBox2 As System.Windows.Forms.CheckBox
     Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
@@ -234,4 +260,6 @@ Partial Class frmTask
     Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents CheckBox4 As System.Windows.Forms.CheckBox
+    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents CheckBox5 As System.Windows.Forms.CheckBox
 End Class

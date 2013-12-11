@@ -89,6 +89,12 @@
     <Compile Include="frmTask.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmTaskList.Designer.vb">
+      <DependentUpon>frmTaskList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmTaskList.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -109,8 +115,14 @@
     <EmbeddedResource Include="frmExemption.resx">
       <DependentUpon>frmExemption.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmTask.resx">
       <DependentUpon>frmTask.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTaskList.resx">
+      <DependentUpon>frmTaskList.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
