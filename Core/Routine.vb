@@ -1,15 +1,16 @@
 ﻿Public Class Routine
 
-    Private _routineId As Integer
-    Private _routineName As String
-    Private _routineDescription As String
-    Private _createdOn As DateTime
-    Private _updatedOn As DateTime
-    Private _pendingAction As Action
+    Friend _routineId As Integer
+    Friend _routineName As String
+    Friend _createdOn As DateTime
+    Friend _updatedOn As DateTime
+    Friend _tasks As Collection(Of Task)
+    Friend _pendingAction As Action
 
     Public Sub New()
 
-        Me.PendingAction = Action.Insert
+        Me.PendingAction = Action.None
+        Me.Tasks = New Collection(Of Task)
 
     End Sub
 
@@ -28,15 +29,6 @@
         End Set
     End Property
 
-    Public Property RoutineDescription As String
-        Get
-            Return _routineDescription
-        End Get
-        Set(value As String)
-            _routineDescription = value
-        End Set
-    End Property
-
     Public ReadOnly Property CreatedOn As DateTime
         Get
             Return _createdOn
@@ -49,6 +41,15 @@
         End Get
     End Property
 
+    Public Property Tasks As Collection(Of Task)
+        Get
+            Return _tasks
+        End Get
+        Set(value As Collection(Of Task))
+            _tasks = value
+        End Set
+    End Property
+
     Public Property PendingAction As Action
         Get
             Return _pendingAction
@@ -57,6 +58,34 @@
             _pendingAction = value
         End Set
     End Property
+
+    Public ReadOnly Property HasPendingActions As Boolean
+        Get
+            If Me.PendingAction <> Action.None Then
+                Return True
+            End If
+            For Each t In Me.Tasks
+                If t.PendingAction <> Action.None Then
+                    Return True
+                End If
+                For Each e In t.Exemptions
+                    If e.PendingAction <> Action.None Then
+                        Return True
+                    End If
+                Next
+            Next
+            Return False
+        End Get
+    End Property
+
+    Public Sub Save()
+
+        Me.Update()
+        For Each t In Me.Tasks
+
+        Next
+
+    End Sub
 
     Public Sub Update()
 
@@ -68,7 +97,6 @@
                             .CommandType = CommandType.StoredProcedure
                             .Parameters.Add("@RoutineId", SqlDbType.Int).Direction = ParameterDirection.Output
                             .Parameters.Add("@RoutineName", SqlDbType.VarChar).Value = Me.RoutineName
-                            .Parameters.Add("@RoutineDescription", SqlDbType.VarChar).Value = Me.RoutineDescription
                             .Parameters.Add("@CreatedOn", SqlDbType.DateTime2).Direction = ParameterDirection.Output
                             .Parameters.Add("@UpdatedOn", SqlDbType.DateTime2).Direction = ParameterDirection.Output
                             .Connection.Open()
@@ -86,7 +114,6 @@
                             .CommandType = CommandType.StoredProcedure
                             .Parameters.Add("@RoutineId", SqlDbType.Int).Value = Me.RoutineId
                             .Parameters.Add("@RoutineName", SqlDbType.VarChar).Value = Me.RoutineName
-                            .Parameters.Add("@RoutineDescription", SqlDbType.VarChar).Value = Me.RoutineDescription
                             .Parameters.Add("@UpdatedOn", SqlDbType.DateTime2).Direction = ParameterDirection.Output
                             .Connection.Open()
                             .ExecuteNonQuery()

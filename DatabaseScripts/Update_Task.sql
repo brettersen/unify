@@ -1,7 +1,7 @@
 USE [Unify]
 GO
 
-/****** Object:  StoredProcedure [dbo].[Update_Task]    Script Date: 12/10/2013 9:18:30 PM ******/
+/****** Object:  StoredProcedure [dbo].[Update_Task]    Script Date: 12/13/2013 9:46:56 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -16,16 +16,14 @@ GO
 CREATE PROCEDURE [dbo].[Update_Task]
 	
 	@TaskId					INT,
-	@TaskName				VARCHAR(50),
-	@TaskDescription		VARCHAR(500),
+	@TaskIndex				TINYINT,
 	@SourceDirectory		VARCHAR(255),
 	@DestinationDirectory	VARCHAR(255),
 	@AddFiles				BIT,
 	@ReplaceFiles			BIT,
 	@RemoveFiles			BIT,
 	@SearchRecursively		BIT,
-	@ExcludeHiddenFiles		BIT,
-	@UpdatedOn				DATETIME2		OUT
+	@ExcludeHiddenFiles		BIT
 
 AS
 BEGIN
@@ -33,20 +31,14 @@ BEGIN
 	SET NOCOUNT ON;
 
 	UPDATE Task
-	SET TaskName = @TaskName,
-	    TaskDescription = @TaskDescription,
-		SourceDirectory = @SourceDirectory,
+	SET TaskIndex = @TaskIndex,
+	    SourceDirectory = @SourceDirectory,
 		DestinationDirectory = @DestinationDirectory,
 		AddFiles = @AddFiles,
 		ReplaceFiles = @ReplaceFiles,
 		RemoveFiles = @RemoveFiles,
 		SearchRecursively = @SearchRecursively,
-		ExcludeHiddenFiles = @ExcludeHiddenFiles,
-		UpdatedOn = GETDATE()
-	WHERE TaskId = @TaskId
-
-	SELECT @UpdatedOn = UpdatedOn
-	FROM Task
+		ExcludeHiddenFiles = @ExcludeHiddenFiles
 	WHERE TaskId = @TaskId
 
 END

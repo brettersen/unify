@@ -1,7 +1,7 @@
 USE [Unify]
 GO
 
-/****** Object:  StoredProcedure [dbo].[Select_Task]    Script Date: 12/10/2013 9:29:01 PM ******/
+/****** Object:  StoredProcedure [dbo].[Select_TaskList]    Script Date: 12/13/2013 9:45:51 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -13,24 +13,20 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[Select_Task] 
+CREATE PROCEDURE [dbo].[Select_TaskList] 
 AS
 BEGIN
 
 	SET NOCOUNT ON;
 
 	SELECT TaskId,
-		   TaskName,
-		   TaskDescription,
 		   SourceDirectory,
 		   DestinationDirectory,
 		   AddFiles,
 		   ReplaceFiles,
 		   RemoveFiles,
 	       SearchRecursively,
-		   ExcludeHiddenFiles,
-		   CreatedOn,
-		   UpdatedOn
+		   ExcludeHiddenFiles
 	FROM Task
 
 END

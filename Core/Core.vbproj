@@ -87,8 +87,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.vb" />
+    <Compile Include="ExemptionOperator.vb" />
+    <Compile Include="Exemption.vb" />
+    <Compile Include="ExemptionEntity.vb" />
     <Compile Include="Operation.vb" />
-    <Compile Include="AnalyzedTask.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

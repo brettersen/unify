@@ -1,7 +1,7 @@
 USE [Unify]
 GO
 
-/****** Object:  StoredProcedure [dbo].[Insert_Task]    Script Date: 12/10/2013 8:49:19 PM ******/
+/****** Object:  StoredProcedure [dbo].[Insert_Task]    Script Date: 12/13/2013 9:47:34 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -16,17 +16,15 @@ GO
 CREATE PROCEDURE [dbo].[Insert_Task]
 	
 	@TaskId					INT				OUT,
-	@TaskName				VARCHAR(50),
-	@TaskDescription		VARCHAR(500),
+	@RoutineId				INT,
+	@TaskIndex				TINYINT,
 	@SourceDirectory		VARCHAR(255),
 	@DestinationDirectory	VARCHAR(255),
 	@AddFiles				BIT,
 	@ReplaceFiles			BIT,
 	@RemoveFiles			BIT,
 	@SearchRecursively		BIT,
-	@ExcludeHiddenFiles		BIT,
-	@CreatedOn				DATETIME2		OUT,
-	@UpdatedOn				DATETIME2		OUT
+	@ExcludeHiddenFiles		BIT
 
 AS
 BEGIN
@@ -35,8 +33,8 @@ BEGIN
 
     INSERT INTO Task
 	(
-		TaskName,
-		TaskDescription,
+		RoutineId,
+		TaskIndex,
 		SourceDirectory,
 		DestinationDirectory,
 		AddFiles,
@@ -47,8 +45,8 @@ BEGIN
 	)
 	VALUES
 	(
-		@TaskName,
-		@TaskDescription,
+		@RoutineId,
+		@TaskIndex,
 		@SourceDirectory,
 		@DestinationDirectory,
 		@AddFiles,
@@ -59,11 +57,6 @@ BEGIN
 	)
 
 	SELECT @TaskId = IDENT_CURRENT('Task')
-
-	SELECT @CreatedOn = CreatedOn,
-	       @UpdatedOn = UpdatedOn
-	FROM Task
-	WHERE TaskId = @TaskId
 
 END
 

@@ -57,19 +57,21 @@
     <Reference Include="System.Data.DataSetExtensions" />
   </ItemGroup>
   <ItemGroup>
+    <Import Include="BP.Unify.Core" />
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections" />
     <Import Include="System.Collections.Generic" />
+    <Import Include="System.Collections.ObjectModel" />
     <Import Include="System.Data" />
     <Import Include="System.Drawing" />
     <Import Include="System.Diagnostics" />
     <Import Include="System.Windows.Forms" />
     <Import Include="System.Linq" />
     <Import Include="System.Xml.Linq" />
-    <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common.vb" />
     <Compile Include="frmExemption.Designer.vb">
       <DependentUpon>frmExemption.vb</DependentUpon>
     </Compile>
@@ -83,16 +85,28 @@
       <DependentUpon>frmMain.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmOpen.Designer.vb">
+      <DependentUpon>frmOpen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmOpen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRoutineName.Designer.vb">
+      <DependentUpon>frmRoutineName.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmRoutineName.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmTask.Designer.vb">
       <DependentUpon>frmTask.vb</DependentUpon>
     </Compile>
     <Compile Include="frmTask.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmTaskList.Designer.vb">
-      <DependentUpon>frmTaskList.vb</DependentUpon>
+    <Compile Include="frmTasks.Designer.vb">
+      <DependentUpon>frmTasks.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmTaskList.vb">
+    <Compile Include="frmTasks.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -118,11 +132,17 @@
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmOpen.resx">
+      <DependentUpon>frmOpen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRoutineName.resx">
+      <DependentUpon>frmRoutineName.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmTask.resx">
       <DependentUpon>frmTask.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmTaskList.resx">
-      <DependentUpon>frmTaskList.vb</DependentUpon>
+    <EmbeddedResource Include="frmTasks.resx">
+      <DependentUpon>frmTasks.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

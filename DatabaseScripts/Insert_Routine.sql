@@ -1,7 +1,7 @@
 USE [Unify]
 GO
 
-/****** Object:  StoredProcedure [dbo].[Insert_Routine]    Script Date: 12/10/2013 8:55:58 PM ******/
+/****** Object:  StoredProcedure [dbo].[Insert_Routine]    Script Date: 12/12/2013 8:39:12 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -17,7 +17,6 @@ CREATE PROCEDURE [dbo].[Insert_Routine]
 
 	@RoutineId				INT				OUT,
 	@RoutineName			VARCHAR(50),
-	@RoutineDescription		VARCHAR(500),
 	@CreatedOn				DATETIME2		OUT,
 	@UpdatedOn				DATETIME2		OUT
 
@@ -28,13 +27,11 @@ BEGIN
 
     INSERT INTO Routine
 	(
-		RoutineName,
-		RoutineDescription
+		RoutineName
 	)
 	VALUES
 	(
-		@RoutineName,
-		@RoutineDescription
+		@RoutineName
 	)
 
 	SELECT @RoutineId = IDENT_CURRENT('Routine')

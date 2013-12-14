@@ -1,7 +1,7 @@
 USE [Unify]
 GO
 
-/****** Object:  StoredProcedure [dbo].[Select_TaskByRoutineId]    Script Date: 12/10/2013 9:35:39 PM ******/
+/****** Object:  StoredProcedure [dbo].[Select_TaskByRoutineId]    Script Date: 12/12/2013 8:40:18 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -23,8 +23,6 @@ BEGIN
 	SET NOCOUNT ON;
 
     SELECT t.TaskId,
-		   t.TaskName,
-		   t.TaskDescription,
 		   t.SourceDirectory,
 		   t.DestinationDirectory,
 		   t.AddFiles,

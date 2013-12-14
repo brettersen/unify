@@ -22,143 +22,154 @@ Partial Class frmExemption
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.cboEntity = New System.Windows.Forms.ComboBox()
+        Me.cboOperator = New System.Windows.Forms.ComboBox()
+        Me.txtValue = New System.Windows.Forms.TextBox()
+        Me.btnCancel = New System.Windows.Forms.Button()
+        Me.btnOK = New System.Windows.Forms.Button()
+        Me.btnAdd = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.Button6 = New System.Windows.Forms.Button()
-        Me.Button7 = New System.Windows.Forms.Button()
+        Me.dgvExemption = New System.Windows.Forms.DataGridView()
+        Me.btnEdit = New System.Windows.Forms.Button()
+        Me.btnRemove = New System.Windows.Forms.Button()
+        Me.btnPromote = New System.Windows.Forms.Button()
+        Me.btnDemote = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvExemption, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'ComboBox1
+        'cboEntity
         '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(12, 25)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(121, 21)
-        Me.ComboBox1.TabIndex = 0
+        Me.cboEntity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboEntity.FormattingEnabled = True
+        Me.cboEntity.Location = New System.Drawing.Point(12, 25)
+        Me.cboEntity.Name = "cboEntity"
+        Me.cboEntity.Size = New System.Drawing.Size(121, 21)
+        Me.cboEntity.TabIndex = 0
         '
-        'ComboBox2
+        'cboOperator
         '
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Location = New System.Drawing.Point(139, 25)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(121, 21)
-        Me.ComboBox2.TabIndex = 1
+        Me.cboOperator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboOperator.FormattingEnabled = True
+        Me.cboOperator.Location = New System.Drawing.Point(139, 25)
+        Me.cboOperator.Name = "cboOperator"
+        Me.cboOperator.Size = New System.Drawing.Size(121, 21)
+        Me.cboOperator.TabIndex = 1
         '
-        'TextBox1
+        'txtValue
         '
-        Me.TextBox1.Location = New System.Drawing.Point(266, 26)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(203, 20)
-        Me.TextBox1.TabIndex = 2
+        Me.txtValue.Location = New System.Drawing.Point(266, 26)
+        Me.txtValue.Name = "txtValue"
+        Me.txtValue.Size = New System.Drawing.Size(203, 20)
+        Me.txtValue.TabIndex = 2
         '
-        'Button1
+        'btnCancel
         '
-        Me.Button1.Location = New System.Drawing.Point(475, 286)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 3
-        Me.Button1.Text = "Cancel"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnCancel.Location = New System.Drawing.Point(475, 286)
+        Me.btnCancel.Name = "btnCancel"
+        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.TabIndex = 3
+        Me.btnCancel.Text = "Cancel"
+        Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'Button2
+        'btnOK
         '
-        Me.Button2.Location = New System.Drawing.Point(394, 286)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 4
-        Me.Button2.Text = "OK"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btnOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnOK.Location = New System.Drawing.Point(394, 286)
+        Me.btnOK.Name = "btnOK"
+        Me.btnOK.Size = New System.Drawing.Size(75, 23)
+        Me.btnOK.TabIndex = 4
+        Me.btnOK.Text = "OK"
+        Me.btnOK.UseVisualStyleBackColor = True
         '
-        'Button3
+        'btnAdd
         '
-        Me.Button3.Location = New System.Drawing.Point(475, 23)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(75, 23)
-        Me.Button3.TabIndex = 5
-        Me.Button3.Text = "Add"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.btnAdd.Location = New System.Drawing.Point(475, 24)
+        Me.btnAdd.Name = "btnAdd"
+        Me.btnAdd.Size = New System.Drawing.Size(75, 23)
+        Me.btnAdd.TabIndex = 5
+        Me.btnAdd.Text = "Add"
+        Me.btnAdd.UseVisualStyleBackColor = True
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(9, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(36, 13)
+        Me.Label1.Size = New System.Drawing.Size(33, 13)
         Me.Label1.TabIndex = 6
-        Me.Label1.Text = "Entity:"
+        Me.Label1.Text = "Entity"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(136, 9)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(51, 13)
+        Me.Label2.Size = New System.Drawing.Size(48, 13)
         Me.Label2.TabIndex = 7
-        Me.Label2.Text = "Operator:"
+        Me.Label2.Text = "Operator"
         '
-        'DataGridView1
+        'dgvExemption
         '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(12, 57)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(538, 215)
-        Me.DataGridView1.TabIndex = 8
+        Me.dgvExemption.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvExemption.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvExemption.Location = New System.Drawing.Point(12, 60)
+        Me.dgvExemption.Name = "dgvExemption"
+        Me.dgvExemption.Size = New System.Drawing.Size(538, 212)
+        Me.dgvExemption.TabIndex = 8
         '
-        'Button4
+        'btnEdit
         '
-        Me.Button4.Location = New System.Drawing.Point(12, 286)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(75, 23)
-        Me.Button4.TabIndex = 9
-        Me.Button4.Text = "Edit"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.btnEdit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnEdit.Location = New System.Drawing.Point(12, 286)
+        Me.btnEdit.Name = "btnEdit"
+        Me.btnEdit.Size = New System.Drawing.Size(75, 23)
+        Me.btnEdit.TabIndex = 9
+        Me.btnEdit.Text = "Edit"
+        Me.btnEdit.UseVisualStyleBackColor = True
         '
-        'Button5
+        'btnRemove
         '
-        Me.Button5.Location = New System.Drawing.Point(93, 286)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(75, 23)
-        Me.Button5.TabIndex = 10
-        Me.Button5.Text = "Remove"
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.btnRemove.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnRemove.Location = New System.Drawing.Point(93, 286)
+        Me.btnRemove.Name = "btnRemove"
+        Me.btnRemove.Size = New System.Drawing.Size(75, 23)
+        Me.btnRemove.TabIndex = 10
+        Me.btnRemove.Text = "Remove"
+        Me.btnRemove.UseVisualStyleBackColor = True
         '
-        'Button6
+        'btnPromote
         '
-        Me.Button6.Location = New System.Drawing.Point(174, 286)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(75, 23)
-        Me.Button6.TabIndex = 11
-        Me.Button6.Text = "Promote"
-        Me.Button6.UseVisualStyleBackColor = True
+        Me.btnPromote.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnPromote.Location = New System.Drawing.Point(174, 286)
+        Me.btnPromote.Name = "btnPromote"
+        Me.btnPromote.Size = New System.Drawing.Size(75, 23)
+        Me.btnPromote.TabIndex = 11
+        Me.btnPromote.Text = "Promote"
+        Me.btnPromote.UseVisualStyleBackColor = True
         '
-        'Button7
+        'btnDemote
         '
-        Me.Button7.Location = New System.Drawing.Point(255, 286)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(75, 23)
-        Me.Button7.TabIndex = 12
-        Me.Button7.Text = "Demote"
-        Me.Button7.UseVisualStyleBackColor = True
+        Me.btnDemote.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnDemote.Location = New System.Drawing.Point(255, 286)
+        Me.btnDemote.Name = "btnDemote"
+        Me.btnDemote.Size = New System.Drawing.Size(75, 23)
+        Me.btnDemote.TabIndex = 12
+        Me.btnDemote.Text = "Demote"
+        Me.btnDemote.UseVisualStyleBackColor = True
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(263, 9)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(37, 13)
+        Me.Label3.Size = New System.Drawing.Size(34, 13)
         Me.Label3.TabIndex = 13
-        Me.Label3.Text = "Value:"
+        Me.Label3.Text = "Value"
         '
         'frmExemption
         '
@@ -166,38 +177,42 @@ Partial Class frmExemption
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(562, 321)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.Button7)
-        Me.Controls.Add(Me.Button6)
-        Me.Controls.Add(Me.Button5)
-        Me.Controls.Add(Me.Button4)
-        Me.Controls.Add(Me.DataGridView1)
+        Me.Controls.Add(Me.btnDemote)
+        Me.Controls.Add(Me.btnPromote)
+        Me.Controls.Add(Me.btnRemove)
+        Me.Controls.Add(Me.btnEdit)
+        Me.Controls.Add(Me.dgvExemption)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.TextBox1)
-        Me.Controls.Add(Me.ComboBox2)
-        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.btnAdd)
+        Me.Controls.Add(Me.btnOK)
+        Me.Controls.Add(Me.btnCancel)
+        Me.Controls.Add(Me.txtValue)
+        Me.Controls.Add(Me.cboOperator)
+        Me.Controls.Add(Me.cboEntity)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmExemption"
-        Me.Text = "frmExemption"
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Manage Exemptions"
+        CType(Me.dgvExemption, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents ComboBox1 As System.Windows.Forms.ComboBox
-    Friend WithEvents ComboBox2 As System.Windows.Forms.ComboBox
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents Button3 As System.Windows.Forms.Button
+    Friend WithEvents cboEntity As System.Windows.Forms.ComboBox
+    Friend WithEvents cboOperator As System.Windows.Forms.ComboBox
+    Friend WithEvents txtValue As System.Windows.Forms.TextBox
+    Friend WithEvents btnCancel As System.Windows.Forms.Button
+    Friend WithEvents btnOK As System.Windows.Forms.Button
+    Friend WithEvents btnAdd As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
-    Friend WithEvents Button4 As System.Windows.Forms.Button
-    Friend WithEvents Button5 As System.Windows.Forms.Button
-    Friend WithEvents Button6 As System.Windows.Forms.Button
-    Friend WithEvents Button7 As System.Windows.Forms.Button
+    Friend WithEvents dgvExemption As System.Windows.Forms.DataGridView
+    Friend WithEvents btnEdit As System.Windows.Forms.Button
+    Friend WithEvents btnRemove As System.Windows.Forms.Button
+    Friend WithEvents btnPromote As System.Windows.Forms.Button
+    Friend WithEvents btnDemote As System.Windows.Forms.Button
     Friend WithEvents Label3 As System.Windows.Forms.Label
 End Class

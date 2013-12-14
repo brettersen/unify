@@ -1,7 +1,7 @@
 USE [Unify]
 GO
 
-/****** Object:  StoredProcedure [dbo].[Select_RoutineById]    Script Date: 12/12/2013 8:39:50 PM ******/
+/****** Object:  StoredProcedure [dbo].[Select_ExemptionOperatorList]    Script Date: 12/13/2013 8:54:05 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -13,21 +13,16 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[Select_RoutineById]
-	
-	@RoutineId		INT
-
+CREATE PROCEDURE [dbo].[Select_ExemptionOperatorList]
 AS
 BEGIN
 
 	SET NOCOUNT ON;
 
-	SELECT RoutineId,
-	       RoutineName,
-		   CreatedOn,
-		   UpdatedOn
-	FROM Routine
-	WHERE RoutineId = @RoutineId
+    SELECT ExemptionOperatorId,
+	       OperatorName
+	FROM ExemptionOperator
+	ORDER BY ExemptionOperatorId ASC
 
 END
 

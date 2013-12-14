@@ -7,7 +7,6 @@ DROP TABLE Exemption
 DROP TABLE ExemptionEntityOperator
 DROP TABLE ExemptionEntity
 DROP TABLE ExemptionOperator
-DROP TABLE RoutineTask
 DROP TABLE Task
 DROP TABLE Routine
 
@@ -15,7 +14,6 @@ CREATE TABLE [Routine]
 (
 	RoutineId				INT				PRIMARY KEY IDENTITY NOT NULL,
 	RoutineName				VARCHAR(50)		UNIQUE NOT NULL,
-	RoutineDescription		VARCHAR(500)	NULL,
 	CreatedOn				DATETIME2		DEFAULT GETDATE() NOT NULL,
 	UpdatedOn				DATETIME2		DEFAULT GETDATE() NOT NULL
 )
@@ -23,24 +21,15 @@ CREATE TABLE [Routine]
 CREATE TABLE [Task]
 (
 	TaskId					INT				PRIMARY KEY IDENTITY NOT NULL,
-	TaskName				VARCHAR(50)		NULL,
-	TaskDescription			VARCHAR(500)	NULL,
+	RoutineId				INT				FOREIGN KEY REFERENCES Routine(RoutineId) NOT NULL,
+	TaskIndex				TINYINT			NOT NULL,
 	SourceDirectory			VARCHAR(255)	NOT NULL,
 	DestinationDirectory	VARCHAR(255)	NOT NULL,
 	AddFiles				BIT				NOT NULL,
 	ReplaceFiles			BIT				NOT NULL,
 	RemoveFiles				BIT				NOT NULL,
 	SearchRecursively		BIT				NOT NULL,
-	ExcludeHiddenFiles		BIT				NOT NULL,
-	CreatedOn				DATETIME2		DEFAULT GETDATE() NOT NULL,
-	UpdatedOn				DATETIME2		DEFAULT GETDATE() NOT NULL
-)
-
-CREATE TABLE [RoutineTask]
-(
-	RoutineId				INT				FOREIGN KEY REFERENCES Routine(RoutineId) NOT NULL,
-	TaskId					INT				FOREIGN KEY REFERENCES Task(TaskId) NOT NULL,
-	TaskIndex				TINYINT			NOT NULL
+	ExcludeHiddenFiles		BIT				NOT NULL
 )
 
 CREATE TABLE [ExemptionEntity]
@@ -101,9 +90,9 @@ CREATE TABLE [Exemption]
 (
 	ExemptionId				INT				PRIMARY KEY IDENTITY NOT NULL,
 	TaskId					INT				FOREIGN KEY REFERENCES Task(TaskId) NOT NULL,
-	ExemptionEntityId		INT				FOREIGN KEY REFERENCES ExemptionEntity(ExemptionEntityId) NOT NULL,
-	ExemptionOperatorId		INT				FOREIGN KEY REFERENCES ExemptionOperator(ExemptionOperatorId) NOT NULL,
 	ExemptionIndex			INT				NOT NULL,
+	ExemptionEntityId		INT				FOREIGN KEY REFERENCES ExemptionEntity(ExemptionEntityId) NOT NULL,
+	ExemptionOperatorId		INT				FOREIGN KEY REFERENCES ExemptionOperator(ExemptionOperatorId) NOT NULL,	
 	ExemptionValue			VARCHAR(255)	NOT NULL
 )
 
