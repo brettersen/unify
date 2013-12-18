@@ -15,11 +15,9 @@
 
 #Region "CONSTRUCTORS"
 
-    Public Sub New(ByRef previousForm As frmTasks)
+    Public Sub New()
 
         InitializeComponent()
-
-        Me.PreviousForm = previousForm
 
     End Sub
 
@@ -35,7 +33,12 @@
 
     Private Sub frmTask_Load(sender As Object, e As EventArgs) Handles Me.Load
 
-
+        Select Case Me.FormMode
+            Case Common.FormMode.Adding
+                Me.Text = "Add Task"
+            Case Common.FormMode.Editing
+                Me.Text = "Edit Task"
+        End Select
 
     End Sub
 
@@ -61,7 +64,7 @@
 
     Private Sub btnManage_Click(sender As Object, e As EventArgs) Handles btnManage.Click
 
-
+        ShowForm(Common.FormMode.Adding)
 
     End Sub
 
@@ -94,6 +97,19 @@
         End With
 
         Me.PreviousForm.PreviousForm.Routine.Tasks.Add(Me.Task)
+
+    End Sub
+
+    Private Sub ShowForm(ByVal mode As FormMode)
+
+        Dim newForm As New frmExemptions()
+
+        Me.Enabled = False
+
+        With newForm
+            .PreviousForm = Me
+            .ShowDialog()
+        End With
 
     End Sub
 

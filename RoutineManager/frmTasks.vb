@@ -66,16 +66,13 @@
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
 
-        Me.Tasks.Add(New Task())
-
-        Dim newForm As New frmTask(Me)
-
-        Me.Enabled = False
-        newForm.ShowDialog()
+        ShowForm(FormMode.Adding)
 
     End Sub
 
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
+
+        ShowForm(FormMode.Editing)
 
     End Sub
 
@@ -157,6 +154,20 @@
                 .Cells(7).Value = t.ExcludeHiddenFiles
             End With
         Next
+
+    End Sub
+
+    Private Sub ShowForm(ByVal mode As FormMode)
+
+        Dim newForm As New frmTask()
+
+        Me.Enabled = False
+
+        With newForm
+            .FormMode = mode
+            .PreviousForm = Me
+            .ShowDialog()
+        End With
 
     End Sub
 

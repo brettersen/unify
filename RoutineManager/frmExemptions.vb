@@ -1,4 +1,4 @@
-﻿Public Class frmExemption
+﻿Public Class frmExemptions
 
 #Region "PROPERTIES"
 
@@ -12,6 +12,12 @@
 
 #End Region
 
+    Private Sub frmExemption_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+
+        Me.PreviousForm.Enabled = True
+
+    End Sub
+
     Private Sub frmExemption_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         With cboEntity
@@ -24,13 +30,23 @@
 
     Private Sub cboEntity_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboEntity.SelectedIndexChanged
 
-        If cboEntity.SelectedIndex > 0 Then
+        If cboEntity.SelectedIndex > -1 Then
             With cboOperator
-                .DataSource = ExemptionOperator.GetOperatorsByEntityId(CInt(cboEntity.SelectedValue))
+                .DataSource = ExemptionOperator.GetOperatorsByEntityId(CType(cboEntity.SelectedValue, ExemptionEntity).ExemptionEntityId)
                 .DisplayMember = "OperatorName"
                 .ValueMember = "ExemptionOperatorId"
             End With
         End If
+
+    End Sub
+
+    Private Sub txtValue_TextChanged(sender As Object, e As EventArgs) Handles txtValue.TextChanged
+
+    End Sub
+
+    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+
+        Me.Close()
 
     End Sub
 

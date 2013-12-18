@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmExemption
+Partial Class frmExemptions
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -45,23 +45,23 @@ Partial Class frmExemption
         Me.cboEntity.FormattingEnabled = True
         Me.cboEntity.Location = New System.Drawing.Point(12, 25)
         Me.cboEntity.Name = "cboEntity"
-        Me.cboEntity.Size = New System.Drawing.Size(121, 21)
+        Me.cboEntity.Size = New System.Drawing.Size(110, 21)
         Me.cboEntity.TabIndex = 0
         '
         'cboOperator
         '
         Me.cboOperator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboOperator.FormattingEnabled = True
-        Me.cboOperator.Location = New System.Drawing.Point(139, 25)
+        Me.cboOperator.Location = New System.Drawing.Point(128, 25)
         Me.cboOperator.Name = "cboOperator"
-        Me.cboOperator.Size = New System.Drawing.Size(121, 21)
+        Me.cboOperator.Size = New System.Drawing.Size(110, 21)
         Me.cboOperator.TabIndex = 1
         '
         'txtValue
         '
-        Me.txtValue.Location = New System.Drawing.Point(266, 26)
+        Me.txtValue.Location = New System.Drawing.Point(244, 26)
         Me.txtValue.Name = "txtValue"
-        Me.txtValue.Size = New System.Drawing.Size(203, 20)
+        Me.txtValue.Size = New System.Drawing.Size(225, 20)
         Me.txtValue.TabIndex = 2
         '
         'btnCancel
@@ -105,7 +105,7 @@ Partial Class frmExemption
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(136, 9)
+        Me.Label2.Location = New System.Drawing.Point(125, 9)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(48, 13)
         Me.Label2.TabIndex = 7
@@ -165,17 +165,18 @@ Partial Class frmExemption
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(263, 9)
+        Me.Label3.Location = New System.Drawing.Point(241, 9)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(34, 13)
         Me.Label3.TabIndex = 13
         Me.Label3.Text = "Value"
         '
-        'frmExemption
+        'frmExemptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(562, 321)
+        Me.ControlBox = False
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.btnDemote)
         Me.Controls.Add(Me.btnPromote)
@@ -193,9 +194,9 @@ Partial Class frmExemption
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmExemption"
+        Me.Name = "frmExemptions"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Manage Exemptions"
+        Me.Text = "r"
         CType(Me.dgvExemption, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()

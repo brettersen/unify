@@ -72,10 +72,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.vb" />
-    <Compile Include="frmExemption.Designer.vb">
-      <DependentUpon>frmExemption.vb</DependentUpon>
+    <Compile Include="frmExemptions.Designer.vb">
+      <DependentUpon>frmExemptions.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmExemption.vb">
+    <Compile Include="frmExemptions.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMain.vb">
@@ -126,8 +126,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="frmExemption.resx">
-      <DependentUpon>frmExemption.vb</DependentUpon>
+    <EmbeddedResource Include="frmExemptions.resx">
+      <DependentUpon>frmExemptions.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>

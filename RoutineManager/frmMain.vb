@@ -49,7 +49,7 @@
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
-        Dim exemptionForm As New frmExemption()
+        Dim exemptionForm As New frmExemptions()
 
         exemptionForm.ShowDialog()
 

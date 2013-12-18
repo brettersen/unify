@@ -8,7 +8,7 @@ DROP TABLE ExemptionEntityOperator
 DROP TABLE ExemptionEntity
 DROP TABLE ExemptionOperator
 DROP TABLE Task
-DROP TABLE Routine
+DROP TABLE [Routine]
 
 CREATE TABLE [Routine]
 (
@@ -21,7 +21,7 @@ CREATE TABLE [Routine]
 CREATE TABLE [Task]
 (
 	TaskId					INT				PRIMARY KEY IDENTITY NOT NULL,
-	RoutineId				INT				FOREIGN KEY REFERENCES Routine(RoutineId) NOT NULL,
+	RoutineId				INT				FOREIGN KEY REFERENCES [Routine](RoutineId) NOT NULL,
 	TaskIndex				TINYINT			NOT NULL,
 	SourceDirectory			VARCHAR(255)	NOT NULL,
 	DestinationDirectory	VARCHAR(255)	NOT NULL,
