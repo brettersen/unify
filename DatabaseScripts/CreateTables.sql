@@ -1,3 +1,7 @@
+USE [master]
+
+CREATE DATABASE [Unify]
+
 USE [Unify]
 
 DROP TABLE ScheduleTask
