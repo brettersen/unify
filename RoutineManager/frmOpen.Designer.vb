@@ -32,15 +32,19 @@ Partial Class frmOpen
         '
         'dgvRoutine
         '
+        Me.dgvRoutine.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvRoutine.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvRoutine.Location = New System.Drawing.Point(12, 12)
         Me.dgvRoutine.Name = "dgvRoutine"
-        Me.dgvRoutine.Size = New System.Drawing.Size(460, 250)
+        Me.dgvRoutine.Size = New System.Drawing.Size(360, 250)
         Me.dgvRoutine.TabIndex = 0
         '
         'btnOpen
         '
-        Me.btnOpen.Location = New System.Drawing.Point(316, 276)
+        Me.btnOpen.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnOpen.Location = New System.Drawing.Point(216, 276)
         Me.btnOpen.Name = "btnOpen"
         Me.btnOpen.Size = New System.Drawing.Size(75, 23)
         Me.btnOpen.TabIndex = 1
@@ -49,7 +53,8 @@ Partial Class frmOpen
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(397, 276)
+        Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnCancel.Location = New System.Drawing.Point(297, 276)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 2
@@ -58,6 +63,7 @@ Partial Class frmOpen
         '
         'btnDelete
         '
+        Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnDelete.Location = New System.Drawing.Point(93, 276)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(75, 23)
@@ -67,6 +73,7 @@ Partial Class frmOpen
         '
         'btnRename
         '
+        Me.btnRename.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnRename.Location = New System.Drawing.Point(12, 276)
         Me.btnRename.Name = "btnRename"
         Me.btnRename.Size = New System.Drawing.Size(75, 23)
@@ -78,7 +85,7 @@ Partial Class frmOpen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(484, 311)
+        Me.ClientSize = New System.Drawing.Size(384, 311)
         Me.Controls.Add(Me.btnRename)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnCancel)

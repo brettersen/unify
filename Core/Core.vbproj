@@ -84,10 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.vb" />
-    <Compile Include="ExemptionOperator.vb" />
     <Compile Include="Exemption.vb" />
-    <Compile Include="ExemptionEntity.vb" />
-    <Compile Include="Operation.vb" />
+    <Compile Include="Extensions.vb" />
+    <Compile Include="SyncOperation.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -104,8 +103,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Routine.vb" />
-    <Compile Include="RoutineList.vb" />
-    <Compile Include="Task.vb" />
+    <Compile Include="SyncTask.vb" />
+    <Compile Include="Win32API.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

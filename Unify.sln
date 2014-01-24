@@ -3,17 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Desktop
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Core", "Core\Core.vbproj", "{7A737ECE-7248-4ABE-BE7A-170561FED633}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TaskScheduler", "TaskScheduler\TaskScheduler.vbproj", "{089F6113-F7B8-47E7-8C23-7356780C70CE}"
-	ProjectSection(ProjectDependencies) = postProject
-		{7A737ECE-7248-4ABE-BE7A-170561FED633} = {7A737ECE-7248-4ABE-BE7A-170561FED633}
-	EndProjectSection
-EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "RoutineManager", "RoutineManager\RoutineManager.vbproj", "{C8716CEB-C3A6-4F5B-A201-77796F2E5918}"
-	ProjectSection(ProjectDependencies) = postProject
-		{7A737ECE-7248-4ABE-BE7A-170561FED633} = {7A737ECE-7248-4ABE-BE7A-170561FED633}
-	EndProjectSection
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TaskExecuter", "TaskExecuter\TaskExecuter.vbproj", "{76542B6E-68E0-41DA-B60F-CA45A7766A5A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7A737ECE-7248-4ABE-BE7A-170561FED633} = {7A737ECE-7248-4ABE-BE7A-170561FED633}
 	EndProjectSection
@@ -28,18 +18,10 @@ Global
 		{7A737ECE-7248-4ABE-BE7A-170561FED633}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A737ECE-7248-4ABE-BE7A-170561FED633}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A737ECE-7248-4ABE-BE7A-170561FED633}.Release|Any CPU.Build.0 = Release|Any CPU
-		{089F6113-F7B8-47E7-8C23-7356780C70CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{089F6113-F7B8-47E7-8C23-7356780C70CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{089F6113-F7B8-47E7-8C23-7356780C70CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{089F6113-F7B8-47E7-8C23-7356780C70CE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C8716CEB-C3A6-4F5B-A201-77796F2E5918}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C8716CEB-C3A6-4F5B-A201-77796F2E5918}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8716CEB-C3A6-4F5B-A201-77796F2E5918}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8716CEB-C3A6-4F5B-A201-77796F2E5918}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76542B6E-68E0-41DA-B60F-CA45A7766A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76542B6E-68E0-41DA-B60F-CA45A7766A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76542B6E-68E0-41DA-B60F-CA45A7766A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76542B6E-68E0-41DA-B60F-CA45A7766A5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

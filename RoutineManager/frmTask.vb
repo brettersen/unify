@@ -3,9 +3,9 @@
 #Region "PROPERTIES"
 
     Public Property FormMode As FormMode
-    Public Property PreviousForm As frmTasks
+    Public Property PreviousForm As frmMain
 
-    Public ReadOnly Property Task As Task
+    Public ReadOnly Property Task As SyncTask
         Get
             Return Me.PreviousForm.SelectedTask
         End Get
@@ -52,11 +52,11 @@
 
     End Sub
 
-    Private Sub btnDestinationDirectory_Click(sender As Object, e As EventArgs) Handles btnDestinationDirectory.Click
+    Private Sub btnDestinationDirectory_Click(sender As Object, e As EventArgs) Handles btnTargetDirectory.Click
 
         Using newForm As New FolderBrowserDialog()
             If newForm.ShowDialog() = DialogResult.OK Then
-                txtDestinationDirectory.Text = newForm.SelectedPath
+                txtTargetDirectory.Text = newForm.SelectedPath
             End If
         End Using
 
@@ -87,16 +87,35 @@
 
         With Me.Task
             .SourceDirectory = txtSourceDirectory.Text.Trim()
-            .DestinationDirectory = txtDestinationDirectory.Text.Trim()
-            .AddFiles = chkAddFiles.Checked
-            .ReplaceFiles = chkReplaceFiles.Checked
-            .RemoveFiles = chkRemoveFiles.Checked
-            .SearchRecursively = chkSearchRecursively.Checked
-            .ExcludeHiddenFiles = chkExcludeHiddenFiles.Checked
-            .PendingAction = Core.Action.Insert
+            .TargetDirectory = txtTargetDirectory.Text.Trim()
+            If chkAddFiles.Checked AndAlso Not .Options.HasFlag(SyncTaskOptions.AddFiles) Then
+                .Options += SyncTaskOptions.AddFiles
+            ElseIf Not chkAddFiles.Checked AndAlso .Options.HasFlag(SyncTaskOptions.AddFiles) Then
+                .Options -= SyncTaskOptions.AddFiles
+            End If
+            If chkReplaceFiles.Checked AndAlso Not .Options.HasFlag(SyncTaskOptions.ReplaceFiles) Then
+                .Options += SyncTaskOptions.ReplaceFiles
+            ElseIf Not chkReplaceFiles.Checked AndAlso .Options.HasFlag(SyncTaskOptions.ReplaceFiles) Then
+                .Options -= SyncTaskOptions.ReplaceFiles
+            End If
+            If chkRemoveFiles.Checked AndAlso Not .Options.HasFlag(SyncTaskOptions.RemoveFiles) Then
+                .Options += SyncTaskOptions.RemoveFiles
+            ElseIf Not chkRemoveFiles.Checked AndAlso .Options.HasFlag(SyncTaskOptions.RemoveFiles) Then
+                .Options -= SyncTaskOptions.RemoveFiles
+            End If
+            If chkIncludeSubdirectories.Checked AndAlso Not .Options.HasFlag(SyncTaskOptions.IncludeSubdirectories) Then
+                .Options += SyncTaskOptions.IncludeSubdirectories
+            ElseIf Not chkIncludeSubdirectories.Checked AndAlso .Options.HasFlag(SyncTaskOptions.IncludeSubdirectories) Then
+                .Options -= SyncTaskOptions.IncludeSubdirectories
+            End If
+            If chkExcludeHiddenFiles.Checked AndAlso Not .Options.HasFlag(SyncTaskOptions.ExcludeHiddenFiles) Then
+                .Options += SyncTaskOptions.ExcludeHiddenFiles
+            ElseIf Not chkExcludeHiddenFiles.Checked AndAlso .Options.HasFlag(SyncTaskOptions.ExcludeHiddenFiles) Then
+                .Options -= SyncTaskOptions.ExcludeHiddenFiles
+            End If
         End With
 
-        Me.PreviousForm.PreviousForm.Routine.Tasks.Add(Me.Task)
+        Me.PreviousForm.Routine.Tasks.Add(Me.Task)
 
     End Sub
 

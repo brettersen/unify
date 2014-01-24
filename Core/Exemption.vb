@@ -1,89 +1,38 @@
 ﻿Public Class Exemption
 
-    Friend _exemptionId As Integer
-    Friend _taskId As Integer
-    Friend _exemptionIndex As Integer
-    Friend _exemptionEntityId As Integer
-    Friend _exemptionOperatorId As Integer
-    Friend _exemptionValue As String
-    Friend _pendingAction As Action
+    Private _entity As ExemptionEntity
+    Private _operator As ExemptionOperator
+    Private _value As String
 
-    Public Sub New()
+#Region "PROPERTIES"
 
-        Me.PendingAction = Action.None
-
-    End Sub
-
-    Public ReadOnly Property ExemptionId As Integer
+    Public Property Entity As ExemptionEntity
         Get
-            Return _exemptionId
+            Return _entity
         End Get
-    End Property
-
-    Public Property TaskId As Integer
-        Get
-            Return _taskId
-        End Get
-        Set(value As Integer)
-            _taskId = value
+        Set(value As ExemptionEntity)
+            _entity = value
         End Set
     End Property
 
-    Public Property ExemptionIndex As Integer
+    Public Property [Operator] As ExemptionOperator
         Get
-            Return _exemptionIndex
+            Return _operator
         End Get
-        Set(value As Integer)
-            _exemptionIndex = value
+        Set(value As ExemptionOperator)
+            _operator = value
         End Set
     End Property
 
-    Public Property ExemptionEntityId As Integer
+    Public Property Value As String
         Get
-            Return _exemptionEntityId
-        End Get
-        Set(value As Integer)
-            _exemptionEntityId = value
-        End Set
-    End Property
-
-    Public Property ExemptionOperatorId As Integer
-        Get
-            Return _exemptionOperatorId
-        End Get
-        Set(value As Integer)
-            _exemptionOperatorId = value
-        End Set
-    End Property
-
-    Public Property ExemptionValue As String
-        Get
-            Return _exemptionValue
+            Return _value
         End Get
         Set(value As String)
-            _exemptionValue = value
+            _value = value
         End Set
     End Property
 
-    Public Property PendingAction As Action
-        Get
-            Return _pendingAction
-        End Get
-        Set(value As Action)
-            _pendingAction = value
-        End Set
-    End Property
-
-    Public Sub Update()
-
-        Select Case Me.PendingAction
-            Case Action.Insert
-            Case Action.Update
-            Case Action.Delete
-        End Select
-
-        Me.PendingAction = Action.None
-
-    End Sub
+#End Region
 
 End Class

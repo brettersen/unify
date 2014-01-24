@@ -1,23 +1,66 @@
 ﻿Imports BP.Unify.Core
+Imports System.IO
 
 Public Class frmOpen
 
-    Private Property RoutineList As RoutineList
+#Region "METHODS"
 
-    Private Sub frmOpen_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FormatDataGridView()
 
-        FormatDataGridView(dgvRoutine)
+        With dgvRoutine
+            .AllowUserToAddRows = False
+            .AllowUserToDeleteRows = False
+            .AllowUserToResizeColumns = False
+            .AllowUserToResizeRows = False
+            .AllowUserToOrderColumns = False
+            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            .RowHeadersVisible = False
+            .ReadOnly = True
+            .Columns.Add("dgvc0", "File Path")
+            .Columns.Add("dgvc1", "Files")
+            .Columns(0).Visible = False
+            .Columns(1).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            .Columns(1).DefaultCellStyle.Padding = New Padding(5, 0, 0, 0)
+        End With
 
-        Me.RoutineList = RoutineList.GetRoutineList()
+    End Sub
 
-        For Each r As Routine In Me.RoutineList
-            dgvRoutine.Rows.Add(New Object() {r.RoutineId, r.RoutineName, r.CreatedOn.ToShortDateString(), r.UpdatedOn.ToShortDateString()})
+    Private Sub PopulateDataGridView()
+
+        Dim rowIndex As Integer
+        Dim routineFiles As IEnumerable(Of FileInfo) = From f In New DirectoryInfo(SaveFilePath).GetFiles("*." & APP_FILE_EXTENSION, SearchOption.TopDirectoryOnly)
+                                                       Order By f.Name Ascending
+                                                       Select f
+
+        dgvRoutine.Rows.Clear()
+
+        For Each routineFile As FileInfo In routineFiles
+            rowIndex = dgvRoutine.Rows.Add()
+            With dgvRoutine.Rows(rowIndex)
+                .Cells(0).Value = routineFile.FullName
+                .Cells(1).Value = routineFile.Name
+            End With
         Next
 
     End Sub
 
-    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+#End Region
 
+#Region "EVENTS"
+
+    Private Sub frmOpen_Load(sender As Object, e As EventArgs) Handles Me.Load
+        FormatDataGridView()
+        PopulateDataGridView()
+    End Sub
+
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+        If MessageBox.Show("Are you sure you want to delete this routine?", _
+                           "Delete Routine", _
+                           MessageBoxButtons.YesNo, _
+                           MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
+            File.Delete(dgvRoutine.SelectedRows(0).Cells(0).Value.ToString())
+            PopulateDataGridView()
+        End If
     End Sub
 
     Private Sub btnOpen_Click(sender As Object, e As EventArgs) Handles btnOpen.Click
@@ -25,41 +68,14 @@ Public Class frmOpen
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
-
         Me.Close()
-
     End Sub
 
     Private Sub dgvRoutine_SelectionChanged(sender As Object, e As EventArgs) Handles dgvRoutine.SelectionChanged
-
         btnDelete.Enabled = dgvRoutine.SelectedRows.Count > 0
         btnOpen.Enabled = dgvRoutine.SelectedRows.Count > 0
-
     End Sub
 
-    Private Sub FormatDataGridView(ByRef dgv As DataGridView)
-
-        With dgv
-            .AllowUserToAddRows = False
-            .AllowUserToDeleteRows = False
-            .AllowUserToResizeColumns = False
-            .AllowUserToOrderColumns = False
-            .SelectionMode = DataGridViewSelectionMode.FullRowSelect  
-            .RowHeadersVisible = False
-            .ReadOnly = True
-            .Columns.Add("dgvcRoutineId", "Id")
-            .Columns.Add("dgvcRoutineName", "Name")
-            .Columns.Add("dgvcCreatedOn", "Created On")
-            .Columns.Add("dgvcUpdatedOn", "Updated On")
-            .Columns(0).Visible = False
-            .Columns(1).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-            .Columns(2).Width = 88
-            .Columns(3).Width = 88
-            .Columns(1).DefaultCellStyle.Padding = New Padding(5, 0, 0, 0)
-            .Columns(2).DefaultCellStyle.Padding = New Padding(5, 0, 0, 0)
-            .Columns(3).DefaultCellStyle.Padding = New Padding(5, 0, 0, 0)
-        End With
-
-    End Sub
+#End Region
 
 End Class

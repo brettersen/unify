@@ -6,7 +6,7 @@ Public Enum OperationType
     Delete
 End Enum
 
-Public Class Operation
+Public Class SyncOperation
 
     Public Sub New()
 

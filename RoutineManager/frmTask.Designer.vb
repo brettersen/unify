@@ -23,7 +23,7 @@ Partial Class frmTask
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.txtSourceDirectory = New System.Windows.Forms.TextBox()
-        Me.txtDestinationDirectory = New System.Windows.Forms.TextBox()
+        Me.txtTargetDirectory = New System.Windows.Forms.TextBox()
         Me.chkAddFiles = New System.Windows.Forms.CheckBox()
         Me.chkRemoveFiles = New System.Windows.Forms.CheckBox()
         Me.chkReplaceFiles = New System.Windows.Forms.CheckBox()
@@ -31,18 +31,16 @@ Partial Class frmTask
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnManage = New System.Windows.Forms.Button()
         Me.btnSourceDirectory = New System.Windows.Forms.Button()
-        Me.btnDestinationDirectory = New System.Windows.Forms.Button()
+        Me.btnTargetDirectory = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.dgvExemption = New System.Windows.Forms.DataGridView()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.chkSearchRecursively = New System.Windows.Forms.CheckBox()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.chkIncludeSubdirectories = New System.Windows.Forms.CheckBox()
         Me.chkExcludeHiddenFiles = New System.Windows.Forms.CheckBox()
         Me.GroupBox2.SuspendLayout()
         CType(Me.dgvExemption, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'txtSourceDirectory
@@ -52,12 +50,12 @@ Partial Class frmTask
         Me.txtSourceDirectory.Size = New System.Drawing.Size(390, 20)
         Me.txtSourceDirectory.TabIndex = 0
         '
-        'txtDestinationDirectory
+        'txtTargetDirectory
         '
-        Me.txtDestinationDirectory.Location = New System.Drawing.Point(12, 69)
-        Me.txtDestinationDirectory.Name = "txtDestinationDirectory"
-        Me.txtDestinationDirectory.Size = New System.Drawing.Size(390, 20)
-        Me.txtDestinationDirectory.TabIndex = 1
+        Me.txtTargetDirectory.Location = New System.Drawing.Point(12, 69)
+        Me.txtTargetDirectory.Name = "txtTargetDirectory"
+        Me.txtTargetDirectory.Size = New System.Drawing.Size(390, 20)
+        Me.txtTargetDirectory.TabIndex = 1
         '
         'chkAddFiles
         '
@@ -125,14 +123,14 @@ Partial Class frmTask
         Me.btnSourceDirectory.Text = "..."
         Me.btnSourceDirectory.UseVisualStyleBackColor = True
         '
-        'btnDestinationDirectory
+        'btnTargetDirectory
         '
-        Me.btnDestinationDirectory.Location = New System.Drawing.Point(408, 67)
-        Me.btnDestinationDirectory.Name = "btnDestinationDirectory"
-        Me.btnDestinationDirectory.Size = New System.Drawing.Size(24, 23)
-        Me.btnDestinationDirectory.TabIndex = 7
-        Me.btnDestinationDirectory.Text = "..."
-        Me.btnDestinationDirectory.UseVisualStyleBackColor = True
+        Me.btnTargetDirectory.Location = New System.Drawing.Point(408, 67)
+        Me.btnTargetDirectory.Name = "btnTargetDirectory"
+        Me.btnTargetDirectory.Size = New System.Drawing.Size(24, 23)
+        Me.btnTargetDirectory.TabIndex = 7
+        Me.btnTargetDirectory.Text = "..."
+        Me.btnTargetDirectory.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -148,9 +146,9 @@ Partial Class frmTask
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(9, 53)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(105, 13)
+        Me.Label2.Size = New System.Drawing.Size(83, 13)
         Me.Label2.TabIndex = 9
-        Me.Label2.Text = "Destination Directory"
+        Me.Label2.Text = "Target Directory"
         '
         'GroupBox2
         '
@@ -181,31 +179,20 @@ Partial Class frmTask
         Me.Label3.TabIndex = 13
         Me.Label3.Text = "Exemptions"
         '
-        'chkSearchRecursively
+        'chkIncludeSubdirectories
         '
-        Me.chkSearchRecursively.AutoSize = True
-        Me.chkSearchRecursively.Location = New System.Drawing.Point(9, 20)
-        Me.chkSearchRecursively.Name = "chkSearchRecursively"
-        Me.chkSearchRecursively.Size = New System.Drawing.Size(74, 17)
-        Me.chkSearchRecursively.TabIndex = 14
-        Me.chkSearchRecursively.Text = "Recursive"
-        Me.chkSearchRecursively.UseVisualStyleBackColor = True
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.chkExcludeHiddenFiles)
-        Me.GroupBox1.Controls.Add(Me.chkSearchRecursively)
-        Me.GroupBox1.Location = New System.Drawing.Point(225, 100)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(207, 45)
-        Me.GroupBox1.TabIndex = 15
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Sync Options"
+        Me.chkIncludeSubdirectories.AutoSize = True
+        Me.chkIncludeSubdirectories.Location = New System.Drawing.Point(226, 105)
+        Me.chkIncludeSubdirectories.Name = "chkIncludeSubdirectories"
+        Me.chkIncludeSubdirectories.Size = New System.Drawing.Size(129, 17)
+        Me.chkIncludeSubdirectories.TabIndex = 14
+        Me.chkIncludeSubdirectories.Text = "Include subdirectories"
+        Me.chkIncludeSubdirectories.UseVisualStyleBackColor = True
         '
         'chkExcludeHiddenFiles
         '
         Me.chkExcludeHiddenFiles.AutoSize = True
-        Me.chkExcludeHiddenFiles.Location = New System.Drawing.Point(85, 20)
+        Me.chkExcludeHiddenFiles.Location = New System.Drawing.Point(226, 128)
         Me.chkExcludeHiddenFiles.Name = "chkExcludeHiddenFiles"
         Me.chkExcludeHiddenFiles.Size = New System.Drawing.Size(120, 17)
         Me.chkExcludeHiddenFiles.TabIndex = 15
@@ -218,18 +205,19 @@ Partial Class frmTask
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(444, 277)
         Me.ControlBox = False
-        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.chkExcludeHiddenFiles)
+        Me.Controls.Add(Me.chkIncludeSubdirectories)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.dgvExemption)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.btnManage)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.btnDestinationDirectory)
+        Me.Controls.Add(Me.btnTargetDirectory)
         Me.Controls.Add(Me.btnSourceDirectory)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnOK)
-        Me.Controls.Add(Me.txtDestinationDirectory)
+        Me.Controls.Add(Me.txtTargetDirectory)
         Me.Controls.Add(Me.txtSourceDirectory)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
@@ -240,19 +228,17 @@ Partial Class frmTask
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.dgvExemption, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents txtSourceDirectory As System.Windows.Forms.TextBox
-    Friend WithEvents txtDestinationDirectory As System.Windows.Forms.TextBox
+    Friend WithEvents txtTargetDirectory As System.Windows.Forms.TextBox
     Friend WithEvents btnOK As System.Windows.Forms.Button
     Friend WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents btnManage As System.Windows.Forms.Button
     Friend WithEvents btnSourceDirectory As System.Windows.Forms.Button
-    Friend WithEvents btnDestinationDirectory As System.Windows.Forms.Button
+    Friend WithEvents btnTargetDirectory As System.Windows.Forms.Button
     Friend WithEvents chkAddFiles As System.Windows.Forms.CheckBox
     Friend WithEvents chkRemoveFiles As System.Windows.Forms.CheckBox
     Friend WithEvents chkReplaceFiles As System.Windows.Forms.CheckBox
@@ -261,7 +247,6 @@ Partial Class frmTask
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents dgvExemption As System.Windows.Forms.DataGridView
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents chkSearchRecursively As System.Windows.Forms.CheckBox
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents chkIncludeSubdirectories As System.Windows.Forms.CheckBox
     Friend WithEvents chkExcludeHiddenFiles As System.Windows.Forms.CheckBox
 End Class

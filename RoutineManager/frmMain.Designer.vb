@@ -35,18 +35,27 @@ Partial Class frmMain
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsmiExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btnManageTasks = New System.Windows.Forms.Button()
-        Me.btnExecuteRoutine = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.btnExecute = New System.Windows.Forms.Button()
+        Me.btnDemote = New System.Windows.Forms.Button()
+        Me.btnPromote = New System.Windows.Forms.Button()
+        Me.btnRemove = New System.Windows.Forms.Button()
+        Me.btnEdit = New System.Windows.Forms.Button()
+        Me.btnAdd = New System.Windows.Forms.Button()
+        Me.dgvTask = New System.Windows.Forms.DataGridView()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AboutUnifyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnCopy = New System.Windows.Forms.Button()
+        Me.pbrTest = New System.Windows.Forms.ProgressBar()
         Me.MenuStrip1.SuspendLayout()
+        CType(Me.dgvTask, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiFile, Me.EditToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiFile, Me.EditToolStripMenuItem, Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(634, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(734, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -60,57 +69,57 @@ Partial Class frmMain
         'tsmiNew
         '
         Me.tsmiNew.Name = "tsmiNew"
-        Me.tsmiNew.Size = New System.Drawing.Size(123, 22)
+        Me.tsmiNew.Size = New System.Drawing.Size(152, 22)
         Me.tsmiNew.Text = "&New"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(120, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
         '
         'tsmiOpen
         '
         Me.tsmiOpen.Name = "tsmiOpen"
-        Me.tsmiOpen.Size = New System.Drawing.Size(123, 22)
+        Me.tsmiOpen.Size = New System.Drawing.Size(152, 22)
         Me.tsmiOpen.Text = "&Open..."
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(120, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(149, 6)
         '
         'tsmiClose
         '
         Me.tsmiClose.Name = "tsmiClose"
-        Me.tsmiClose.Size = New System.Drawing.Size(123, 22)
+        Me.tsmiClose.Size = New System.Drawing.Size(152, 22)
         Me.tsmiClose.Text = "&Close"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(120, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(149, 6)
         '
         'tsmiSave
         '
         Me.tsmiSave.Name = "tsmiSave"
-        Me.tsmiSave.Size = New System.Drawing.Size(123, 22)
+        Me.tsmiSave.Size = New System.Drawing.Size(152, 22)
         Me.tsmiSave.Text = "&Save"
         '
         'tsmiSaveAs
         '
         Me.tsmiSaveAs.Name = "tsmiSaveAs"
-        Me.tsmiSaveAs.Size = New System.Drawing.Size(123, 22)
+        Me.tsmiSaveAs.Size = New System.Drawing.Size(152, 22)
         Me.tsmiSaveAs.Text = "Save &As..."
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(120, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(149, 6)
         '
         'tsmiExit
         '
         Me.tsmiExit.Name = "tsmiExit"
-        Me.tsmiExit.Size = New System.Drawing.Size(123, 22)
+        Me.tsmiExit.Size = New System.Drawing.Size(152, 22)
         Me.tsmiExit.Text = "E&xit"
         '
         'EditToolStripMenuItem
@@ -119,41 +128,121 @@ Partial Class frmMain
         Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
         Me.EditToolStripMenuItem.Text = "&Edit"
         '
-        'btnManageTasks
+        'btnExecute
         '
-        Me.btnManageTasks.Location = New System.Drawing.Point(12, 326)
-        Me.btnManageTasks.Name = "btnManageTasks"
-        Me.btnManageTasks.Size = New System.Drawing.Size(103, 23)
-        Me.btnManageTasks.TabIndex = 1
-        Me.btnManageTasks.Text = "Manage Tasks..."
-        Me.btnManageTasks.UseVisualStyleBackColor = True
+        Me.btnExecute.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnExecute.Location = New System.Drawing.Point(647, 390)
+        Me.btnExecute.Name = "btnExecute"
+        Me.btnExecute.Size = New System.Drawing.Size(75, 23)
+        Me.btnExecute.TabIndex = 5
+        Me.btnExecute.Text = "Execute"
+        Me.btnExecute.UseVisualStyleBackColor = True
         '
-        'btnExecuteRoutine
+        'btnDemote
         '
-        Me.btnExecuteRoutine.Location = New System.Drawing.Point(547, 326)
-        Me.btnExecuteRoutine.Name = "btnExecuteRoutine"
-        Me.btnExecuteRoutine.Size = New System.Drawing.Size(75, 23)
-        Me.btnExecuteRoutine.TabIndex = 5
-        Me.btnExecuteRoutine.Text = "Execute"
-        Me.btnExecuteRoutine.UseVisualStyleBackColor = True
+        Me.btnDemote.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnDemote.Location = New System.Drawing.Point(417, 390)
+        Me.btnDemote.Name = "btnDemote"
+        Me.btnDemote.Size = New System.Drawing.Size(75, 23)
+        Me.btnDemote.TabIndex = 16
+        Me.btnDemote.Text = "Demote"
+        Me.btnDemote.UseVisualStyleBackColor = True
         '
-        'Button2
+        'btnPromote
         '
-        Me.Button2.Location = New System.Drawing.Point(362, 323)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 7
-        Me.Button2.Text = "Button2"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btnPromote.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnPromote.Location = New System.Drawing.Point(336, 390)
+        Me.btnPromote.Name = "btnPromote"
+        Me.btnPromote.Size = New System.Drawing.Size(75, 23)
+        Me.btnPromote.TabIndex = 15
+        Me.btnPromote.Text = "Promote"
+        Me.btnPromote.UseVisualStyleBackColor = True
+        '
+        'btnRemove
+        '
+        Me.btnRemove.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnRemove.Location = New System.Drawing.Point(255, 390)
+        Me.btnRemove.Name = "btnRemove"
+        Me.btnRemove.Size = New System.Drawing.Size(75, 23)
+        Me.btnRemove.TabIndex = 12
+        Me.btnRemove.Text = "Remove"
+        Me.btnRemove.UseVisualStyleBackColor = True
+        '
+        'btnEdit
+        '
+        Me.btnEdit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnEdit.Location = New System.Drawing.Point(93, 390)
+        Me.btnEdit.Name = "btnEdit"
+        Me.btnEdit.Size = New System.Drawing.Size(75, 23)
+        Me.btnEdit.TabIndex = 11
+        Me.btnEdit.Text = "Edit"
+        Me.btnEdit.UseVisualStyleBackColor = True
+        '
+        'btnAdd
+        '
+        Me.btnAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnAdd.Location = New System.Drawing.Point(12, 390)
+        Me.btnAdd.Name = "btnAdd"
+        Me.btnAdd.Size = New System.Drawing.Size(75, 23)
+        Me.btnAdd.TabIndex = 10
+        Me.btnAdd.Text = "Add"
+        Me.btnAdd.UseVisualStyleBackColor = True
+        '
+        'dgvTask
+        '
+        Me.dgvTask.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvTask.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvTask.Location = New System.Drawing.Point(12, 27)
+        Me.dgvTask.Name = "dgvTask"
+        Me.dgvTask.Size = New System.Drawing.Size(710, 349)
+        Me.dgvTask.TabIndex = 9
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutUnifyToolStripMenuItem})
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.HelpToolStripMenuItem.Text = "&Help"
+        '
+        'AboutUnifyToolStripMenuItem
+        '
+        Me.AboutUnifyToolStripMenuItem.Name = "AboutUnifyToolStripMenuItem"
+        Me.AboutUnifyToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.AboutUnifyToolStripMenuItem.Text = "&About Unify"
+        '
+        'btnCopy
+        '
+        Me.btnCopy.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnCopy.Location = New System.Drawing.Point(174, 390)
+        Me.btnCopy.Name = "btnCopy"
+        Me.btnCopy.Size = New System.Drawing.Size(75, 23)
+        Me.btnCopy.TabIndex = 17
+        Me.btnCopy.Text = "Copy"
+        Me.btnCopy.UseVisualStyleBackColor = True
+        '
+        'pbrTest
+        '
+        Me.pbrTest.Location = New System.Drawing.Point(499, 390)
+        Me.pbrTest.Name = "pbrTest"
+        Me.pbrTest.Size = New System.Drawing.Size(142, 23)
+        Me.pbrTest.TabIndex = 18
         '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(634, 361)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.btnExecuteRoutine)
-        Me.Controls.Add(Me.btnManageTasks)
+        Me.ClientSize = New System.Drawing.Size(734, 425)
+        Me.Controls.Add(Me.pbrTest)
+        Me.Controls.Add(Me.btnCopy)
+        Me.Controls.Add(Me.btnDemote)
+        Me.Controls.Add(Me.btnPromote)
+        Me.Controls.Add(Me.btnRemove)
+        Me.Controls.Add(Me.btnEdit)
+        Me.Controls.Add(Me.btnAdd)
+        Me.Controls.Add(Me.dgvTask)
+        Me.Controls.Add(Me.btnExecute)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "frmMain"
@@ -161,6 +250,7 @@ Partial Class frmMain
         Me.Text = "Unify"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        CType(Me.dgvTask, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -178,8 +268,16 @@ Partial Class frmMain
     Friend WithEvents ToolStripSeparator4 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents tsmiExit As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents EditToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents btnManageTasks As System.Windows.Forms.Button
-    Friend WithEvents btnExecuteRoutine As System.Windows.Forms.Button
-    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents btnExecute As System.Windows.Forms.Button
+    Friend WithEvents btnDemote As System.Windows.Forms.Button
+    Friend WithEvents btnPromote As System.Windows.Forms.Button
+    Friend WithEvents btnRemove As System.Windows.Forms.Button
+    Friend WithEvents btnEdit As System.Windows.Forms.Button
+    Friend WithEvents btnAdd As System.Windows.Forms.Button
+    Friend WithEvents dgvTask As System.Windows.Forms.DataGridView
+    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents AboutUnifyToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents btnCopy As System.Windows.Forms.Button
+    Friend WithEvents pbrTest As System.Windows.Forms.ProgressBar
 
 End Class
