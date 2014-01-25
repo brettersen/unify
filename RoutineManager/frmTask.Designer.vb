@@ -35,12 +35,14 @@ Partial Class frmTask
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.chkExcludeHiddenFiles = New System.Windows.Forms.CheckBox()
+        Me.chkIncludeSubdirectories = New System.Windows.Forms.CheckBox()
         Me.dgvExemption = New System.Windows.Forms.DataGridView()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.chkIncludeSubdirectories = New System.Windows.Forms.CheckBox()
-        Me.chkExcludeHiddenFiles = New System.Windows.Forms.CheckBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2.SuspendLayout()
         CType(Me.dgvExemption, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'txtSourceDirectory
@@ -60,36 +62,42 @@ Partial Class frmTask
         'chkAddFiles
         '
         Me.chkAddFiles.AutoSize = True
-        Me.chkAddFiles.Location = New System.Drawing.Point(9, 20)
+        Me.chkAddFiles.Checked = True
+        Me.chkAddFiles.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkAddFiles.Location = New System.Drawing.Point(11, 22)
         Me.chkAddFiles.Name = "chkAddFiles"
-        Me.chkAddFiles.Size = New System.Drawing.Size(45, 17)
+        Me.chkAddFiles.Size = New System.Drawing.Size(66, 17)
         Me.chkAddFiles.TabIndex = 2
-        Me.chkAddFiles.Text = "Add"
+        Me.chkAddFiles.Text = "Add files"
         Me.chkAddFiles.UseVisualStyleBackColor = True
         '
         'chkRemoveFiles
         '
         Me.chkRemoveFiles.AutoSize = True
-        Me.chkRemoveFiles.Location = New System.Drawing.Point(124, 20)
+        Me.chkRemoveFiles.Checked = True
+        Me.chkRemoveFiles.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkRemoveFiles.Location = New System.Drawing.Point(11, 45)
         Me.chkRemoveFiles.Name = "chkRemoveFiles"
-        Me.chkRemoveFiles.Size = New System.Drawing.Size(66, 17)
+        Me.chkRemoveFiles.Size = New System.Drawing.Size(87, 17)
         Me.chkRemoveFiles.TabIndex = 1
-        Me.chkRemoveFiles.Text = "Remove"
+        Me.chkRemoveFiles.Text = "Remove files"
         Me.chkRemoveFiles.UseVisualStyleBackColor = True
         '
         'chkReplaceFiles
         '
         Me.chkReplaceFiles.AutoSize = True
-        Me.chkReplaceFiles.Location = New System.Drawing.Point(56, 20)
+        Me.chkReplaceFiles.Checked = True
+        Me.chkReplaceFiles.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkReplaceFiles.Location = New System.Drawing.Point(11, 68)
         Me.chkReplaceFiles.Name = "chkReplaceFiles"
-        Me.chkReplaceFiles.Size = New System.Drawing.Size(66, 17)
+        Me.chkReplaceFiles.Size = New System.Drawing.Size(87, 17)
         Me.chkReplaceFiles.TabIndex = 0
-        Me.chkReplaceFiles.Text = "Replace"
+        Me.chkReplaceFiles.Text = "Replace files"
         Me.chkReplaceFiles.UseVisualStyleBackColor = True
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(357, 213)
+        Me.btnOK.Location = New System.Drawing.Point(357, 297)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 23)
         Me.btnOK.TabIndex = 3
@@ -98,7 +106,7 @@ Partial Class frmTask
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(357, 242)
+        Me.btnCancel.Location = New System.Drawing.Point(357, 326)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 4
@@ -107,7 +115,7 @@ Partial Class frmTask
         '
         'btnManage
         '
-        Me.btnManage.Location = New System.Drawing.Point(357, 169)
+        Me.btnManage.Location = New System.Drawing.Point(357, 216)
         Me.btnManage.Name = "btnManage"
         Me.btnManage.Size = New System.Drawing.Size(75, 23)
         Me.btnManage.TabIndex = 5
@@ -152,61 +160,71 @@ Partial Class frmTask
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.chkRemoveFiles)
-        Me.GroupBox2.Controls.Add(Me.chkReplaceFiles)
-        Me.GroupBox2.Controls.Add(Me.chkAddFiles)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 100)
+        Me.GroupBox2.Controls.Add(Me.chkExcludeHiddenFiles)
+        Me.GroupBox2.Controls.Add(Me.chkIncludeSubdirectories)
+        Me.GroupBox2.Location = New System.Drawing.Point(148, 99)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(202, 45)
+        Me.GroupBox2.Size = New System.Drawing.Size(284, 94)
         Me.GroupBox2.TabIndex = 10
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "File Operations"
-        '
-        'dgvExemption
-        '
-        Me.dgvExemption.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvExemption.Location = New System.Drawing.Point(12, 170)
-        Me.dgvExemption.Name = "dgvExemption"
-        Me.dgvExemption.Size = New System.Drawing.Size(332, 95)
-        Me.dgvExemption.TabIndex = 12
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(9, 154)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(61, 13)
-        Me.Label3.TabIndex = 13
-        Me.Label3.Text = "Exemptions"
-        '
-        'chkIncludeSubdirectories
-        '
-        Me.chkIncludeSubdirectories.AutoSize = True
-        Me.chkIncludeSubdirectories.Location = New System.Drawing.Point(226, 105)
-        Me.chkIncludeSubdirectories.Name = "chkIncludeSubdirectories"
-        Me.chkIncludeSubdirectories.Size = New System.Drawing.Size(129, 17)
-        Me.chkIncludeSubdirectories.TabIndex = 14
-        Me.chkIncludeSubdirectories.Text = "Include subdirectories"
-        Me.chkIncludeSubdirectories.UseVisualStyleBackColor = True
+        Me.GroupBox2.Text = "Options"
         '
         'chkExcludeHiddenFiles
         '
         Me.chkExcludeHiddenFiles.AutoSize = True
-        Me.chkExcludeHiddenFiles.Location = New System.Drawing.Point(226, 128)
+        Me.chkExcludeHiddenFiles.Location = New System.Drawing.Point(11, 45)
         Me.chkExcludeHiddenFiles.Name = "chkExcludeHiddenFiles"
         Me.chkExcludeHiddenFiles.Size = New System.Drawing.Size(120, 17)
         Me.chkExcludeHiddenFiles.TabIndex = 15
         Me.chkExcludeHiddenFiles.Text = "Exclude hidden files"
         Me.chkExcludeHiddenFiles.UseVisualStyleBackColor = True
         '
+        'chkIncludeSubdirectories
+        '
+        Me.chkIncludeSubdirectories.AutoSize = True
+        Me.chkIncludeSubdirectories.Location = New System.Drawing.Point(11, 22)
+        Me.chkIncludeSubdirectories.Name = "chkIncludeSubdirectories"
+        Me.chkIncludeSubdirectories.Size = New System.Drawing.Size(129, 17)
+        Me.chkIncludeSubdirectories.TabIndex = 14
+        Me.chkIncludeSubdirectories.Text = "Include subdirectories"
+        Me.chkIncludeSubdirectories.UseVisualStyleBackColor = True
+        '
+        'dgvExemption
+        '
+        Me.dgvExemption.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvExemption.Location = New System.Drawing.Point(12, 216)
+        Me.dgvExemption.Name = "dgvExemption"
+        Me.dgvExemption.Size = New System.Drawing.Size(333, 133)
+        Me.dgvExemption.TabIndex = 12
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(9, 200)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(61, 13)
+        Me.Label3.TabIndex = 13
+        Me.Label3.Text = "Exemptions"
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.chkAddFiles)
+        Me.GroupBox1.Controls.Add(Me.chkRemoveFiles)
+        Me.GroupBox1.Controls.Add(Me.chkReplaceFiles)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 99)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(122, 94)
+        Me.GroupBox1.TabIndex = 14
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Operations"
+        '
         'frmTask
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(444, 277)
+        Me.ClientSize = New System.Drawing.Size(444, 361)
         Me.ControlBox = False
-        Me.Controls.Add(Me.chkExcludeHiddenFiles)
-        Me.Controls.Add(Me.chkIncludeSubdirectories)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.dgvExemption)
         Me.Controls.Add(Me.GroupBox2)
@@ -223,11 +241,13 @@ Partial Class frmTask
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmTask"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "frmTask"
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.dgvExemption, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -249,4 +269,5 @@ Partial Class frmTask
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents chkIncludeSubdirectories As System.Windows.Forms.CheckBox
     Friend WithEvents chkExcludeHiddenFiles As System.Windows.Forms.CheckBox
+    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
 End Class

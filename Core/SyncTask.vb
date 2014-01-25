@@ -9,15 +9,16 @@ Public Enum SyncTaskOptions
     ExcludeHiddenFiles = 16
 End Enum
 
+<Serializable>
 Public Class SyncTask
 
     Private _sourceDirectory As String
     Private _targetDirectory As String
     Private _options As SyncTaskOptions
-    Private _exemptions As Collection(Of Exemption)
+    Private _exemptions As Collection(Of SyncTaskExemption)
 
     Public Sub New()
-        Me._exemptions = New Collection(Of Exemption)
+        Me._exemptions = New Collection(Of SyncTaskExemption)
     End Sub
 
 #Region "PROPERTIES"
@@ -61,11 +62,11 @@ Public Class SyncTask
         End Set
     End Property
 
-    Public Property Exemptions As Collection(Of Exemption)
+    Public Property Exemptions As Collection(Of SyncTaskExemption)
         Get
             Return _exemptions
         End Get
-        Set(value As Collection(Of Exemption))
+        Set(value As Collection(Of SyncTaskExemption))
             _exemptions = value
         End Set
     End Property

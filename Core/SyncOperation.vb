@@ -24,10 +24,16 @@ Public Class SyncOperation
 
     End Sub
 
+#Region "PROPERTIES"
+
     Public Property SourcePath As String
     Public Property DestinationPath As String
     Public Property Attributes As FileAttributes
     Public Property Operation As OperationType
+
+#End Region
+
+#Region "METHODS"
 
     Public Function Execute() As Boolean
 
@@ -59,5 +65,7 @@ Public Class SyncOperation
         End If
 
     End Sub
+
+#End Region
 
 End Class

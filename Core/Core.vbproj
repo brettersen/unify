@@ -84,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.vb" />
-    <Compile Include="Exemption.vb" />
+    <Compile Include="SyncTaskExemption.vb" />
     <Compile Include="Extensions.vb" />
     <Compile Include="SyncOperation.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -102,7 +102,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Routine.vb" />
     <Compile Include="SyncTask.vb" />
     <Compile Include="Win32API.vb" />
   </ItemGroup>

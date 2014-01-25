@@ -78,23 +78,11 @@
     <Compile Include="frmExemptions.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.vb">
+    <Compile Include="frmTasks.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.vb">
-      <DependentUpon>frmMain.vb</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmOpen.Designer.vb">
-      <DependentUpon>frmOpen.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmOpen.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmRoutineName.Designer.vb">
-      <DependentUpon>frmRoutineName.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmRoutineName.vb">
+    <Compile Include="frmTasks.Designer.vb">
+      <DependentUpon>frmTasks.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmTask.Designer.vb">
@@ -123,14 +111,8 @@
     <EmbeddedResource Include="frmExemptions.resx">
       <DependentUpon>frmExemptions.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
-      <DependentUpon>frmMain.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmOpen.resx">
-      <DependentUpon>frmOpen.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmRoutineName.resx">
-      <DependentUpon>frmRoutineName.vb</DependentUpon>
+    <EmbeddedResource Include="frmTasks.resx">
+      <DependentUpon>frmTasks.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTask.resx">
       <DependentUpon>frmTask.vb</DependentUpon>

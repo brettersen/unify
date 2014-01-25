@@ -1,6 +1,6 @@
 ﻿Imports System.Runtime.CompilerServices
 
-Module Extensions
+Public Module Extensions
 
     <Extension()>
     Public Function Demote(Of T)(ByVal itemCollection As Collection(Of T), ByVal itemIndex As Integer) As Boolean

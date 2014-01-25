@@ -1,8 +1,16 @@
-﻿Public Class Exemption
+﻿Public Class SyncTaskExemption
 
     Private _entity As ExemptionEntity
     Private _operator As ExemptionOperator
     Private _value As String
+
+    Public Sub New(ByVal entity As ExemptionEntity, _
+                   ByVal [operator] As ExemptionOperator, _
+                   ByVal value As String)
+        Me.Entity = entity
+        Me.Operator = [operator]
+        Me.Value = value
+    End Sub
 
 #Region "PROPERTIES"
 

@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.BP.Unify.RoutineManager.frmMain
+            Me.MainForm = Global.BP.Unify.RoutineManager.frmTasks
         End Sub
     End Class
 End Namespace

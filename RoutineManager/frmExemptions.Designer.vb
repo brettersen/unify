@@ -195,8 +195,8 @@ Partial Class frmExemptions
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmExemptions"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "r"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.Text = "Manage Exemptions"
         CType(Me.dgvExemption, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
