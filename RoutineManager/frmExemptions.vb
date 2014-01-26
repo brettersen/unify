@@ -1,8 +1,17 @@
 ﻿Public Class frmExemptions
 
+    Private _exemptions As List(Of SyncTaskExemption)
+
 #Region "PROPERTIES"
 
-    Public Property Exemptions As Collection(Of SyncTaskExemption)
+    Public Property Exemptions As List(Of SyncTaskExemption)
+        Get
+            Return _exemptions
+        End Get
+        Set(value As List(Of SyncTaskExemption))
+            _exemptions = value
+        End Set
+    End Property
 
     Public ReadOnly Property SelectedExemptionIndex As Integer
         Get
@@ -22,126 +31,105 @@
         With dgvExemption
             .AllowUserToAddRows = False
             .AllowUserToDeleteRows = False
+            .MultiSelect = False
             .SelectionMode = DataGridViewSelectionMode.FullRowSelect
             .RowHeadersVisible = False
             .ColumnHeadersVisible = False
             .ReadOnly = True
             .Columns.Add("dgvc0", "Id")
-            .Columns.Add("dgvc1", "Entity")
-            .Columns.Add("dgvc1", "Operator")
-            .Columns.Add("dgvc1", "Value")
+            .Columns.Add("dgvc1", "Exemption")
             .Columns(0).Visible = False
             .Columns(1).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-            .Columns(1).FillWeight = 30
-            .Columns(2).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-            .Columns(2).FillWeight = 30
-            .Columns(3).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-            .Columns(3).FillWeight = 40
         End With
     End Sub
 
-    Private Sub PopulateDataGridView()
+    Private Sub PopulateDataGridView(ByVal selectedRow As SelectionPosition)
 
-        Dim rowIndex As Integer
+        Dim selectedIndex, rowIndex As Integer
+
+        If selectedRow = SelectionPosition.Current OrElse _
+            selectedRow = SelectionPosition.Previous OrElse _
+            selectedRow = SelectionPosition.Next Then
+            If dgvExemption.SelectedRows.Count > 0 Then
+                selectedIndex = dgvExemption.SelectedRows(0).Index
+            End If
+        End If
 
         dgvExemption.Rows.Clear()
 
         For Each exemption As SyncTaskExemption In Me.Exemptions
             rowIndex = dgvExemption.Rows.Add()
             With dgvExemption.Rows(rowIndex)
-                .Cells(1).Value = EXEMPTION_ENTITIES(exemption.Entity)
-                .Cells(2).Value = EXEMPTION_OPERATORS(exemption.Operator)
-                .Cells(3).Value = exemption.Value
+                .Cells(1).Value = EXEMPTION_ENTITIES.Item(exemption.Entity) & _
+                    Space(1) & EXEMPTION_OPERATORS.Item(exemption.Operator) & _
+                    Space(1) & exemption.Value
             End With
         Next
 
+        With dgvExemption
+            If .Rows.Count > 0 Then
+                Select Case selectedRow
+                    Case SelectionPosition.None
+                        .SelectedRows(0).Selected = False
+                    Case SelectionPosition.First
+                        .Rows(0).Selected = True
+                    Case SelectionPosition.Previous
+                        .Rows(selectedIndex - 1).Selected = True
+                    Case SelectionPosition.Current
+                        .Rows(selectedIndex).Selected = True
+                    Case SelectionPosition.Next
+                        .Rows(selectedIndex + 1).Selected = True
+                    Case SelectionPosition.Last
+                        .Rows(.Rows.Count - 1).Selected = True
+                End Select
+            End If
+        End With
+
     End Sub
 
-    Private Function CheckSelection() As Boolean
-
-        Dim value As String
-
-        If cboEntity.SelectedIndex < 0 Then
-            ShowError("An exemption entity must be selected.", "Add Exemption")
-            Return False
-        End If
-
-        If cboOperator.SelectedIndex < 0 Then
-            ShowError("An exemption operator must be selected.", "Add Exemption")
-            Return False
-        End If
-
-        value = txtValue.Text.Trim()
-        If value.Length = 0 Then
-            ShowError("An exemption value must be provided.", "Add Exemption")
-            Return False
-        End If
-
-        Return True
-
-    End Function
-
-    Private Function GetSelection() As SyncTaskExemption
-        Return New SyncTaskExemption(CType(cboEntity.SelectedItem, KeyValuePair(Of ExemptionEntity, String)).Key, _
-                                     CType(cboOperator.SelectedItem, KeyValuePair(Of ExemptionOperator, String)).Key, _
-                                     txtValue.Text.Trim())
-    End Function
+    Private Sub ShowForm(ByVal entryMode As FormEntryMode, Optional ByVal exemption As SyncTaskExemption = Nothing)
+        Using newForm As New frmExemption(entryMode, exemption)
+            With newForm
+                If .ShowDialog() = Windows.Forms.DialogResult.OK Then
+                    If .EntryMode = FormEntryMode.Add Then
+                        Me.Exemptions.Add(.Exemption)
+                        PopulateDataGridView(SelectionPosition.Last)
+                    Else
+                        Me.Exemptions(Me.SelectedExemptionIndex) = .Exemption
+                        PopulateDataGridView(SelectionPosition.Current)
+                    End If
+                End If
+                dgvExemption_SelectionChanged(Nothing, Nothing)
+            End With
+        End Using
+    End Sub
 
 #End Region
 
 #Region "EVENTS"
 
     Private Sub frmExemption_Load(sender As Object, e As EventArgs) Handles Me.Load
-
         FormatDataGridView()
-        PopulateDataGridView()
-
-        With cboEntity
-            .DataSource = New BindingSource(EXEMPTION_ENTITIES, Nothing)
-            .DisplayMember = "Value"
-            .ValueMember = "Key"
-        End With
-
-    End Sub
-
-    Private Sub cboEntity_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboEntity.SelectedIndexChanged
-
-        Dim selectedEntity As ExemptionEntity
-
-        If cboEntity.SelectedIndex > -1 Then
-            selectedEntity = CType(cboEntity.SelectedItem, KeyValuePair(Of ExemptionEntity, String)).Key
-            With cboOperator
-                .DataSource = New BindingSource(GetExemptionOperators(selectedEntity), Nothing)
-                .DisplayMember = "Value"
-                .ValueMember = "Key"
-            End With
-        End If
-
-    End Sub
-
-    Private Sub txtValue_TextChanged(sender As Object, e As EventArgs) Handles txtValue.TextChanged
-
+        PopulateDataGridView(SelectionPosition.First)
+        dgvExemption_SelectionChanged(sender, e)
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        If CheckSelection() Then
-            Me.Exemptions.Add(GetSelection())
-            PopulateDataGridView()
-            cboEntity.SelectedIndex = 0
-            cboOperator.SelectedIndex = 0
-            txtValue.Text = Space(0)
-        End If
+        ShowForm(FormEntryMode.Add)
     End Sub
 
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
-
+        If Me.SelectedExemptionIndex > -1 Then
+            ShowForm(FormEntryMode.Edit, Me.Exemptions(Me.SelectedExemptionIndex).Clone())
+        End If
     End Sub
 
     Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click
         If Me.SelectedExemptionIndex > -1 Then
-            If ShowWarning("Are you sure you want to remove this exemption?", "Remove Exemption?") = Windows.Forms.DialogResult.Yes Then
+            If ShowWarning("Are you sure you want to remove this exemption?", "Remove Exemption") = Windows.Forms.DialogResult.Yes Then
                 Me.Exemptions.RemoveAt(Me.SelectedExemptionIndex)
-                PopulateDataGridView()
+                PopulateDataGridView(SelectionPosition.None)
+                dgvExemption_SelectionChanged(sender, e)
             End If
         End If
     End Sub
@@ -149,7 +137,7 @@
     Private Sub btnPromote_Click(sender As Object, e As EventArgs) Handles btnPromote.Click
         If Me.SelectedExemptionIndex > -1 Then
             Me.Exemptions.Promote(Me.SelectedExemptionIndex)
-            PopulateDataGridView()
+            PopulateDataGridView(SelectionPosition.Previous)
             dgvExemption_SelectionChanged(sender, e)
         End If
     End Sub
@@ -157,7 +145,7 @@
     Private Sub btnDemote_Click(sender As Object, e As EventArgs) Handles btnDemote.Click
         If Me.SelectedExemptionIndex > -1 Then
             Me.Exemptions.Demote(Me.SelectedExemptionIndex)
-            PopulateDataGridView()
+            PopulateDataGridView(SelectionPosition.Next)
             dgvExemption_SelectionChanged(sender, e)
         End If
     End Sub

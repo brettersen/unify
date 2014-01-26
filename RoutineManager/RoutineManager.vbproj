@@ -72,10 +72,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.vb" />
+    <Compile Include="frmExemption.Designer.vb">
+      <DependentUpon>frmExemption.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmExemption.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmExemptions.Designer.vb">
       <DependentUpon>frmExemptions.vb</DependentUpon>
     </Compile>
     <Compile Include="frmExemptions.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSync.Designer.vb">
+      <DependentUpon>frmSync.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSync.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmTasks.vb">
@@ -108,8 +120,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmExemption.resx">
+      <DependentUpon>frmExemption.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmExemptions.resx">
       <DependentUpon>frmExemptions.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSync.resx">
+      <DependentUpon>frmSync.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTasks.resx">
       <DependentUpon>frmTasks.vb</DependentUpon>

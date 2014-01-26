@@ -4,9 +4,21 @@ Imports System.Runtime.Serialization.Formatters.Binary
 
 Public Class frmTasks
 
+    Private _hasPendingChanges As Boolean
     Private _openFilePath As String
+    Private _tasks As List(Of SyncTask)
 
 #Region "PROPERTIES"
+
+    Public Property HasPendingChanges As Boolean
+        Get
+            Return _hasPendingChanges
+        End Get
+        Set(value As Boolean)
+            tsmiSave.Enabled = value
+            _hasPendingChanges = value
+        End Set
+    End Property
 
     Public Property OpenFilePath As String
         Get
@@ -18,11 +30,19 @@ Public Class frmTasks
             Else
                 Me.Text = Common.APP_NAME
             End If
+            Me.HasPendingChanges = False
             _openFilePath = value
         End Set
     End Property
 
-    Public Property Tasks As Collection(Of SyncTask)
+    Public Property Tasks As List(Of SyncTask)
+        Get
+            Return _tasks
+        End Get
+        Set(value As List(Of SyncTask))
+            _tasks = value
+        End Set
+    End Property
 
     Public ReadOnly Property SelectedTaskIndex As Integer
         Get
@@ -51,6 +71,7 @@ Public Class frmTasks
         With dgvTask
             .AllowUserToAddRows = False
             .AllowUserToDeleteRows = False
+            .AllowUserToResizeRows = False
             .MultiSelect = False
             .SelectionMode = DataGridViewSelectionMode.FullRowSelect
             .RowHeadersVisible = False
@@ -58,28 +79,32 @@ Public Class frmTasks
             .Columns.Add("dgvc0", "Id")
             .Columns.Add("dgvc1", "Source Directory")
             .Columns.Add("dgvc2", "Target Directory")
-            .Columns.Add("dgvc3", "Has Exemptions")
-            .Columns.Add("dgvc4", "Options")
+            .Columns.Add("dgvc3", "Options")
+            .Columns.Add("dgvc4", "Exemptions")
             .Columns(0).Visible = False
-            .Columns(1).Width = 260
-            .Columns(1).SortMode = DataGridViewColumnSortMode.NotSortable
-            .Columns(2).Width = 260
-            .Columns(2).SortMode = DataGridViewColumnSortMode.NotSortable
-            .Columns(3).Width = 110
-            .Columns(3).SortMode = DataGridViewColumnSortMode.NotSortable
+            .Columns(1).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            .Columns(2).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            .Columns(3).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             .Columns(4).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            .Columns(1).FillWeight = 12
+            .Columns(2).FillWeight = 12
+            .Columns(3).FillWeight = 15
+            .Columns(4).FillWeight = 15
+            .Columns(1).SortMode = DataGridViewColumnSortMode.NotSortable
+            .Columns(2).SortMode = DataGridViewColumnSortMode.NotSortable
+            .Columns(3).SortMode = DataGridViewColumnSortMode.NotSortable
             .Columns(4).SortMode = DataGridViewColumnSortMode.NotSortable
         End With
 
     End Sub
 
-    Private Sub PopulateDataGridView(ByVal mode As SelectionPosition)
+    Private Sub PopulateDataGridView(ByVal selectedRow As SelectionPosition)
 
         Dim selectedIndex, rowIndex As Integer
 
-        If mode = SelectionPosition.Current OrElse _
-            mode = SelectionPosition.Previous OrElse _
-            mode = SelectionPosition.Next Then
+        If selectedRow = SelectionPosition.Current OrElse _
+            selectedRow = SelectionPosition.Previous OrElse _
+            selectedRow = SelectionPosition.Next Then
             If dgvTask.SelectedRows.Count > 0 Then
                 selectedIndex = dgvTask.SelectedRows(0).Index
             End If
@@ -93,52 +118,51 @@ Public Class frmTasks
                 With dgvTask.Rows(rowIndex)
                     .Cells(1).Value = task.SourceDirectory
                     .Cells(2).Value = task.TargetDirectory
-                    .Cells(3).Value = IIf(task.Exemptions.Count > 0, "Yes", "No")
-                    .Cells(4).Value = String.Join(", ", (From o In Core.Common.TASK_OPTIONS
+                    .Cells(3).Value = String.Join(", ", (From o In TASK_OPTIONS
                                                          Where task.Options.HasFlag(o.Key)
                                                          Order By o.Key
                                                          Select o.Value))
+                    .Cells(4).Value = String.Join(", ", (From e In task.Exemptions
+                                                         Select EXEMPTION_ENTITIES.Item(e.Entity) & Space(1) & _
+                                                                EXEMPTION_OPERATORS.Item(e.Operator) & Space(1) & _
+                                                                e.Value))
                 End With
             Next
         End If
 
-        If dgvTask.Rows.Count > 0 Then
-            Select Case mode
-                Case SelectionPosition.None
-                    dgvTask.SelectedRows(0).Selected = False
-                Case SelectionPosition.First
-                    dgvTask.Rows(0).Selected = True
-                Case SelectionPosition.Previous
-                    dgvTask.Rows(selectedIndex - 1).Selected = True
-                Case SelectionPosition.Current
-                    dgvTask.Rows(selectedIndex).Selected = True
-                Case SelectionPosition.Next
-                    dgvTask.Rows(selectedIndex + 1).Selected = True
-                Case SelectionPosition.Last
-                    dgvTask.Rows(dgvTask.Rows.Count - 1).Selected = True
-            End Select
-        End If
+        With dgvTask
+            If .Rows.Count > 0 Then
+                Select Case selectedRow
+                    Case SelectionPosition.None
+                        .SelectedRows(0).Selected = False
+                    Case SelectionPosition.First
+                        .Rows(0).Selected = True
+                    Case SelectionPosition.Previous
+                        .Rows(selectedIndex - 1).Selected = True
+                    Case SelectionPosition.Current
+                        .Rows(selectedIndex).Selected = True
+                    Case SelectionPosition.Next
+                        .Rows(selectedIndex + 1).Selected = True
+                    Case SelectionPosition.Last
+                        .Rows(.Rows.Count - 1).Selected = True
+                End Select
+            End If
+        End With
 
     End Sub
 
-    Private Sub ShowForm(ByVal mode As FormEntryMode, Optional ByVal populateWithSelectedTask As Boolean = False)
-        Using newForm As New frmTask()
+    Private Sub ShowForm(ByVal entryMode As FormEntryMode, Optional ByVal task As SyncTask = Nothing)
+        Using newForm As New frmTask(entryMode, task)
             With newForm
-                .EntryMode = mode
-                If mode = FormEntryMode.Add AndAlso Not populateWithSelectedTask Then
-                    .Task = New SyncTask()
-                Else
-                    .Task = Me.Tasks(Me.SelectedTaskIndex).Clone()
-                    .Populate()
-                End If
                 If .ShowDialog() = Windows.Forms.DialogResult.OK Then
-                    If mode = FormEntryMode.Add Then
+                    If entryMode = FormEntryMode.Add Then
                         Me.Tasks.Add(.Task)
                         PopulateDataGridView(SelectionPosition.Last)
                     Else
                         Me.Tasks(Me.SelectedTaskIndex) = .Task
                         PopulateDataGridView(SelectionPosition.Current)
                     End If
+                    Me.HasPendingChanges = True
                 End If
             End With
         End Using
@@ -165,14 +189,15 @@ Public Class frmTasks
 
     Private Sub tsmiNew_Click(sender As Object, e As EventArgs) Handles tsmiNew.Click
 
-        Me.Tasks = New Collection(Of SyncTask)
-        Me.Text = "New File - " & Common.APP_NAME
-        PopulateDataGridView(SelectionPosition.None)
-        dgvTask_SelectionChanged(sender, e)
-
-        tsmiClose.Enabled = True
-        tsmiSave.Enabled = False
-        tsmiSaveAs.Enabled = True
+        If Not Me.HasPendingChanges OrElse ShowWarning("There are pending changes on the current file. Discard changes?", "New File") = Windows.Forms.DialogResult.Yes Then
+            Me.Tasks = New List(Of SyncTask)
+            Me.Text = "New File - " & Common.APP_NAME
+            Me.HasPendingChanges = True
+            PopulateDataGridView(SelectionPosition.None)
+            dgvTask_SelectionChanged(sender, e)
+            tsmiClose.Enabled = True
+            tsmiSaveAs.Enabled = True
+        End If
 
     End Sub
 
@@ -190,40 +215,53 @@ Public Class frmTasks
             .Title = "Open File"
         End With
 
-        Try
-            If newForm.ShowDialog() = Windows.Forms.DialogResult.OK Then
-                Using fileStream = newForm.OpenFile()
-                    Me.Tasks = CType(formatter.Deserialize(fileStream), Collection(Of SyncTask))
-                    Me.OpenFilePath = newForm.FileName
-                    PopulateDataGridView(SelectionPosition.First)
-                    dgvTask_SelectionChanged(sender, e)
-                    tsmiClose.Enabled = True
-                    tsmiSave.Enabled = False
-                    tsmiSaveAs.Enabled = True
-                End Using
-            End If
-        Catch ex As SerializationException
-            MessageBox.Show("Could not open file.", "Open File", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
+        If Not Me.HasPendingChanges OrElse ShowWarning("There are pending changes on the current file. Discard changes?", "Open File") = Windows.Forms.DialogResult.Yes Then
+            Try
+                If newForm.ShowDialog() = Windows.Forms.DialogResult.OK Then
+                    Using fileStream = newForm.OpenFile()
+                        Me.Tasks = CType(formatter.Deserialize(fileStream), List(Of SyncTask))
+                        Me.OpenFilePath = newForm.FileName
+                        Me.HasPendingChanges = False
+                        PopulateDataGridView(SelectionPosition.First)
+                        dgvTask_SelectionChanged(sender, e)
+                        tsmiClose.Enabled = True
+                        tsmiSaveAs.Enabled = True
+                    End Using
+                End If
+            Catch ex As Exception
+                MessageBox.Show("Could not open file.", "Open File", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
 
     End Sub
 
     Private Sub tsmiClose_Click(sender As Object, e As EventArgs) Handles tsmiClose.Click
 
-        Me.Tasks = Nothing
-        Me.OpenFilePath = Nothing
-        PopulateDataGridView(SelectionPosition.None)
-        dgvTask_SelectionChanged(sender, e)
-
-        tsmiClose.Enabled = False
-        tsmiSave.Enabled = False
-        tsmiSaveAs.Enabled = False
+        If Not Me.HasPendingChanges OrElse ShowWarning("There are pending changes on the current file. Discard changes?", "Close File") = Windows.Forms.DialogResult.Yes Then
+            Me.Tasks = Nothing
+            Me.OpenFilePath = Nothing
+            Me.HasPendingChanges = False
+            PopulateDataGridView(SelectionPosition.None)
+            dgvTask_SelectionChanged(sender, e)
+            tsmiClose.Enabled = False
+            tsmiSaveAs.Enabled = False
+        End If
 
     End Sub
 
     Private Sub tsmiSave_Click(sender As Object, e As EventArgs) Handles tsmiSave.Click
 
+        Dim bf As BinaryFormatter
 
+        If Me.OpenFilePath IsNot Nothing Then
+            Using fs As New FileStream(Me.OpenFilePath, FileMode.Open, FileAccess.Write, FileShare.None)
+                bf = New BinaryFormatter()
+                bf.Serialize(fs, Me.Tasks)
+            End Using
+            Me.HasPendingChanges = False
+        Else
+            tsmiSaveAs_Click(sender, e)
+        End If
 
     End Sub
 
@@ -246,13 +284,14 @@ Public Class frmTasks
 
         Try
             If newForm.ShowDialog() = Windows.Forms.DialogResult.OK Then
-                Using fileStream = newForm.OpenFile()
-                    formatter.Serialize(fileStream, Me.Tasks)
-                    Me.OpenFilePath = newForm.FileName
-                    tsmiClose.Enabled = True
-                    tsmiSave.Enabled = False
-                    tsmiSaveAs.Enabled = True
+                Using fs = newForm.OpenFile()
+                    formatter.Serialize(fs, Me.Tasks)
                 End Using
+                Me.OpenFilePath = newForm.FileName
+                Me.HasPendingChanges = False
+                tsmiClose.Enabled = True
+                tsmiSave.Enabled = True
+                tsmiSaveAs.Enabled = True
             End If
         Catch ex As SerializationException
             MessageBox.Show("Could not save file.", "Save File As", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -314,14 +353,15 @@ Public Class frmTasks
 
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click, tsmiEdit.Click
         If Me.SelectedTaskIndex > -1 Then
-            ShowForm(FormEntryMode.Edit)
+            ShowForm(FormEntryMode.Edit, Me.Tasks(Me.SelectedTaskIndex).Clone())
         End If
     End Sub
 
     Private Sub btnRemove_Click(sender As Object, e As EventArgs) Handles btnRemove.Click, tsmiRemove.Click
         If Me.SelectedTaskIndex > -1 Then
-            If ShowWarning("Are you sure you want to remove this task?", "Remove Task?") = Windows.Forms.DialogResult.Yes Then
+            If ShowWarning("Are you sure you want to remove this task?", "Remove Task") = Windows.Forms.DialogResult.Yes Then
                 Me.Tasks.RemoveAt(Me.SelectedTaskIndex)
+                Me.HasPendingChanges = True
                 PopulateDataGridView(SelectionPosition.None)
                 dgvTask_SelectionChanged(sender, e)
             End If
@@ -330,13 +370,14 @@ Public Class frmTasks
 
     Private Sub btnCopy_Click(sender As Object, e As EventArgs) Handles btnCopy.Click, tsmiCopy.Click
         If Me.SelectedTaskIndex > -1 Then
-            ShowForm(FormEntryMode.Add, True)
+            ShowForm(FormEntryMode.Add, Me.Tasks(Me.SelectedTaskIndex).Clone())
         End If
     End Sub
 
     Private Sub btnPromote_Click(sender As Object, e As EventArgs) Handles btnPromote.Click, tsmiPromote.Click
         If Me.SelectedTaskIndex > -1 AndAlso Me.SelectedTaskIndex > 0 Then
             Me.Tasks.Promote(Me.SelectedTaskIndex)
+            Me.HasPendingChanges = True
             PopulateDataGridView(SelectionPosition.Previous)
             dgvTask_SelectionChanged(sender, e)
         End If
@@ -345,6 +386,7 @@ Public Class frmTasks
     Private Sub btnDemote_Click(sender As Object, e As EventArgs) Handles btnDemote.Click, tsmiDemote.Click
         If Me.SelectedTaskIndex > -1 AndAlso Me.SelectedTaskIndex < dgvTask.Rows.Count - 1 Then
             Me.Tasks.Demote(Me.SelectedTaskIndex)
+            Me.HasPendingChanges = True
             PopulateDataGridView(SelectionPosition.Next)
             dgvTask_SelectionChanged(sender, e)
         End If
@@ -352,12 +394,16 @@ Public Class frmTasks
 
     Private Sub btnExecute_Click(sender As Object, e As EventArgs) Handles btnExecute.Click
 
-        Win32API.CopyFileEx("C:\Program Files (x86)\WinSCP\winscp517setup.exe", _
-                            "C:\Users\Brett Petersen\Desktop\winscp517setup.exe", _
-                            AddressOf UpdateProgressBar, _
-                            Nothing, _
-                            False, _
-                            Win32API.CopyFileFlags.COPY_FILE_ALLOW_DECRYPTED_DESTINATION)
+        'Win32API.CopyFileEx("C:\Program Files (x86)\WinSCP\winscp517setup.exe", _
+        '                    "C:\Users\Brett Petersen\Desktop\winscp517setup.exe", _
+        '                    AddressOf UpdateProgressBar, _
+        '                    Nothing, _
+        '                    False, _
+        '                    Win32API.CopyFileFlags.COPY_FILE_ALLOW_DECRYPTED_DESTINATION)
+
+        Dim newForm As New frmSync
+        newForm.PreviousForm = Me
+        newForm.ShowDialog()
 
 
     End Sub

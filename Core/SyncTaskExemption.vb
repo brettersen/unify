@@ -1,8 +1,13 @@
-﻿Public Class SyncTaskExemption
+﻿<Serializable>
+Public Class SyncTaskExemption
 
     Private _entity As ExemptionEntity
     Private _operator As ExemptionOperator
     Private _value As String
+
+    Public Sub New()
+
+    End Sub
 
     Public Sub New(ByVal entity As ExemptionEntity, _
                    ByVal [operator] As ExemptionOperator, _
@@ -40,6 +45,20 @@
             _value = value
         End Set
     End Property
+
+#End Region
+
+#Region "METHODS"
+
+    Public Function Clone() As SyncTaskExemption
+        Dim item As New SyncTaskExemption
+        With item
+            .Entity = Me.Entity
+            .Operator = Me.Operator
+            .Value = Me.Value
+        End With
+        Return item
+    End Function
 
 #End Region
 

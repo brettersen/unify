@@ -3,7 +3,7 @@
 Public Module Extensions
 
     <Extension()>
-    Public Function Demote(Of T)(ByVal itemCollection As Collection(Of T), ByVal itemIndex As Integer) As Boolean
+    Public Function Demote(Of T)(ByVal itemCollection As List(Of T), ByVal itemIndex As Integer) As Boolean
         Dim item As T
         If itemIndex < itemCollection.Count - 1 Then
             item = itemCollection(itemIndex)
@@ -16,7 +16,7 @@ Public Module Extensions
     End Function
 
     <Extension()>
-    Public Function Promote(Of T)(ByVal itemCollection As Collection(Of T), ByVal itemIndex As Integer) As Boolean
+    Public Function Promote(Of T)(ByVal itemCollection As List(Of T), ByVal itemIndex As Integer) As Boolean
         Dim item As T
         If itemIndex > 0 Then
             item = itemCollection(itemIndex)

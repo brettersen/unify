@@ -1,9 +1,18 @@
 ﻿Public Class frmTask
 
     Private _entryMode As FormEntryMode
+    Private _task As SyncTask
 
-    Public Sub New()
+    Public Sub New(ByVal entryMode As FormEntryMode, Optional ByVal task As SyncTask = Nothing)
         InitializeComponent()
+        Me.EntryMode = entryMode
+        Me.Task = task
+        FormatDataGridView()
+        If Me.Task IsNot Nothing Then
+            Populate()
+        Else
+            Me.Task = New SyncTask()
+        End If
     End Sub
 
 #Region "PROPERTIES"
@@ -24,6 +33,13 @@
     End Property
 
     Public Property Task As SyncTask
+        Get
+            Return _task
+        End Get
+        Set(value As SyncTask)
+            _task = value
+        End Set
+    End Property
 
 #End Region
 
@@ -33,6 +49,8 @@
         With dgvExemption
             .AllowUserToAddRows = False
             .AllowUserToDeleteRows = False
+            .AllowUserToResizeRows = False
+            .AllowUserToResizeColumns = False
             .SelectionMode = DataGridViewSelectionMode.FullRowSelect
             .RowHeadersVisible = False
             .ColumnHeadersVisible = False
@@ -121,12 +139,12 @@
 
     Private Sub frmTask_Load(sender As Object, e As EventArgs) Handles Me.Load
 
-        FormatDataGridView()
-
     End Sub
 
     Private Sub btnSourceDirectory_Click(sender As Object, e As EventArgs) Handles btnSourceDirectory.Click
         Using newForm As New FolderBrowserDialog()
+            newForm.RootFolder = Environment.SpecialFolder.Desktop
+            newForm.SelectedPath = IIf(txtSourceDirectory.TextLength > 0, txtSourceDirectory.Text, Nothing)
             If newForm.ShowDialog() = DialogResult.OK Then
                 txtSourceDirectory.Text = newForm.SelectedPath
             End If
@@ -135,6 +153,8 @@
 
     Private Sub btnDestinationDirectory_Click(sender As Object, e As EventArgs) Handles btnTargetDirectory.Click
         Using newForm As New FolderBrowserDialog()
+            newForm.RootFolder = Environment.SpecialFolder.Desktop
+            newForm.SelectedPath = IIf(txtTargetDirectory.TextLength > 0, txtTargetDirectory.Text, Nothing)
             If newForm.ShowDialog() = DialogResult.OK Then
                 txtTargetDirectory.Text = newForm.SelectedPath
             End If
@@ -161,6 +181,10 @@
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.DialogResult = Windows.Forms.DialogResult.Cancel
+    End Sub
+
+    Private Sub dgvExemption_SelectionChanged(sender As Object, e As EventArgs) Handles dgvExemption.SelectionChanged
+        dgvExemption.ClearSelection()
     End Sub
 
 #End Region
