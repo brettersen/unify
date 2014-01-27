@@ -65,6 +65,24 @@ Public Class SyncTask
 
 #Region "METHODS"
 
+    Private Shared Function ByteArraysAreEqual(ByVal firstByteArray As Byte(), ByVal secondByteArray As Byte()) As Boolean
+        If (firstByteArray Is secondByteArray) Then
+            Return True
+        End If
+        If (firstByteArray Is Nothing OrElse secondByteArray Is Nothing) Then
+            Return False
+        End If
+        If (firstByteArray.Length <> secondByteArray.Length) Then
+            Return False
+        End If
+        For i As Integer = 0 To firstByteArray.Length - 1
+            If (firstByteArray(i) <> secondByteArray(i)) Then
+                Return False
+            End If
+        Next i
+        Return True
+    End Function
+
     Public Function Clone() As SyncTask
         Dim item As New SyncTask
         With item
@@ -76,80 +94,15 @@ Public Class SyncTask
         Return item
     End Function
 
-    Public Function GetOperations() As List(Of SyncOperation)
-
-        Dim sourceDirectoryPath, targetDirectoryPath As String
-        Dim sourceDirectoryInfo, targetDirectoryInfo As DirectoryInfo
-        Dim sourceFiles, targetFiles As FileInfo()
-        Dim sourceRelativeFilePaths, targetRelativeFilePaths As New List(Of String)
-        Dim filesToAdd, filesToReplace, filesToRemove, filesToIgnore As IEnumerable(Of String)
-        Dim recursive As Boolean
-        Dim operation As SyncOperation
-        Dim operations As New List(Of SyncOperation)
-        Dim sourceFile As FileInfo
-
-        Dim GetSourceFile = Function(relativeFilePath As String) As FileInfo
-                                Return (From f In sourceFiles
-                                        Where f.FullName = (sourceDirectoryPath & Path.DirectorySeparatorChar & relativeFilePath)
-                                        Select f).First()
-                            End Function
-
-        Dim GetTargetFile = Function(relativeFilePath As String) As FileInfo
-                                Return (From f In targetFiles
-                                        Where f.FullName = (targetDirectoryPath & Path.DirectorySeparatorChar & relativeFilePath)
-                                        Select f).First()
-                            End Function
-
-        sourceDirectoryPath = Me.SourceDirectory.TrimEnd(Path.DirectorySeparatorChar)
-        targetDirectoryPath = Me.TargetDirectory.TrimEnd(Path.DirectorySeparatorChar)
-        sourceDirectoryInfo = New DirectoryInfo(sourceDirectoryPath)
-        targetDirectoryInfo = New DirectoryInfo(targetDirectoryPath)
-
-        recursive = Me.Options.HasFlag(SyncTaskOptions.IncludeSubdirectories)
-
-        sourceFiles = sourceDirectoryInfo.GetFiles("*", IIf(recursive, SearchOption.AllDirectories, SearchOption.TopDirectoryOnly))
-        For Each f As FileInfo In sourceFiles
-            sourceRelativeFilePaths.Add(f.FullName.Replace(sourceDirectoryPath & Path.DirectorySeparatorChar, Space(0)))
+    Public Sub Execute(ByRef stopRequested As Boolean)
+        For Each o In Me.GetOperations(stopRequested)
+            If Not stopRequested Then
+                o.Execute(stopRequested)
+            Else
+                Exit For
+            End If
         Next
-
-        targetFiles = targetDirectoryInfo.GetFiles("*", IIf(recursive, SearchOption.AllDirectories, SearchOption.TopDirectoryOnly))
-        For Each f As FileInfo In targetFiles
-            targetRelativeFilePaths.Add(f.FullName.Replace(targetDirectoryPath & Path.DirectorySeparatorChar, Space(0)))
-        Next
-
-        If Me.Options.HasFlag(SyncTaskOptions.AddFiles) Then
-            filesToAdd = sourceRelativeFilePaths.Except(targetRelativeFilePaths)
-            For Each fileToAdd In filesToAdd
-                sourceFile = GetSourceFile(fileToAdd)
-                If Not Me.Options.HasFlag(SyncTaskOptions.ExcludeHiddenFiles) OrElse _
-                    Not sourceFile.Attributes.HasFlag(FileAttributes.Hidden) Then
-                    operation = New SyncOperation()
-                    With operation
-                        .SourceFilePath = sourceDirectoryPath & Path.DirectorySeparatorChar & fileToAdd
-                        .TargetFilePath = targetDirectoryPath & Path.DirectorySeparatorChar & fileToAdd
-                        .Attributes = .Attributes
-                        .Operation = FileOperation.Add
-                        .IsExempt = IsExempt(sourceFile)
-                    End With
-                    operations.Add(operation)
-                End If
-            Next
-        End If
-
-        If Me.Options.HasFlag(SyncTaskOptions.ReplaceFiles) Then
-            filesToIgnore = sourceRelativeFilePaths.Intersect(targetRelativeFilePaths)
-            filesToReplace = (From matchedFile In filesToIgnore
-                              Where Not FilesAreEqual(GetSourceFile(matchedFile), GetTargetFile(matchedFile))
-                              Select matchedFile)
-        End If
-
-        If Me.Options.HasFlag(SyncTaskOptions.RemoveFiles) Then
-            filesToRemove = targetRelativeFilePaths.Except(sourceRelativeFilePaths)
-        End If
-
-        Return operations
-
-    End Function
+    End Sub
 
     Private Shared Function FilesAreEqual(ByVal firstFilePath As String, ByVal secondFilePath As String) As Boolean
         Return FilesAreEqual(New FileInfo(firstFilePath), New FileInfo(secondFilePath))
@@ -171,24 +124,6 @@ Public Class SyncTask
         End If
     End Function
 
-    Private Shared Function ByteArraysAreEqual(ByVal firstByteArray As Byte(), ByVal secondByteArray As Byte()) As Boolean
-        If (firstByteArray Is secondByteArray) Then
-            Return True
-        End If
-        If (firstByteArray Is Nothing OrElse secondByteArray Is Nothing) Then
-            Return False
-        End If
-        If (firstByteArray.Length <> secondByteArray.Length) Then
-            Return False
-        End If
-        For i As Integer = 0 To firstByteArray.Length - 1
-            If (firstByteArray(i) <> secondByteArray(i)) Then
-                Return False
-            End If
-        Next i
-        Return True
-    End Function
-
     Private Shared Function GetHash(ByVal filePath As String) As Byte()
         Using algorithm = MD5.Create()
             Using [fileStream] = File.OpenRead(filePath)
@@ -197,7 +132,142 @@ Public Class SyncTask
         End Using
     End Function
 
-    Private Function IsExempt(ByVal suspectFile As FileInfo) As Boolean
+    Public Function GetOperations(ByRef stopRequested As Boolean) As List(Of SyncOperation)
+
+        Dim sourceDirectoryPath, targetDirectoryPath As String
+        Dim sourceDirectoryInfo, targetDirectoryInfo As DirectoryInfo
+        Dim sourceFiles, targetFiles As FileInfo()
+        Dim sourceRelativeFilePaths, targetRelativeFilePaths As New List(Of String)
+        Dim filesToAdd, filesToReplace, filesToRemove, filesToIgnore As IEnumerable(Of String)
+        Dim recursive As Boolean
+        Dim operation As SyncOperation
+        Dim operations As New List(Of SyncOperation)
+        Dim sourceFile, targetFile As FileInfo
+        Dim determinedExemption As SyncTaskExemption
+
+        Dim GetSourceFile = Function(relativeFilePath As String) As FileInfo
+                                Return (From f In sourceFiles
+                                        Where f.FullName = (sourceDirectoryPath & Path.DirectorySeparatorChar & relativeFilePath)
+                                        Select f).First()
+                            End Function
+
+        Dim GetTargetFile = Function(relativeFilePath As String) As FileInfo
+                                Return (From f In targetFiles
+                                        Where f.FullName = (targetDirectoryPath & Path.DirectorySeparatorChar & relativeFilePath)
+                                        Select f).First()
+                            End Function
+
+        sourceDirectoryPath = Me.SourceDirectory.TrimEnd(Path.DirectorySeparatorChar)
+        targetDirectoryPath = Me.TargetDirectory.TrimEnd(Path.DirectorySeparatorChar)
+        sourceDirectoryInfo = New DirectoryInfo(sourceDirectoryPath)
+        targetDirectoryInfo = New DirectoryInfo(targetDirectoryPath)
+
+        recursive = Me.Options.HasFlag(SyncTaskOptions.IncludeSubdirectories)
+
+        If stopRequested Then Return operations
+
+        sourceFiles = sourceDirectoryInfo.GetFiles("*", IIf(recursive, SearchOption.AllDirectories, SearchOption.TopDirectoryOnly))
+        For Each f As FileInfo In sourceFiles
+            sourceRelativeFilePaths.Add(f.FullName.Replace(sourceDirectoryPath & Path.DirectorySeparatorChar, Space(0)))
+        Next
+
+        If stopRequested Then Return operations
+
+        targetFiles = targetDirectoryInfo.GetFiles("*", IIf(recursive, SearchOption.AllDirectories, SearchOption.TopDirectoryOnly))
+        For Each f As FileInfo In targetFiles
+            targetRelativeFilePaths.Add(f.FullName.Replace(targetDirectoryPath & Path.DirectorySeparatorChar, Space(0)))
+        Next
+
+        If stopRequested Then Return operations
+
+        If Me.Options.HasFlag(SyncTaskOptions.AddFiles) Then
+            If stopRequested Then Return operations
+            filesToAdd = sourceRelativeFilePaths.Except(targetRelativeFilePaths)
+            If stopRequested Then Return operations
+            For Each fileToAdd In filesToAdd
+                If stopRequested Then Return operations
+                sourceFile = GetSourceFile(fileToAdd)
+                If Not Me.Options.HasFlag(SyncTaskOptions.ExcludeHiddenFiles) OrElse _
+                    Not sourceFile.Attributes.HasFlag(FileAttributes.Hidden) Then
+                    operation = New SyncOperation()
+                    With operation
+                        .SourceFilePath = sourceDirectoryPath & Path.DirectorySeparatorChar & fileToAdd
+                        .TargetFilePath = targetDirectoryPath & Path.DirectorySeparatorChar & fileToAdd
+                        .RelativeFilePath = fileToAdd
+                        .Attributes = sourceFile.Attributes
+                        If Not IsExempt(sourceFile, determinedExemption) Then
+                            .Operation = FileOperation.Add
+                        Else
+                            .Operation = FileOperation.None
+                            .Exemption = determinedExemption
+                        End If
+                    End With
+                    operations.Add(operation)
+                End If
+            Next
+        End If
+
+        If Me.Options.HasFlag(SyncTaskOptions.ReplaceFiles) Then
+            If stopRequested Then Return operations
+            filesToIgnore = sourceRelativeFilePaths.Intersect(targetRelativeFilePaths)
+            If stopRequested Then Return operations
+            filesToReplace = (From matchedFile In filesToIgnore
+                              Where Not FilesAreEqual(GetSourceFile(matchedFile), GetTargetFile(matchedFile))
+                              Select matchedFile)
+            If stopRequested Then Return operations
+            For Each fileToReplace In filesToReplace
+                If stopRequested Then Return operations
+                sourceFile = GetSourceFile(fileToReplace)
+                If Not Me.Options.HasFlag(SyncTaskOptions.ExcludeHiddenFiles) OrElse _
+                    Not sourceFile.Attributes.HasFlag(FileAttributes.Hidden) Then
+                    operation = New SyncOperation()
+                    With operation
+                        .SourceFilePath = sourceDirectoryPath & Path.DirectorySeparatorChar & fileToReplace
+                        .TargetFilePath = targetDirectoryPath & Path.DirectorySeparatorChar & fileToReplace
+                        .RelativeFilePath = fileToReplace
+                        .Attributes = sourceFile.Attributes
+                        If Not IsExempt(sourceFile, determinedExemption) Then
+                            .Operation = FileOperation.Replace
+                        Else
+                            .Operation = FileOperation.None
+                            .Exemption = determinedExemption
+                        End If
+                    End With
+                    operations.Add(operation)
+                End If
+            Next
+        End If
+
+        If Me.Options.HasFlag(SyncTaskOptions.RemoveFiles) Then
+            If stopRequested Then Return operations
+            filesToRemove = targetRelativeFilePaths.Except(sourceRelativeFilePaths)
+            If stopRequested Then Return operations
+            For Each fileToRemove In filesToRemove
+                If stopRequested Then Return operations
+                targetFile = GetTargetFile(fileToRemove)
+                If Not Me.Options.HasFlag(SyncTaskOptions.ExcludeHiddenFiles) OrElse _
+                    Not targetFile.Attributes.HasFlag(FileAttributes.Hidden) Then
+                    operation = New SyncOperation()
+                    With operation
+                        .TargetFilePath = targetDirectoryPath & Path.DirectorySeparatorChar & fileToRemove
+                        .RelativeFilePath = fileToRemove
+                        If Not IsExempt(targetFile, determinedExemption) Then
+                            .Operation = FileOperation.Remove
+                        Else
+                            .Operation = FileOperation.None
+                            .Exemption = determinedExemption
+                        End If
+                    End With
+                    operations.Add(operation)
+                End If
+            Next
+        End If
+
+        Return operations
+
+    End Function
+
+    Private Function IsExempt(ByVal suspectFile As FileInfo, ByRef determinedExemption As SyncTaskExemption) As Boolean
 
         Dim suspectFileExtension As String
         Dim suspectFileFolderName As String
@@ -211,6 +281,7 @@ Public Class SyncTask
             Catch ex As ArgumentException
                 Continue For
             End Try
+            determinedExemption = exemption
             Select Case exemption.Entity
                 Case ExemptionEntity.FileExtension
                     suspectFileExtension = Path.GetExtension(suspectFile.Name).TrimStart(".")
@@ -275,15 +346,15 @@ Public Class SyncTask
                 Case ExemptionEntity.FileSize
                     Select Case exemption.Operator
                         Case ExemptionOperator.IsEqualTo
-                            If suspectFile.Length = Long.Parse(exemption.Value) Then
+                            If (suspectFile.Length / 1024) = Long.Parse(exemption.Value) Then
                                 Return True
                             End If
                         Case ExemptionOperator.IsGreaterThan
-                            If suspectFile.Length > Long.Parse(exemption.Value) Then
+                            If (suspectFile.Length / 1024) > Long.Parse(exemption.Value) Then
                                 Return True
                             End If
                         Case ExemptionOperator.IsLessThan
-                            If suspectFile.Length < Long.Parse(exemption.Value) Then
+                            If (suspectFile.Length / 1024) < Long.Parse(exemption.Value) Then
                                 Return True
                             End If
                     End Select
@@ -331,7 +402,7 @@ Public Class SyncTask
                     End Select
             End Select
         Next
-
+        determinedExemption = Nothing
         Return False
 
     End Function

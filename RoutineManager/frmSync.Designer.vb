@@ -39,12 +39,14 @@ Partial Class frmSync
         'rtbConsole
         '
         Me.rtbConsole.BackColor = System.Drawing.SystemColors.Window
-        Me.rtbConsole.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rtbConsole.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.rtbConsole.Location = New System.Drawing.Point(12, 12)
         Me.rtbConsole.Name = "rtbConsole"
+        Me.rtbConsole.ReadOnly = True
         Me.rtbConsole.Size = New System.Drawing.Size(710, 363)
-        Me.rtbConsole.TabIndex = 3
+        Me.rtbConsole.TabIndex = 0
         Me.rtbConsole.Text = ""
+        Me.rtbConsole.WordWrap = False
         '
         'pbrOperation
         '

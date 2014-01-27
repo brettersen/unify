@@ -158,8 +158,14 @@
         Me.DialogResult = Windows.Forms.DialogResult.Cancel
     End Sub
 
+    Private Sub dgvExemption_DoubleClick(sender As Object, e As EventArgs) Handles dgvExemption.DoubleClick
+        If Me.SelectedExemptionIndex > -1 Then
+            btnEdit.PerformClick()
+        End If
+    End Sub
+
     Private Sub dgvExemption_SelectionChanged(sender As Object, e As EventArgs) Handles dgvExemption.SelectionChanged
-        If dgvExemption.SelectedRows.Count > 0 Then
+        If Me.SelectedExemptionIndex > -1 Then
             btnEdit.Enabled = True
             btnRemove.Enabled = True
             btnPromote.Enabled = dgvExemption.SelectedRows(0).Index > 0

@@ -393,35 +393,13 @@ Public Class frmTasks
     End Sub
 
     Private Sub btnExecute_Click(sender As Object, e As EventArgs) Handles btnExecute.Click
-
-        'Win32API.CopyFileEx("C:\Program Files (x86)\WinSCP\winscp517setup.exe", _
-        '                    "C:\Users\Brett Petersen\Desktop\winscp517setup.exe", _
-        '                    AddressOf UpdateProgressBar, _
-        '                    Nothing, _
-        '                    False, _
-        '                    Win32API.CopyFileFlags.COPY_FILE_ALLOW_DECRYPTED_DESTINATION)
-
-        Dim newForm As New frmSync
-        newForm.PreviousForm = Me
-        newForm.ShowDialog()
-
-
+        Using newForm As New frmSync
+            With newForm
+                .PreviousForm = Me
+                .ShowDialog()
+            End With
+        End Using
     End Sub
-
-    Private Function UpdateProgressBar(ByVal totalFileSize As Long, _
-                                       ByVal totalBytesTransferred As Long, _
-                                       ByVal streamSize As Long, _
-                                       ByVal streamBytesTransferred As Long, _
-                                       ByVal streamNumber As UInteger,
-                                       ByVal callbackReason As Win32API.CopyProgressCallbackReason, _
-                                       ByVal sourceFile As IntPtr,
-                                       ByVal destinationFile As IntPtr,
-                                       ByVal data As IntPtr) As Win32API.CopyProgressResult
-        'pbrTest.Maximum = totalFileSize
-        'pbrTest.Minimum = 0
-        'pbrTest.Value = totalBytesTransferred
-        Return Win32API.CopyProgressResult.PROGRESS_CONTINUE
-    End Function
 
 #End Region
 
