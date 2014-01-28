@@ -7,7 +7,6 @@
         InitializeComponent()
         Me.EntryMode = entryMode
         Me.Task = task
-        FormatDataGridView()
         If Me.Task IsNot Nothing Then
             Populate()
         Else
@@ -45,23 +44,6 @@
 
 #Region "METHODS"
 
-    Private Sub FormatDataGridView()
-        With dgvExemption
-            .AllowUserToAddRows = False
-            .AllowUserToDeleteRows = False
-            .AllowUserToResizeRows = False
-            .AllowUserToResizeColumns = False
-            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
-            .RowHeadersVisible = False
-            .ColumnHeadersVisible = False
-            .ReadOnly = True
-            .Columns.Add("dgvc0", "Id")
-            .Columns.Add("dgvc1", "Exemption")
-            .Columns(0).Visible = False
-            .Columns(1).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-        End With
-    End Sub
-
     Public Sub Populate()
         With Me.Task
             txtSourceDirectory.Text = .SourceDirectory
@@ -72,22 +54,6 @@
             chkIncludeSubdirectories.Checked = .Options.HasFlag(SyncTaskOptions.IncludeSubdirectories)
             chkExcludeHiddenFiles.Checked = .Options.HasFlag(SyncTaskOptions.ExcludeHiddenFiles)
         End With
-        PopulateDataGridView()
-    End Sub
-
-    Private Sub PopulateDataGridView()
-
-        Dim rowIndex As Integer
-
-        dgvExemption.Rows.Clear()
-
-        For Each exemption As SyncTaskExemption In Me.Task.Exemptions
-            rowIndex = dgvExemption.Rows.Add()
-            With dgvExemption.Rows(rowIndex)
-                .Cells(1).Value = EXEMPTION_ENTITIES(exemption.Entity) & Space(1) & EXEMPTION_OPERATORS(exemption.Operator) & Space(1) & exemption.Value
-            End With
-        Next
-
     End Sub
 
     Private Function Scrape() As Boolean
@@ -167,7 +133,6 @@
                 .Exemptions = Me.Task.Exemptions
                 If .ShowDialog() = Windows.Forms.DialogResult.OK Then
                     Me.Task.Exemptions = .Exemptions
-                    PopulateDataGridView()
                 End If
             End With
         End Using
@@ -181,10 +146,6 @@
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.DialogResult = Windows.Forms.DialogResult.Cancel
-    End Sub
-
-    Private Sub dgvExemption_SelectionChanged(sender As Object, e As EventArgs) Handles dgvExemption.SelectionChanged
-        dgvExemption.ClearSelection()
     End Sub
 
 #End Region

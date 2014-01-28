@@ -140,47 +140,47 @@ Partial Class frmTasks
         'tsmiAdd
         '
         Me.tsmiAdd.Name = "tsmiAdd"
-        Me.tsmiAdd.Size = New System.Drawing.Size(152, 22)
+        Me.tsmiAdd.Size = New System.Drawing.Size(120, 22)
         Me.tsmiAdd.Text = "&Add..."
         '
         'tsmiEdit
         '
         Me.tsmiEdit.Name = "tsmiEdit"
-        Me.tsmiEdit.Size = New System.Drawing.Size(152, 22)
+        Me.tsmiEdit.Size = New System.Drawing.Size(120, 22)
         Me.tsmiEdit.Text = "&Edit..."
         '
         'tsmiRemove
         '
         Me.tsmiRemove.Name = "tsmiRemove"
-        Me.tsmiRemove.Size = New System.Drawing.Size(152, 22)
+        Me.tsmiRemove.Size = New System.Drawing.Size(120, 22)
         Me.tsmiRemove.Text = "&Remove"
         '
         'ToolStripSeparator6
         '
         Me.ToolStripSeparator6.Name = "ToolStripSeparator6"
-        Me.ToolStripSeparator6.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripSeparator6.Size = New System.Drawing.Size(117, 6)
         '
         'tsmiCopy
         '
         Me.tsmiCopy.Name = "tsmiCopy"
-        Me.tsmiCopy.Size = New System.Drawing.Size(152, 22)
+        Me.tsmiCopy.Size = New System.Drawing.Size(120, 22)
         Me.tsmiCopy.Text = "&Copy..."
         '
         'ToolStripSeparator5
         '
         Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(117, 6)
         '
         'tsmiPromote
         '
         Me.tsmiPromote.Name = "tsmiPromote"
-        Me.tsmiPromote.Size = New System.Drawing.Size(152, 22)
+        Me.tsmiPromote.Size = New System.Drawing.Size(120, 22)
         Me.tsmiPromote.Text = "&Promote"
         '
         'tsmiDemote
         '
         Me.tsmiDemote.Name = "tsmiDemote"
-        Me.tsmiDemote.Size = New System.Drawing.Size(152, 22)
+        Me.tsmiDemote.Size = New System.Drawing.Size(120, 22)
         Me.tsmiDemote.Text = "&Demote"
         '
         'tsmHelp
@@ -279,8 +279,7 @@ Partial Class frmTasks
         '
         'frmTasks
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(834, 461)
         Me.Controls.Add(Me.btnCopy)
         Me.Controls.Add(Me.btnDemote)
@@ -294,6 +293,7 @@ Partial Class frmTasks
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MinimumSize = New System.Drawing.Size(850, 500)
         Me.Name = "frmTasks"
+        Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Unify"
         Me.MenuStrip1.ResumeLayout(False)

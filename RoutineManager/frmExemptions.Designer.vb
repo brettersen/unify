@@ -35,7 +35,7 @@ Partial Class frmExemptions
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(397, 326)
+        Me.btnCancel.Location = New System.Drawing.Point(557, 326)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 3
@@ -44,7 +44,7 @@ Partial Class frmExemptions
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(397, 297)
+        Me.btnOK.Location = New System.Drawing.Point(476, 326)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 23)
         Me.btnOK.TabIndex = 4
@@ -53,7 +53,7 @@ Partial Class frmExemptions
         '
         'btnAdd
         '
-        Me.btnAdd.Location = New System.Drawing.Point(397, 12)
+        Me.btnAdd.Location = New System.Drawing.Point(12, 326)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(75, 23)
         Me.btnAdd.TabIndex = 5
@@ -65,12 +65,12 @@ Partial Class frmExemptions
         Me.dgvExemption.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvExemption.Location = New System.Drawing.Point(12, 12)
         Me.dgvExemption.Name = "dgvExemption"
-        Me.dgvExemption.Size = New System.Drawing.Size(372, 337)
+        Me.dgvExemption.Size = New System.Drawing.Size(620, 300)
         Me.dgvExemption.TabIndex = 8
         '
         'btnEdit
         '
-        Me.btnEdit.Location = New System.Drawing.Point(397, 41)
+        Me.btnEdit.Location = New System.Drawing.Point(93, 326)
         Me.btnEdit.Name = "btnEdit"
         Me.btnEdit.Size = New System.Drawing.Size(75, 23)
         Me.btnEdit.TabIndex = 9
@@ -79,7 +79,7 @@ Partial Class frmExemptions
         '
         'btnRemove
         '
-        Me.btnRemove.Location = New System.Drawing.Point(397, 70)
+        Me.btnRemove.Location = New System.Drawing.Point(174, 326)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(75, 23)
         Me.btnRemove.TabIndex = 10
@@ -88,7 +88,7 @@ Partial Class frmExemptions
         '
         'btnPromote
         '
-        Me.btnPromote.Location = New System.Drawing.Point(397, 99)
+        Me.btnPromote.Location = New System.Drawing.Point(255, 326)
         Me.btnPromote.Name = "btnPromote"
         Me.btnPromote.Size = New System.Drawing.Size(75, 23)
         Me.btnPromote.TabIndex = 11
@@ -97,7 +97,7 @@ Partial Class frmExemptions
         '
         'btnDemote
         '
-        Me.btnDemote.Location = New System.Drawing.Point(397, 128)
+        Me.btnDemote.Location = New System.Drawing.Point(336, 326)
         Me.btnDemote.Name = "btnDemote"
         Me.btnDemote.Size = New System.Drawing.Size(75, 23)
         Me.btnDemote.TabIndex = 12
@@ -108,8 +108,8 @@ Partial Class frmExemptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(484, 361)
-        Me.ControlBox = false
+        Me.ClientSize = New System.Drawing.Size(644, 361)
+        Me.ControlBox = False
         Me.Controls.Add(Me.btnDemote)
         Me.Controls.Add(Me.btnPromote)
         Me.Controls.Add(Me.btnRemove)
@@ -119,11 +119,11 @@ Partial Class frmExemptions
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.btnCancel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.MaximizeBox = false
-        Me.MinimizeBox = false
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "frmExemptions"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Manage Exemptions"
+        Me.Text = "Exemptions"
         CType(Me.dgvExemption,System.ComponentModel.ISupportInitialize).EndInit
         Me.ResumeLayout(false)
 

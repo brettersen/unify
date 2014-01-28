@@ -63,7 +63,7 @@ Partial Class frmExemption
         '
         Me.txtValue.Location = New System.Drawing.Point(244, 26)
         Me.txtValue.Name = "txtValue"
-        Me.txtValue.Size = New System.Drawing.Size(225, 20)
+        Me.txtValue.Size = New System.Drawing.Size(308, 20)
         Me.txtValue.TabIndex = 16
         '
         'cboOperator
@@ -86,7 +86,7 @@ Partial Class frmExemption
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(313, 60)
+        Me.btnOK.Location = New System.Drawing.Point(396, 60)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 23)
         Me.btnOK.TabIndex = 20
@@ -95,7 +95,7 @@ Partial Class frmExemption
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(394, 60)
+        Me.btnCancel.Location = New System.Drawing.Point(477, 60)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 21
@@ -106,7 +106,7 @@ Partial Class frmExemption
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(481, 95)
+        Me.ClientSize = New System.Drawing.Size(564, 95)
         Me.ControlBox = False
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnOK)

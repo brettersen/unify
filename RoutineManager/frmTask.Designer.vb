@@ -37,11 +37,9 @@ Partial Class frmTask
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.chkExcludeHiddenFiles = New System.Windows.Forms.CheckBox()
         Me.chkIncludeSubdirectories = New System.Windows.Forms.CheckBox()
-        Me.dgvExemption = New System.Windows.Forms.DataGridView()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.chkCompareFilesInDepth = New System.Windows.Forms.CheckBox()
         Me.GroupBox2.SuspendLayout()
-        CType(Me.dgvExemption, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -76,7 +74,7 @@ Partial Class frmTask
         Me.chkRemoveFiles.AutoSize = True
         Me.chkRemoveFiles.Checked = True
         Me.chkRemoveFiles.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkRemoveFiles.Location = New System.Drawing.Point(11, 45)
+        Me.chkRemoveFiles.Location = New System.Drawing.Point(11, 68)
         Me.chkRemoveFiles.Name = "chkRemoveFiles"
         Me.chkRemoveFiles.Size = New System.Drawing.Size(87, 17)
         Me.chkRemoveFiles.TabIndex = 1
@@ -88,7 +86,7 @@ Partial Class frmTask
         Me.chkReplaceFiles.AutoSize = True
         Me.chkReplaceFiles.Checked = True
         Me.chkReplaceFiles.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkReplaceFiles.Location = New System.Drawing.Point(11, 68)
+        Me.chkReplaceFiles.Location = New System.Drawing.Point(11, 45)
         Me.chkReplaceFiles.Name = "chkReplaceFiles"
         Me.chkReplaceFiles.Size = New System.Drawing.Size(87, 17)
         Me.chkReplaceFiles.TabIndex = 0
@@ -97,7 +95,7 @@ Partial Class frmTask
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(357, 297)
+        Me.btnOK.Location = New System.Drawing.Point(276, 207)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 23)
         Me.btnOK.TabIndex = 3
@@ -106,7 +104,7 @@ Partial Class frmTask
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(357, 326)
+        Me.btnCancel.Location = New System.Drawing.Point(357, 207)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 4
@@ -115,11 +113,11 @@ Partial Class frmTask
         '
         'btnManage
         '
-        Me.btnManage.Location = New System.Drawing.Point(357, 216)
+        Me.btnManage.Location = New System.Drawing.Point(12, 207)
         Me.btnManage.Name = "btnManage"
-        Me.btnManage.Size = New System.Drawing.Size(75, 23)
+        Me.btnManage.Size = New System.Drawing.Size(122, 23)
         Me.btnManage.TabIndex = 5
-        Me.btnManage.Text = "Manage..."
+        Me.btnManage.Text = "Manage Exemptions"
         Me.btnManage.UseVisualStyleBackColor = True
         '
         'btnSourceDirectory
@@ -160,6 +158,7 @@ Partial Class frmTask
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.chkCompareFilesInDepth)
         Me.GroupBox2.Controls.Add(Me.chkExcludeHiddenFiles)
         Me.GroupBox2.Controls.Add(Me.chkIncludeSubdirectories)
         Me.GroupBox2.Location = New System.Drawing.Point(148, 99)
@@ -189,23 +188,6 @@ Partial Class frmTask
         Me.chkIncludeSubdirectories.Text = "Include subdirectories"
         Me.chkIncludeSubdirectories.UseVisualStyleBackColor = True
         '
-        'dgvExemption
-        '
-        Me.dgvExemption.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvExemption.Location = New System.Drawing.Point(12, 216)
-        Me.dgvExemption.Name = "dgvExemption"
-        Me.dgvExemption.Size = New System.Drawing.Size(333, 133)
-        Me.dgvExemption.TabIndex = 12
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(9, 200)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(61, 13)
-        Me.Label3.TabIndex = 13
-        Me.Label3.Text = "Exemptions"
-        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.chkAddFiles)
@@ -218,15 +200,23 @@ Partial Class frmTask
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Operations"
         '
+        'chkCompareFilesInDepth
+        '
+        Me.chkCompareFilesInDepth.AutoSize = True
+        Me.chkCompareFilesInDepth.Location = New System.Drawing.Point(11, 68)
+        Me.chkCompareFilesInDepth.Name = "chkCompareFilesInDepth"
+        Me.chkCompareFilesInDepth.Size = New System.Drawing.Size(130, 17)
+        Me.chkCompareFilesInDepth.TabIndex = 16
+        Me.chkCompareFilesInDepth.Text = "Compare files in depth"
+        Me.chkCompareFilesInDepth.UseVisualStyleBackColor = True
+        '
         'frmTask
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(444, 361)
+        Me.ClientSize = New System.Drawing.Size(444, 242)
         Me.ControlBox = False
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.dgvExemption)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.btnManage)
         Me.Controls.Add(Me.Label2)
@@ -245,7 +235,6 @@ Partial Class frmTask
         Me.Text = "frmTask"
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        CType(Me.dgvExemption, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
@@ -265,9 +254,8 @@ Partial Class frmTask
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
-    Friend WithEvents dgvExemption As System.Windows.Forms.DataGridView
-    Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents chkIncludeSubdirectories As System.Windows.Forms.CheckBox
     Friend WithEvents chkExcludeHiddenFiles As System.Windows.Forms.CheckBox
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents chkCompareFilesInDepth As System.Windows.Forms.CheckBox
 End Class

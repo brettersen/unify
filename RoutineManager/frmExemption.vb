@@ -7,6 +7,7 @@
         InitializeComponent()
         Me.EntryMode = entryMode
         Me.Exemption = exemption
+        PopulateEntityComboBox()
         If Me.Exemption IsNot Nothing Then
             Populate()
         Else
@@ -45,13 +46,19 @@
 #Region "METHODS"
 
     Private Sub Populate()
-
         With Me.Exemption
-            cboEntity.SelectedValue = .Entity
-            cboOperator.SelectedValue = .Operator
+            cboEntity.SelectedItem = New KeyValuePair(Of ExemptionEntity, String)(.Entity, EXEMPTION_ENTITIES.Item(.Entity))
+            cboOperator.SelectedItem = New KeyValuePair(Of ExemptionOperator, String)(.Operator, EXEMPTION_OPERATORS.Item(.Operator))
             txtValue.Text = .Value
         End With
+    End Sub
 
+    Private Sub PopulateEntityComboBox()
+        With cboEntity
+            .DataSource = New BindingSource(EXEMPTION_ENTITIES, Nothing)
+            .DisplayMember = "Value"
+            .ValueMember = "Key"
+        End With
     End Sub
 
     Private Function Scrape() As Boolean
@@ -87,11 +94,7 @@
 #Region "EVENTS"
 
     Private Sub frmExemption_Load(sender As Object, e As EventArgs) Handles Me.Load
-        With cboEntity
-            .DataSource = New BindingSource(EXEMPTION_ENTITIES, Nothing)
-            .DisplayMember = "Value"
-            .ValueMember = "Key"
-        End With
+
     End Sub
 
     Private Sub cboEntity_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboEntity.SelectedIndexChanged
