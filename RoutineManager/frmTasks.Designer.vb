@@ -279,7 +279,9 @@ Partial Class frmTasks
         '
         'frmTasks
         '
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(834, 461)
         Me.Controls.Add(Me.btnCopy)
         Me.Controls.Add(Me.btnDemote)

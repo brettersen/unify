@@ -12,7 +12,6 @@ Public Class SyncOperation
     Private _sourceFilePath As String
     Private _targetFilePath As String
     Private _relativeFilePath As String
-    Private _attributes As FileAttributes
     Private _operation As FileOperation
     Private _exemption As SyncTaskExemption
 
@@ -53,18 +52,6 @@ Public Class SyncOperation
         End Set
     End Property
 
-    Public Property Attributes As FileAttributes
-        Get
-            Return _attributes
-        End Get
-        Friend Set(value As FileAttributes)
-            If value.HasFlag(FileAttributes.ReadOnly) Then
-                value -= FileAttributes.ReadOnly
-            End If
-            _attributes = value
-        End Set
-    End Property
-
     Public Property Operation As FileOperation
         Get
             Return _operation
@@ -100,20 +87,19 @@ Public Class SyncOperation
         Return Win32API.CopyProgressResult.PROGRESS_CONTINUE
     End Function
 
-    Private Sub CreateParentDirectory(ByVal filePath As String)
-        Dim parentDirectory As String = Path.GetDirectoryName(filePath)
-        If Not Directory.Exists(parentDirectory) Then
-            Directory.CreateDirectory(parentDirectory)
+    Private Sub CreateParentDirectory()
+        Dim sourceParentDirectory As String = Path.GetDirectoryName(Me.SourceFilePath)
+        Dim targetParentDirectory As String = Path.GetDirectoryName(Me.TargetFilePath)
+        If Not Directory.Exists(targetParentDirectory) Then
+            Directory.CreateDirectory(targetParentDirectory)
+            File.SetAttributes(targetParentDirectory, File.GetAttributes(sourceParentDirectory))
         End If
     End Sub
 
-    Private Sub DeleteParentDirectory(ByVal filePath As String)
-        Dim parentDirectory As New DirectoryInfo(Path.GetDirectoryName(filePath))
-        If Not Directory.EnumerateFileSystemEntries(parentDirectory.FullName).Any() Then
-            If parentDirectory.Attributes.HasFlag(FileAttributes.ReadOnly) Then
-                parentDirectory.Attributes -= FileAttributes.ReadOnly
-            End If
-            Directory.Delete(parentDirectory.FullName)
+    Private Sub DeleteParentDirectory()
+        Dim parentDirectory As New DirectoryInfo(Path.GetDirectoryName(Me.TargetFilePath))
+        If (Not parentDirectory.EnumerateDirectories().Any()) AndAlso (Not parentDirectory.EnumerateFiles().Any()) Then
+            parentDirectory.Delete(False)
         End If
     End Sub
 
@@ -122,18 +108,16 @@ Public Class SyncOperation
             RaiseEvent SyncOperationStarted(Me)
             Select Case Me.Operation
                 Case FileOperation.Add
-                    CreateParentDirectory(Me.TargetFilePath)
-                    File.Copy(Me.SourceFilePath, Me.TargetFilePath)
-                    Win32API.CopyFileEx(Me.SourceFilePath, Me.TargetFilePath, AddressOf CopyProgress, Nothing, stopRequested, _
-                                        Win32API.CopyFileFlags.COPY_FILE_ALLOW_DECRYPTED_DESTINATION)
-                    File.SetAttributes(Me.TargetFilePath, Me.Attributes)
+                    CreateParentDirectory()
+                    Win32API.CopyFileEx(Me.SourceFilePath, Me.TargetFilePath, AddressOf CopyProgress, Nothing, stopRequested, Nothing)
                 Case FileOperation.Replace
-                    Win32API.CopyFileEx(Me.SourceFilePath, Me.TargetFilePath, AddressOf CopyProgress, Nothing, stopRequested, _
-                                        Win32API.CopyFileFlags.COPY_FILE_ALLOW_DECRYPTED_DESTINATION)
-                    File.SetAttributes(Me.TargetFilePath, Me.Attributes)
+                    Win32API.CopyFileEx(Me.SourceFilePath, Me.TargetFilePath, AddressOf CopyProgress, Nothing, stopRequested, Nothing)
                 Case FileOperation.Remove
+                    File.SetAttributes(Me.TargetFilePath, FileAttributes.Normal)
                     File.Delete(Me.TargetFilePath)
-                    DeleteParentDirectory(Me.TargetFilePath)
+                    If Path.GetDirectoryName(Me.TargetFilePath) <> Me.TargetFilePath.Replace(Path.DirectorySeparatorChar & Me.RelativeFilePath, Space(0)) Then
+                        DeleteParentDirectory()
+                    End If
             End Select
             If Not stopRequested Then
                 RaiseEvent SyncOperationFinished(Me, New SyncOperationFinishedEventArgs())

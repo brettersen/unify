@@ -105,16 +105,6 @@ Public Class SyncTask
         Return item
     End Function
 
-    Public Sub Execute(ByRef stopRequested As Boolean)
-        For Each o In Me.GetOperations(stopRequested)
-            If Not stopRequested Then
-                o.Execute(stopRequested)
-            Else
-                Exit For
-            End If
-        Next
-    End Sub
-
     Private Shared Function FilesAreEqual(ByVal firstFilePath As String, ByVal secondFilePath As String, ByVal compareFilesInDepth As Boolean) As Boolean
         Return FilesAreEqual(New FileInfo(firstFilePath), New FileInfo(secondFilePath), compareFilesInDepth)
     End Function
@@ -137,6 +127,40 @@ Public Class SyncTask
         Else
             Return False
             End If
+    End Function
+
+    Private Function GetChildPaths(ByVal parentPath As String, ByVal recursive As Boolean) As List(Of String)
+        ' Returns relative paths and fails if an UnauthorizedAccessException is thrown.
+        Dim childPaths As New List(Of String)
+        Dim parentDirectory As New DirectoryInfo(parentPath)
+        If recursive Then
+            childPaths.AddRange(From p In parentDirectory.EnumerateFiles("*.*", SearchOption.AllDirectories)
+                                Select p.FullName.Replace(parentPath, Space(0)))
+            childPaths.AddRange(From p In parentDirectory.EnumerateDirectories("*", SearchOption.AllDirectories)
+                                Select p.FullName.Replace(parentPath, Space(0)))
+        Else
+            childPaths.AddRange(From p In parentDirectory.EnumerateFiles("*.*", SearchOption.TopDirectoryOnly)
+                                Select p.FullName.Replace(parentPath, Space(0)))
+        End If
+        Return childPaths
+    End Function
+
+    Private Function GetChildPaths(ByVal parentPath As String, ByVal recursive As Boolean, ByVal firstCall As Boolean) As IEnumerable(Of String)
+        ' Returns absolute paths and skips any directories that throw an UnauthorizedAccessException
+        Dim childPaths As IEnumerable(Of String)
+        Try
+            childPaths = Enumerable.Empty(Of String)()
+            If recursive Then
+                childPaths = Directory.EnumerateDirectories(parentPath).SelectMany(Function(x) GetChildPaths(x, recursive, False))
+            End If
+            If firstCall Then
+                Return childPaths.Concat(Directory.EnumerateFiles(parentPath, "*.*"))
+            Else
+                Return childPaths.Concat(Directory.EnumerateFiles(parentPath, "*.*")).Concat(New String() {parentPath})
+            End If
+        Catch ex As UnauthorizedAccessException
+            Return Enumerable.Empty(Of String)()
+        End Try
     End Function
 
     Private Shared Function GetHash(ByVal filePath As String) As Byte()
@@ -215,7 +239,6 @@ Public Class SyncTask
                     .SourceFilePath = sourceDirectoryPath & Path.DirectorySeparatorChar & fileToAdd
                     .TargetFilePath = targetDirectoryPath & Path.DirectorySeparatorChar & fileToAdd
                     .RelativeFilePath = fileToAdd
-                    .Attributes = sourceFile.Attributes
                     If Not IsExempt(sourceFile, determinedExemption) Then
                         .Operation = FileOperation.Add
                     Else
@@ -245,7 +268,6 @@ Public Class SyncTask
                     .SourceFilePath = sourceDirectoryPath & Path.DirectorySeparatorChar & fileToReplace
                     .TargetFilePath = targetDirectoryPath & Path.DirectorySeparatorChar & fileToReplace
                     .RelativeFilePath = fileToReplace
-                    .Attributes = sourceFile.Attributes
                     If Not IsExempt(sourceFile, determinedExemption) Then
                         .Operation = FileOperation.Replace
                     Else
@@ -261,7 +283,7 @@ Public Class SyncTask
 
         If Me.Options.HasFlag(SyncTaskOptions.RemoveFiles) Then
             If stopRequested Then Return operations
-            filesToRemove = relativeTargetFilePaths.Except(relativeSourceFilePaths)
+            filesToRemove = relativeTargetFilePaths.Except(relativeSourceFilePaths).OrderByDescending(Function(x) x)
             If stopRequested Then Return operations
             For Each fileToRemove In filesToRemove
                 If stopRequested Then Return operations
