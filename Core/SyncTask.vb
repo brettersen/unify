@@ -7,17 +7,9 @@ Public Enum SyncTaskOptions
     AddFiles = 1
     ReplaceFiles = 2
     RemoveFiles = 4
-    IncludeSubdirectories = 8
+    ExcludeSubdirectories = 8
     ExcludeHiddenFiles = 16
     CompareFilesInDepth = 32
-End Enum
-
-Public Enum SyncTaskMilestone
-    DeterminingSourceFiles
-    DeterminingTargetFiles
-    DeterminingFilesToAdd
-    DeterminingFilesToReplace
-    DeterminingFilesToRemove
 End Enum
 
 <Serializable>
@@ -28,7 +20,7 @@ Public Class SyncTask
     Private _options As SyncTaskOptions
     Private _exemptions As List(Of SyncTaskExemption)
 
-    Public Event SyncTaskMilestoneReached(ByVal milestone As SyncTaskMilestone)
+    Public Event SyncStatusChanged(ByVal status As String)
 
     Public Sub New()
         Me.Exemptions = New List(Of SyncTaskExemption)
@@ -201,11 +193,11 @@ Public Class SyncTask
         sourceDirectoryInfo = New DirectoryInfo(sourceDirectoryPath)
         targetDirectoryInfo = New DirectoryInfo(targetDirectoryPath)
 
-        recursive = Me.Options.HasFlag(SyncTaskOptions.IncludeSubdirectories)
+        recursive = Not Me.Options.HasFlag(SyncTaskOptions.ExcludeSubdirectories)
 
         If stopRequested Then Return operations
 
-        RaiseEvent SyncTaskMilestoneReached(SyncTaskMilestone.DeterminingSourceFiles)
+        RaiseEvent SyncStatusChanged("Determining source files...")
         sourceFiles = sourceDirectoryInfo.GetFiles("*", IIf(recursive, SearchOption.AllDirectories, SearchOption.TopDirectoryOnly))
         For Each f As FileInfo In sourceFiles
             If Not Me.Options.HasFlag(SyncTaskOptions.ExcludeHiddenFiles) OrElse Not f.Attributes.HasFlag(FileAttributes.Hidden) Then
@@ -215,7 +207,7 @@ Public Class SyncTask
 
         If stopRequested Then Return operations
 
-        RaiseEvent SyncTaskMilestoneReached(SyncTaskMilestone.DeterminingTargetFiles)
+        RaiseEvent SyncStatusChanged("Determining target files...")
         targetFiles = targetDirectoryInfo.GetFiles("*", IIf(recursive, SearchOption.AllDirectories, SearchOption.TopDirectoryOnly))
         For Each f As FileInfo In targetFiles
             If Not Me.Options.HasFlag(SyncTaskOptions.ExcludeHiddenFiles) OrElse Not f.Attributes.HasFlag(FileAttributes.Hidden) Then
@@ -225,7 +217,7 @@ Public Class SyncTask
 
         If stopRequested Then Return operations
 
-        RaiseEvent SyncTaskMilestoneReached(SyncTaskMilestone.DeterminingFilesToAdd)
+        RaiseEvent SyncStatusChanged("Determining files to add...")
 
         If Me.Options.HasFlag(SyncTaskOptions.AddFiles) Then
             If stopRequested Then Return operations
@@ -250,7 +242,7 @@ Public Class SyncTask
             Next
         End If
 
-        RaiseEvent SyncTaskMilestoneReached(SyncTaskMilestone.DeterminingFilesToReplace)
+        RaiseEvent SyncStatusChanged("Determining files to replace...")
 
         If Me.Options.HasFlag(SyncTaskOptions.ReplaceFiles) Then
             If stopRequested Then Return operations
@@ -279,7 +271,7 @@ Public Class SyncTask
             Next
         End If
 
-        RaiseEvent SyncTaskMilestoneReached(SyncTaskMilestone.DeterminingFilesToRemove)
+        RaiseEvent SyncStatusChanged("Determining files to remove...")
 
         If Me.Options.HasFlag(SyncTaskOptions.RemoveFiles) Then
             If stopRequested Then Return operations
@@ -446,6 +438,12 @@ Public Class SyncTask
         Return False
 
     End Function
+
+    Public Sub Sync()
+
+
+
+    End Sub
 
 #End Region
 

@@ -2,7 +2,7 @@
 Imports System.Runtime.Serialization
 Imports System.Runtime.Serialization.Formatters.Binary
 
-Public Class frmTasks
+Public Class frmMain
 
     Private _hasPendingChanges As Boolean
     Private _openFilePath As String
@@ -79,21 +79,21 @@ Public Class frmTasks
             .Columns.Add("dgvc0", "Id")
             .Columns.Add("dgvc1", "Source Directory")
             .Columns.Add("dgvc2", "Target Directory")
-            .Columns.Add("dgvc3", "Options")
-            .Columns.Add("dgvc4", "Exemptions")
+            '.Columns.Add("dgvc3", "Options")
+            '.Columns.Add("dgvc4", "Exemptions")
             .Columns(0).Visible = False
             .Columns(1).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             .Columns(2).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-            .Columns(3).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-            .Columns(4).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            '.Columns(3).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            '.Columns(4).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
             .Columns(1).FillWeight = 12
             .Columns(2).FillWeight = 12
-            .Columns(3).FillWeight = 15
-            .Columns(4).FillWeight = 15
+            '.Columns(3).FillWeight = 15
+            '.Columns(4).FillWeight = 15
             .Columns(1).SortMode = DataGridViewColumnSortMode.NotSortable
             .Columns(2).SortMode = DataGridViewColumnSortMode.NotSortable
-            .Columns(3).SortMode = DataGridViewColumnSortMode.NotSortable
-            .Columns(4).SortMode = DataGridViewColumnSortMode.NotSortable
+            '.Columns(3).SortMode = DataGridViewColumnSortMode.NotSortable
+            '.Columns(4).SortMode = DataGridViewColumnSortMode.NotSortable
         End With
 
     End Sub
@@ -118,14 +118,14 @@ Public Class frmTasks
                 With dgvTask.Rows(rowIndex)
                     .Cells(1).Value = task.SourceDirectory
                     .Cells(2).Value = task.TargetDirectory
-                    .Cells(3).Value = String.Join(", ", (From o In TASK_OPTIONS
-                                                         Where task.Options.HasFlag(o.Key)
-                                                         Order By o.Key
-                                                         Select o.Value))
-                    .Cells(4).Value = String.Join(", ", (From e In task.Exemptions
-                                                         Select EXEMPTION_ENTITIES.Item(e.Entity) & Space(1) & _
-                                                                EXEMPTION_OPERATORS.Item(e.Operator) & Space(1) & _
-                                                                e.Value))
+                    '.Cells(3).Value = String.Join(", ", (From o In FormattedSyncTaskOptions
+                    '                                     Where task.Options.HasFlag(o.Key)
+                    '                                     Order By o.Key
+                    '                                     Select o.Value))
+                    '.Cells(4).Value = String.Join(", ", (From e In task.Exemptions
+                    '                                     Select FormattedExemptionEntities.Item(e.Entity) & Space(1) & _
+                    '                                            FormattedExemptionOperators.Item(e.Operator) & Space(1) & _
+                    '                                            e.Value))
                 End With
             Next
         End If
@@ -174,8 +174,8 @@ Public Class frmTasks
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
 
-        If Not System.IO.Directory.Exists(SaveFilePath) Then
-            System.IO.Directory.CreateDirectory(SaveFilePath)
+        If Not Directory.Exists(SaveFilePath) Then
+            Directory.CreateDirectory(SaveFilePath)
         End If
 
         FormatDataGridView()

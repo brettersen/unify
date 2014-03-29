@@ -62,9 +62,9 @@ Public Class SyncTaskExemption
 
     Public Overrides Function ToString() As String
         If Me.Entity <> ExemptionEntity.FileSize Then
-            Return EXEMPTION_ENTITIES.Item(Me.Entity) & Space(1) & EXEMPTION_OPERATORS.Item(Me.Operator) & Space(1) & Me.Value
+            Return FormattedExemptionEntities.Item(Me.Entity) & Space(1) & FormattedExemptionOperators.Item(Me.Operator) & Space(1) & Me.Value
         Else
-            Return EXEMPTION_ENTITIES.Item(Me.Entity) & Space(1) & EXEMPTION_OPERATORS.Item(Me.Operator) & Space(1) & CInt(Me.Value).ToString("N0") & " KB"
+            Return FormattedExemptionEntities.Item(Me.Entity) & Space(1) & FormattedExemptionOperators.Item(Me.Operator) & Space(1) & CInt(Me.Value).ToString("N0") & " KB"
         End If
 
     End Function

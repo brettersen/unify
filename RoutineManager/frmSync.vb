@@ -15,7 +15,7 @@ Public Class frmSync
 
 #Region "PROPERTIES"
 
-    Public Property PreviousForm As frmTasks
+    Public Property PreviousForm As frmMain
 
 #End Region
 
@@ -82,7 +82,7 @@ Public Class frmSync
                 currentTask += 1
                 If Not .CancellationPending Then
                     AppendToRichTextBox("Started task at " & Now.ToString("HH:mm:ss:fff") & vbCrLf)
-                    AddHandler task.SyncTaskMilestoneReached, AddressOf worker_SyncTaskMilestoneReached
+                    AddHandler task.SyncStatusChanged, AddressOf worker_SyncStatusChanged
                     operations = task.GetOperations(.CancellationPending)
                     totalOperations = operations.Count
                     currentOperation = 0
@@ -108,7 +108,7 @@ Public Class frmSync
                     Exit For
                 End If
                 UpdatePercentageLabel(lblRoutineProgress, currentTask / totalTasks)
-                RemoveHandler task.SyncTaskMilestoneReached, AddressOf worker_SyncTaskMilestoneReached
+                RemoveHandler task.SyncStatusChanged, AddressOf worker_SyncStatusChanged
                 If Not e.Cancel Then
                     AppendToRichTextBox("Finished task at " & Now.ToString("HH:mm:ss:fff") & vbCrLf)
                 End If
@@ -122,19 +122,8 @@ Public Class frmSync
         btnCancel.Enabled = True
     End Sub
 
-    Private Sub worker_SyncTaskMilestoneReached(milestone As SyncTaskMilestone)
-        Select Case milestone
-            Case SyncTaskMilestone.DeterminingSourceFiles
-                AppendToRichTextBox("Determining source files..." & vbCrLf)
-            Case SyncTaskMilestone.DeterminingTargetFiles
-                AppendToRichTextBox("Determining target files..." & vbCrLf)
-            Case SyncTaskMilestone.DeterminingFilesToAdd
-                AppendToRichTextBox("Determining files to add..." & vbCrLf)
-            Case SyncTaskMilestone.DeterminingFilesToReplace
-                AppendToRichTextBox("Determining files to replace..." & vbCrLf)
-            Case SyncTaskMilestone.DeterminingFilesToRemove
-                AppendToRichTextBox("Determining files to remove..." & vbCrLf)
-        End Select
+    Private Sub worker_SyncStatusChanged(ByVal status As String)
+        AppendToRichTextBox(status & vbCrLf)
     End Sub
 
     Private Sub worker_SyncOperationStarted(operation As SyncOperation)

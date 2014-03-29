@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmTasks
+Partial Class frmMain
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -63,7 +63,7 @@ Partial Class frmTasks
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmFile, Me.tsmEdit, Me.tsmHelp})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(834, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(684, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -199,7 +199,7 @@ Partial Class frmTasks
         'btnExecute
         '
         Me.btnExecute.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExecute.Location = New System.Drawing.Point(747, 426)
+        Me.btnExecute.Location = New System.Drawing.Point(597, 326)
         Me.btnExecute.Name = "btnExecute"
         Me.btnExecute.Size = New System.Drawing.Size(75, 23)
         Me.btnExecute.TabIndex = 5
@@ -209,7 +209,7 @@ Partial Class frmTasks
         'btnDemote
         '
         Me.btnDemote.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnDemote.Location = New System.Drawing.Point(417, 426)
+        Me.btnDemote.Location = New System.Drawing.Point(417, 326)
         Me.btnDemote.Name = "btnDemote"
         Me.btnDemote.Size = New System.Drawing.Size(75, 23)
         Me.btnDemote.TabIndex = 16
@@ -219,7 +219,7 @@ Partial Class frmTasks
         'btnPromote
         '
         Me.btnPromote.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnPromote.Location = New System.Drawing.Point(336, 426)
+        Me.btnPromote.Location = New System.Drawing.Point(336, 326)
         Me.btnPromote.Name = "btnPromote"
         Me.btnPromote.Size = New System.Drawing.Size(75, 23)
         Me.btnPromote.TabIndex = 15
@@ -229,7 +229,7 @@ Partial Class frmTasks
         'btnRemove
         '
         Me.btnRemove.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnRemove.Location = New System.Drawing.Point(174, 426)
+        Me.btnRemove.Location = New System.Drawing.Point(174, 326)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(75, 23)
         Me.btnRemove.TabIndex = 12
@@ -239,7 +239,7 @@ Partial Class frmTasks
         'btnEdit
         '
         Me.btnEdit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnEdit.Location = New System.Drawing.Point(93, 426)
+        Me.btnEdit.Location = New System.Drawing.Point(93, 326)
         Me.btnEdit.Name = "btnEdit"
         Me.btnEdit.Size = New System.Drawing.Size(75, 23)
         Me.btnEdit.TabIndex = 11
@@ -249,7 +249,7 @@ Partial Class frmTasks
         'btnAdd
         '
         Me.btnAdd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnAdd.Location = New System.Drawing.Point(12, 426)
+        Me.btnAdd.Location = New System.Drawing.Point(12, 326)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(75, 23)
         Me.btnAdd.TabIndex = 10
@@ -264,25 +264,25 @@ Partial Class frmTasks
         Me.dgvTask.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvTask.Location = New System.Drawing.Point(12, 27)
         Me.dgvTask.Name = "dgvTask"
-        Me.dgvTask.Size = New System.Drawing.Size(810, 385)
+        Me.dgvTask.Size = New System.Drawing.Size(660, 285)
         Me.dgvTask.TabIndex = 9
         '
         'btnCopy
         '
         Me.btnCopy.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnCopy.Location = New System.Drawing.Point(255, 426)
+        Me.btnCopy.Location = New System.Drawing.Point(255, 326)
         Me.btnCopy.Name = "btnCopy"
         Me.btnCopy.Size = New System.Drawing.Size(75, 23)
         Me.btnCopy.TabIndex = 17
         Me.btnCopy.Text = "Copy"
         Me.btnCopy.UseVisualStyleBackColor = True
         '
-        'frmTasks
+        'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(834, 461)
+        Me.ClientSize = New System.Drawing.Size(684, 361)
         Me.Controls.Add(Me.btnCopy)
         Me.Controls.Add(Me.btnDemote)
         Me.Controls.Add(Me.btnPromote)
@@ -292,9 +292,10 @@ Partial Class frmTasks
         Me.Controls.Add(Me.dgvTask)
         Me.Controls.Add(Me.btnExecute)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.MinimumSize = New System.Drawing.Size(850, 500)
-        Me.Name = "frmTasks"
+        Me.MaximizeBox = False
+        Me.Name = "frmMain"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Unify"
