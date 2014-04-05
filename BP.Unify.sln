@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BP.Unify.WindowsUI", "BP.Unify.WindowsUI\BP.Unify.WindowsUI.csproj", "{7E3FCCD9-6663-4EB9-BD71-882814C29264}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BP.Unify.Core", "BP.Unify.Core\BP.Unify.Core.csproj", "{AB82039F-5430-4856-947D-3554D93BB377}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E3FCCD9-6663-4EB9-BD71-882814C29264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E3FCCD9-6663-4EB9-BD71-882814C29264}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E3FCCD9-6663-4EB9-BD71-882814C29264}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E3FCCD9-6663-4EB9-BD71-882814C29264}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB82039F-5430-4856-947D-3554D93BB377}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB82039F-5430-4856-947D-3554D93BB377}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB82039F-5430-4856-947D-3554D93BB377}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB82039F-5430-4856-947D-3554D93BB377}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
