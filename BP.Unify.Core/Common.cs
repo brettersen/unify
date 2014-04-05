@@ -28,7 +28,7 @@ namespace BP.Unify.Core
 
     static class Common
     {
-		public Dictionary<SyncTaskOptions, string> FormattedSyncTaskOptions = new Dictionary<SyncTaskOptions,string>() {
+		public static Dictionary<SyncTaskOptions, string> FormattedSyncTaskOptions = new Dictionary<SyncTaskOptions,string>() {
 			{SyncTaskOptions.AddFiles, "Add files"},
 			{SyncTaskOptions.ReplaceFiles, "Replace files"}, 
 			{SyncTaskOptions.RemoveFiles, "Remove files"}, 
@@ -36,7 +36,7 @@ namespace BP.Unify.Core
 			{SyncTaskOptions.ExcludeHiddenFiles, "Exclude hidden files"} 
 		};
 
-		public Dictionary<ExemptionEntity, string> FormattedExemptionEntities = new Dictionary<ExemptionEntity,string>() {
+		public static Dictionary<ExemptionEntity, string> FormattedExemptionEntities = new Dictionary<ExemptionEntity,string>() {
 			{ExemptionEntity.FileExtension, "File extension"}, 
 			{ExemptionEntity.FileName, "File name"}, 
 			{ExemptionEntity.FilePath, "File path"}, 
@@ -45,7 +45,7 @@ namespace BP.Unify.Core
 			{ExemptionEntity.FolderPath, "Folder path"} 
 		};
 
-		public Dictionary<ExemptionOperator, string> FormattedExemptionOperators = new Dictionary<ExemptionOperator,string>() {
+		public static Dictionary<ExemptionOperator, string> FormattedExemptionOperators = new Dictionary<ExemptionOperator,string>() {
 			{ExemptionOperator.Contains, "contains"}, 
 			{ExemptionOperator.IsEqualTo, "is equal to"}, 
 			{ExemptionOperator.IsGreaterThan, "is greater than"}, 
@@ -54,7 +54,7 @@ namespace BP.Unify.Core
 			{ExemptionOperator.Matches, "matches"} 
 		};
 			
-		public Dictionary<ExemptionOperator, string> GetExemptionOperators(ExemptionEntity entity)
+		public static Dictionary<ExemptionOperator, string> GetExemptionOperators(ExemptionEntity entity)
 		{
 			if (entity == ExemptionEntity.FileSize)
 			{
