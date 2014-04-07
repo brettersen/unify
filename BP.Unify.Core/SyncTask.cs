@@ -23,15 +23,9 @@ namespace BP.Unify.Core
     [Serializable]
     class SyncTask
     {
-        private string _sourceDirectory;
-        private string _targetDirectory;
-        private SyncTaskOptions _options;
-        private List<SyncTaskExemption> _exemptions;
+        public delegate void SyncStatusChangedHandler(string status);
 
-        public event SyncStatusChanged(String status);
-
-    Public Event SyncStatusChanged
-
+        public event SyncStatusChangedHandler SyncStatusChanged;
 
         public SyncTask()
         {
@@ -40,29 +34,10 @@ namespace BP.Unify.Core
 
 #region PROPERTIES
 
-        public string SourceDirectory
-        {
-            get { return _sourceDirectory; }
-            set { _sourceDirectory = value; }
-        }
-
-        public string TargetDirectory
-        {
-            get { return _targetDirectory; }
-            set { _targetDirectory = value; }
-        }
-
-        public SyncTaskOptions Options
-        {
-            get { return _options; }
-            set { _options = value; }
-        }
-
-        public List<SyncTaskExemption> Exemptions
-        {
-            get { return _exemptions; }
-            set { _exemptions = value; }
-        }
+        public string SourceDirectory { get; set; }
+        public string TargetDirectory { get; set; }
+        public SyncTaskOptions Options { get; set; }
+        public List<SyncTaskExemption> Exemptions { get; set; }
 
 #endregion
 
@@ -325,151 +300,112 @@ namespace BP.Unify.Core
 
     End Function
 
-    Private Function IsExempt(ByVal suspectFile As FileInfo, ByRef determinedExemption As SyncTaskExemption) As Boolean
-
-        Dim suspectFileExtension As String
-        Dim suspectFileFolderName As String
-        Dim exemptionRegex As Regex
-
-        For Each exemption As SyncTaskExemption In Me.Exemptions
-            Try
-                If exemption.Operator = ExemptionOperator.Matches Then
-                    exemptionRegex = New Regex(exemption.Value)
-                End If
-            Catch ex As ArgumentException
-                Continue For
-            End Try
-            determinedExemption = exemption
-            Select Case exemption.Entity
-                Case ExemptionEntity.FileExtension
-                    suspectFileExtension = Path.GetExtension(suspectFile.Name).TrimStart(".")
-                    If suspectFileExtension IsNot Nothing AndAlso Not suspectFileExtension.Equals(String.Empty) Then
-                        Select Case exemption.Operator
-                            Case ExemptionOperator.Contains
-                                If suspectFileExtension.Contains(exemption.Value) Then
-                                    Return True
-                                End If
-                            Case ExemptionOperator.IsEqualTo
-                                If suspectFileExtension.Equals(exemption.Value) Then
-                                    Return True
-                                End If
-                            Case ExemptionOperator.IsNotEqualTo
-                                If Not suspectFileExtension.Equals(exemption.Value) Then
-                                    Return True
-                                End If
-                            Case ExemptionOperator.Matches
-                                If exemptionRegex.IsMatch(suspectFileExtension) Then
-                                    Return True
-                                End If
-                        End Select
-                    End If
-                Case ExemptionEntity.FileName
-                    Select Case exemption.Operator
-                        Case ExemptionOperator.Contains
-                            If suspectFile.Name.Contains(exemption.Value) Then
-                                Return True
-                            End If
-                        Case ExemptionOperator.IsEqualTo
-                            If suspectFile.Name.Equals(exemption.Value) Then
-                                Return True
-                            End If
-                        Case ExemptionOperator.IsNotEqualTo
-                            If Not suspectFile.Name.Equals(exemption.Value) Then
-                                Return True
-                            End If
-                        Case ExemptionOperator.Matches
-                            If exemptionRegex.IsMatch(suspectFile.Name) Then
-                                Return True
-                            End If
-                    End Select
-                Case ExemptionEntity.FilePath
-                    Select Case exemption.Operator
-                        Case ExemptionOperator.Contains
-                            If suspectFile.FullName.Contains(exemption.Value) Then
-                                Return True
-                            End If
-                        Case ExemptionOperator.IsEqualTo
-                            If suspectFile.FullName.Equals(exemption.Value) Then
-                                Return True
-                            End If
-                        Case ExemptionOperator.IsNotEqualTo
-                            If Not suspectFile.FullName.Equals(exemption.Value) Then
-                                Return True
-                            End If
-                        Case ExemptionOperator.Matches
-                            If exemptionRegex.IsMatch(suspectFile.FullName) Then
-                                Return True
-                            End If
-                    End Select
-                Case ExemptionEntity.FileSize
-                    Select Case exemption.Operator
-                        Case ExemptionOperator.IsEqualTo
-                            If (suspectFile.Length / 1024) = Long.Parse(exemption.Value) Then
-                                Return True
-                            End If
-                        Case ExemptionOperator.IsGreaterThan
-                            If (suspectFile.Length / 1024) > Long.Parse(exemption.Value) Then
-                                Return True
-                            End If
-                        Case ExemptionOperator.IsLessThan
-                            If (suspectFile.Length / 1024) < Long.Parse(exemption.Value) Then
-                                Return True
-                            End If
-                    End Select
-                Case ExemptionEntity.FolderName
-                    suspectFileFolderName = suspectFile.DirectoryName
-                    If suspectFileFolderName.Contains(Path.DirectorySeparatorChar) Then
-                        suspectFileFolderName = suspectFileFolderName.Split(Path.DirectorySeparatorChar).Last()
-                    End If
-                    Select Case exemption.Operator
-                        Case ExemptionOperator.Contains
-                            If suspectFileFolderName.Contains(exemption.Value) Then
-                                Return True
-                            End If
-                        Case ExemptionOperator.IsEqualTo
-                            If suspectFileFolderName.Equals(exemption.Value) Then
-                                Return True
-                            End If
-                        Case ExemptionOperator.IsNotEqualTo
-                            If Not suspectFileFolderName.Equals(exemption.Value) Then
-                                Return True
-                            End If
-                        Case ExemptionOperator.Matches
-                            If exemptionRegex.IsMatch(suspectFileFolderName) Then
-                                Return True
-                            End If
-                    End Select
-                Case ExemptionEntity.FolderPath
-                    Select Case exemption.Operator
-                        Case ExemptionOperator.Contains
-                            If suspectFile.DirectoryName.Contains(exemption.Value) Then
-                                Return True
-                            End If
-                        Case ExemptionOperator.IsEqualTo
-                            If suspectFile.DirectoryName.Equals(exemption.Value) Then
-                                Return True
-                            End If
-                        Case ExemptionOperator.IsNotEqualTo
-                            If Not suspectFile.DirectoryName.Equals(exemption.Value) Then
-                                Return True
-                            End If
-                        Case ExemptionOperator.Matches
-                            If exemptionRegex.IsMatch(suspectFile.DirectoryName) Then
-                                Return True
-                            End If
-                    End Select
-            End Select
-        Next
-        determinedExemption = Nothing
-        Return False
-
-    End Function
-
-    Public Sub Sync()
-
-
-
-    End Sub
+    private bool IsExempt(FileInfo suspectFile, ref SyncTaskExemption determinedExemption)
+    {
+        string suspectFileExtension;
+        string suspectFileFolderName;
+        Regex exemptionRegex;
+   
+        foreach (SyncTaskExemption exemption in this.Exemptions)
+        {
+            try
+            {
+                if (exemption.Operator == ExemptionOperator.Matches)
+                {
+                    exemptionRegex = new Regex(exemption.Value);
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                continue;
+            }
+            determinedExemption = exemption;
+            switch (exemption.Entity)
+            {
+                case ExemptionEntity.FileExtension:
+                    suspectFileExtension = Path.GetExtension(suspectFile.Name).TrimStart(".");
+                    if (suspectFileExtension != null && !suspectFileExtension.Equals(string.Empty))
+                    {
+                        switch (exemption.Operator)
+                        {
+                            case ExemptionOperator.Contains:
+                                if (suspectFileExtension.Contains(exemption.Value)) { return true; }
+                            case ExemptionOperator.IsEqualTo:
+                                if (suspectFileExtension.Equals(exemption.Value)) { return true; }
+                            case ExemptionOperator.IsNotEqualTo:
+                                if (!suspectFileExtension.Equals(exemption.Value)) { return true; }
+                            case ExemptionOperator.Matches:
+                                if (exemptionRegex.IsMatch(suspectFileExtension)) { return true; }
+                        }
+                    }
+                case ExemptionEntity.FileName:
+                    switch (exemption.Operator)
+                    {
+                        case ExemptionOperator.Contains:
+                            if (suspectFile.Name.Contains(exemption.Value)) { return true; }
+                        case ExemptionOperator.IsEqualTo:
+                            if (suspectFile.Name.Equals(exemption.Value)) { return true; }
+                        case ExemptionOperator.IsNotEqualTo:
+                            if (!suspectFile.Name.Equals(exemption.Value)) { return true; }
+                        case ExemptionOperator.Matches:
+                            if (exemptionRegex.IsMatch(suspectFile.Name)) { return true; }
+                    }
+                case ExemptionEntity.FilePath:
+                    switch (exemption.Operator)
+                    {
+                        case ExemptionOperator.Contains:
+                            if (suspectFile.FullName.Contains(exemption.Value)) { return true; }
+                        case ExemptionOperator.IsEqualTo:
+                            if (suspectFile.FullName.Equals(exemption.Value)) { return true; }
+                        case ExemptionOperator.IsNotEqualTo:
+                            if (!suspectFile.FullName.Equals(exemption.Value)) { return true; }
+                        case ExemptionOperator.Matches:
+                            if (exemptionRegex.IsMatch(suspectFile.FullName)) { return true; }
+                    }
+                case ExemptionEntity.FileSize:
+                    switch (exemption.Operator)
+                    {
+                        case ExemptionOperator.IsEqualTo:
+                            if (long.Parse(suspectFile.Length / 1024) == long.Parse(exemption.Value)) { return true; }
+                        case ExemptionOperator.IsGreaterThan:
+                            if (long.Parse(suspectFile.Length / 1024) > long.Parse(exemption.Value)) { return true; }
+                        case ExemptionOperator.IsLessThan:
+                            if (long.Parse(suspectFile.Length / 1024) < long.Parse(exemption.Value)) { return true; }
+                    }
+                case ExemptionEntity.FolderName:
+                    suspectFileFolderName = suspectFile.DirectoryName;
+                    if (suspectFileFolderName.Contains(Path.DirectorySeparatorChar))
+                    {
+                        suspectFileFolderName = suspectFileFolderName.Split(Path.DirectorySeparatorChar).Last();
+                    }
+                    switch (exemption.Operator)
+                    {
+                        case ExemptionOperator.Contains:
+                            if (suspectFileFolderName.Contains(exemption.Value)) { return true; }
+                        case ExemptionOperator.IsEqualTo:
+                            if (suspectFileFolderName.Equals(exemption.Value)) { return true; }
+                        case ExemptionOperator.IsNotEqualTo:
+                            if (!suspectFileFolderName.Equals(exemption.Value)) { return true; }
+                        case ExemptionOperator.Matches:
+                            if (exemptionRegex.IsMatch(suspectFileFolderName)) { return true; }
+                    }
+                case ExemptionEntity.FolderPath:
+                    switch (exemption.Operator)
+                    {
+                        case ExemptionOperator.Contains:
+                            if (suspectFile.DirectoryName.Contains(exemption.Value)) { return true; }
+                        case ExemptionOperator.IsEqualTo:
+                            if (suspectFile.DirectoryName.Equals(exemption.Value)) { return true; }
+                        case ExemptionOperator.IsNotEqualTo:
+                            if (!suspectFile.DirectoryName.Equals(exemption.Value)) { return true; }
+                        case ExemptionOperator.Matches:
+                            if (exemptionRegex.IsMatch(suspectFile.DirectoryName)) { return true; }
+                    }
+            }
+            determinedExemption = null;
+            return false;
+        }
+    }
 
 #endregion
 
