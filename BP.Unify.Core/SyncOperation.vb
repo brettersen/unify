@@ -79,12 +79,12 @@ Public Class SyncOperation
                                   ByVal streamSize As Long, _
                                   ByVal streamBytesTransferred As Long, _
                                   ByVal streamNumber As UInteger,
-                                  ByVal callbackReason As Win32API.CopyProgressCallbackReason, _
+                                  ByVal callbackReason As Win32.CopyProgressCallbackReason, _
                                   ByVal sourceFile As IntPtr,
                                   ByVal destinationFile As IntPtr,
-                                  ByVal data As IntPtr) As Win32API.CopyProgressResult
+                                  ByVal data As IntPtr) As Win32.CopyProgressResult
         RaiseEvent SyncOperationProgressed(totalFileSize, totalBytesTransferred)
-        Return Win32API.CopyProgressResult.PROGRESS_CONTINUE
+        Return Win32.CopyProgressResult.Continue
     End Function
 
     Private Sub CreateParentDirectory()
@@ -109,9 +109,9 @@ Public Class SyncOperation
             Select Case Me.Operation
                 Case FileOperation.Add
                     CreateParentDirectory()
-                    Win32API.CopyFileEx(Me.SourceFilePath, Me.TargetFilePath, AddressOf CopyProgress, Nothing, stopRequested, Nothing)
+                    Win32.CopyFileEx(Me.SourceFilePath, Me.TargetFilePath, AddressOf CopyProgress, Nothing, stopRequested, Nothing)
                 Case FileOperation.Replace
-                    Win32API.CopyFileEx(Me.SourceFilePath, Me.TargetFilePath, AddressOf CopyProgress, Nothing, stopRequested, Nothing)
+                    Win32.CopyFileEx(Me.SourceFilePath, Me.TargetFilePath, AddressOf CopyProgress, Nothing, stopRequested, Nothing)
                 Case FileOperation.Remove
                     File.SetAttributes(Me.TargetFilePath, FileAttributes.Normal)
                     File.Delete(Me.TargetFilePath)

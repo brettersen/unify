@@ -295,4 +295,27 @@
 
 #End Region
 
+    Private Sub tsmiNew_Click(sender As Object, e As EventArgs) Handles tsmiNew.Click
+
+    End Sub
+
+    Private Sub tsmiOpen_Click(sender As Object, e As EventArgs) Handles tsmiOpen.Click
+
+    End Sub
+
+    Private Sub tsmiClose_Click(sender As Object, e As EventArgs) Handles tsmiClose.Click
+
+    End Sub
+
+    Private Sub tsmiSave_Click(sender As Object, e As EventArgs) Handles tsmiSave.Click
+
+    End Sub
+
+    Private Sub tsmiSaveAs_Click(sender As Object, e As EventArgs) Handles tsmiSaveAs.Click
+
+    End Sub
+
+    Private Sub tsmiExit_Click(sender As Object, e As EventArgs) Handles tsmiExit.Click
+
+    End Sub
 End Class

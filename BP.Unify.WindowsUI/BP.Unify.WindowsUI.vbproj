@@ -6,12 +6,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C8716CEB-C3A6-4F5B-A201-77796F2E5918}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>BP.Unify.RoutineManager.My.MyApplication</StartupObject>
-    <RootNamespace>BP.Unify.RoutineManager</RootNamespace>
-    <AssemblyName>RoutineManager</AssemblyName>
+    <StartupObject>BP.Unify.WindowsUI.My.MyApplication</StartupObject>
+    <RootNamespace>BP.Unify.WindowsUI</RootNamespace>
+    <AssemblyName>Unify</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -21,9 +21,10 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>RoutineManager.xml</DocumentationFile>
+    <DocumentationFile>Unify.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,8 +33,9 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>RoutineManager.xml</DocumentationFile>
+    <DocumentationFile>Unify.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -156,10 +158,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.vbproj">
+    <ProjectReference Include="..\BP.Unify.Core\BP.Unify.Core.vbproj">
       <Project>{7a737ece-7248-4abe-be7a-170561fed633}</Project>
-      <Name>Core</Name>
-      <Private>True</Private>
+      <Name>BP.Unify.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

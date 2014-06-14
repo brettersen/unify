@@ -45,23 +45,37 @@ Partial Class frmTask
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.dgvExemption = New System.Windows.Forms.DataGridView()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.msMain = New System.Windows.Forms.MenuStrip()
+        Me.tsmiFile = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmiNew = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmiOpen = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmiClose = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmiSave = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmiSaveAs = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmiExit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.dgvExemption, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.msMain.SuspendLayout()
         Me.SuspendLayout()
         '
         'txtSourceDirectory
         '
-        Me.txtSourceDirectory.Location = New System.Drawing.Point(12, 25)
+        Me.txtSourceDirectory.Location = New System.Drawing.Point(12, 48)
         Me.txtSourceDirectory.Name = "txtSourceDirectory"
-        Me.txtSourceDirectory.Size = New System.Drawing.Size(369, 20)
+        Me.txtSourceDirectory.Size = New System.Drawing.Size(370, 20)
         Me.txtSourceDirectory.TabIndex = 0
         '
         'txtTargetDirectory
         '
-        Me.txtTargetDirectory.Location = New System.Drawing.Point(12, 69)
+        Me.txtTargetDirectory.Location = New System.Drawing.Point(12, 92)
         Me.txtTargetDirectory.Name = "txtTargetDirectory"
-        Me.txtTargetDirectory.Size = New System.Drawing.Size(369, 20)
+        Me.txtTargetDirectory.Size = New System.Drawing.Size(370, 20)
         Me.txtTargetDirectory.TabIndex = 2
         '
         'chkAddFiles
@@ -102,7 +116,7 @@ Partial Class frmTask
         '
         'btnOK
         '
-        Me.btnOK.Location = New System.Drawing.Point(255, 398)
+        Me.btnOK.Location = New System.Drawing.Point(255, 438)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 23)
         Me.btnOK.TabIndex = 18
@@ -111,7 +125,7 @@ Partial Class frmTask
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(336, 398)
+        Me.btnCancel.Location = New System.Drawing.Point(336, 438)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 19
@@ -120,7 +134,7 @@ Partial Class frmTask
         '
         'btnSourceDirectory
         '
-        Me.btnSourceDirectory.Location = New System.Drawing.Point(387, 23)
+        Me.btnSourceDirectory.Location = New System.Drawing.Point(388, 46)
         Me.btnSourceDirectory.Name = "btnSourceDirectory"
         Me.btnSourceDirectory.Size = New System.Drawing.Size(24, 23)
         Me.btnSourceDirectory.TabIndex = 1
@@ -129,7 +143,7 @@ Partial Class frmTask
         '
         'btnTargetDirectory
         '
-        Me.btnTargetDirectory.Location = New System.Drawing.Point(387, 67)
+        Me.btnTargetDirectory.Location = New System.Drawing.Point(388, 90)
         Me.btnTargetDirectory.Name = "btnTargetDirectory"
         Me.btnTargetDirectory.Size = New System.Drawing.Size(24, 23)
         Me.btnTargetDirectory.TabIndex = 3
@@ -139,7 +153,7 @@ Partial Class frmTask
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(9, 9)
+        Me.Label1.Location = New System.Drawing.Point(9, 32)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(86, 13)
         Me.Label1.TabIndex = 8
@@ -148,7 +162,7 @@ Partial Class frmTask
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(9, 53)
+        Me.Label2.Location = New System.Drawing.Point(9, 76)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(83, 13)
         Me.Label2.TabIndex = 9
@@ -159,9 +173,9 @@ Partial Class frmTask
         Me.GroupBox2.Controls.Add(Me.chkCompareFilesInDepth)
         Me.GroupBox2.Controls.Add(Me.chkExcludeHiddenFiles)
         Me.GroupBox2.Controls.Add(Me.chkExcludeSubdirectories)
-        Me.GroupBox2.Location = New System.Drawing.Point(148, 99)
+        Me.GroupBox2.Location = New System.Drawing.Point(148, 122)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(263, 94)
+        Me.GroupBox2.Size = New System.Drawing.Size(264, 94)
         Me.GroupBox2.TabIndex = 8
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Options"
@@ -201,7 +215,7 @@ Partial Class frmTask
         Me.GroupBox1.Controls.Add(Me.chkAddFiles)
         Me.GroupBox1.Controls.Add(Me.chkRemoveFiles)
         Me.GroupBox1.Controls.Add(Me.chkReplaceFiles)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 99)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 122)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(122, 94)
         Me.GroupBox1.TabIndex = 4
@@ -210,7 +224,7 @@ Partial Class frmTask
         '
         'btnDemote
         '
-        Me.btnDemote.Location = New System.Drawing.Point(336, 219)
+        Me.btnDemote.Location = New System.Drawing.Point(337, 390)
         Me.btnDemote.Name = "btnDemote"
         Me.btnDemote.Size = New System.Drawing.Size(75, 23)
         Me.btnDemote.TabIndex = 16
@@ -219,7 +233,7 @@ Partial Class frmTask
         '
         'btnPromote
         '
-        Me.btnPromote.Location = New System.Drawing.Point(255, 219)
+        Me.btnPromote.Location = New System.Drawing.Point(255, 390)
         Me.btnPromote.Name = "btnPromote"
         Me.btnPromote.Size = New System.Drawing.Size(75, 23)
         Me.btnPromote.TabIndex = 15
@@ -228,7 +242,7 @@ Partial Class frmTask
         '
         'btnRemove
         '
-        Me.btnRemove.Location = New System.Drawing.Point(174, 219)
+        Me.btnRemove.Location = New System.Drawing.Point(174, 390)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(75, 23)
         Me.btnRemove.TabIndex = 14
@@ -237,7 +251,7 @@ Partial Class frmTask
         '
         'btnEdit
         '
-        Me.btnEdit.Location = New System.Drawing.Point(93, 219)
+        Me.btnEdit.Location = New System.Drawing.Point(93, 390)
         Me.btnEdit.Name = "btnEdit"
         Me.btnEdit.Size = New System.Drawing.Size(75, 23)
         Me.btnEdit.TabIndex = 13
@@ -246,7 +260,7 @@ Partial Class frmTask
         '
         'btnAdd
         '
-        Me.btnAdd.Location = New System.Drawing.Point(12, 219)
+        Me.btnAdd.Location = New System.Drawing.Point(12, 390)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(75, 23)
         Me.btnAdd.TabIndex = 12
@@ -255,27 +269,107 @@ Partial Class frmTask
         '
         'dgvExemption
         '
+        Me.dgvExemption.BackgroundColor = System.Drawing.SystemColors.Window
+        Me.dgvExemption.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.dgvExemption.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvExemption.Location = New System.Drawing.Point(12, 249)
+        Me.dgvExemption.Location = New System.Drawing.Point(12, 243)
         Me.dgvExemption.Name = "dgvExemption"
-        Me.dgvExemption.Size = New System.Drawing.Size(399, 135)
+        Me.dgvExemption.Size = New System.Drawing.Size(400, 135)
         Me.dgvExemption.TabIndex = 17
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(9, 201)
+        Me.Label3.Location = New System.Drawing.Point(9, 227)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(61, 13)
         Me.Label3.TabIndex = 3
         Me.Label3.Text = "Exemptions"
         '
+        'msMain
+        '
+        Me.msMain.BackColor = System.Drawing.SystemColors.Control
+        Me.msMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiFile, Me.HelpToolStripMenuItem})
+        Me.msMain.Location = New System.Drawing.Point(0, 0)
+        Me.msMain.Name = "msMain"
+        Me.msMain.Size = New System.Drawing.Size(424, 24)
+        Me.msMain.TabIndex = 21
+        Me.msMain.Text = "MenuStrip1"
+        '
+        'tsmiFile
+        '
+        Me.tsmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiNew, Me.ToolStripSeparator4, Me.tsmiOpen, Me.ToolStripSeparator3, Me.tsmiClose, Me.ToolStripSeparator2, Me.tsmiSave, Me.tsmiSaveAs, Me.ToolStripSeparator1, Me.tsmiExit})
+        Me.tsmiFile.Name = "tsmiFile"
+        Me.tsmiFile.Size = New System.Drawing.Size(37, 20)
+        Me.tsmiFile.Text = "&File"
+        '
+        'tsmiNew
+        '
+        Me.tsmiNew.Name = "tsmiNew"
+        Me.tsmiNew.Size = New System.Drawing.Size(152, 22)
+        Me.tsmiNew.Text = "&New"
+        '
+        'tsmiOpen
+        '
+        Me.tsmiOpen.Name = "tsmiOpen"
+        Me.tsmiOpen.Size = New System.Drawing.Size(152, 22)
+        Me.tsmiOpen.Text = "&Open..."
+        '
+        'tsmiClose
+        '
+        Me.tsmiClose.Name = "tsmiClose"
+        Me.tsmiClose.Size = New System.Drawing.Size(152, 22)
+        Me.tsmiClose.Text = "&Close"
+        '
+        'tsmiSave
+        '
+        Me.tsmiSave.Name = "tsmiSave"
+        Me.tsmiSave.Size = New System.Drawing.Size(152, 22)
+        Me.tsmiSave.Text = "&Save"
+        '
+        'tsmiSaveAs
+        '
+        Me.tsmiSaveAs.Name = "tsmiSaveAs"
+        Me.tsmiSaveAs.Size = New System.Drawing.Size(152, 22)
+        Me.tsmiSaveAs.Text = "Save &As..."
+        '
+        'tsmiExit
+        '
+        Me.tsmiExit.Name = "tsmiExit"
+        Me.tsmiExit.Size = New System.Drawing.Size(152, 22)
+        Me.tsmiExit.Text = "E&xit"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(149, 6)
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(149, 6)
+        '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(149, 6)
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.HelpToolStripMenuItem.Text = "&Help"
+        '
         'frmTask
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(423, 433)
-        Me.ControlBox = False
+        Me.ClientSize = New System.Drawing.Size(424, 473)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.dgvExemption)
         Me.Controls.Add(Me.btnDemote)
@@ -293,9 +387,10 @@ Partial Class frmTask
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.txtTargetDirectory)
         Me.Controls.Add(Me.txtSourceDirectory)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Controls.Add(Me.msMain)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.MainMenuStrip = Me.msMain
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "frmTask"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "frmTask"
@@ -304,6 +399,8 @@ Partial Class frmTask
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.dgvExemption, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.msMain.ResumeLayout(False)
+        Me.msMain.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -331,4 +428,17 @@ Partial Class frmTask
     Friend WithEvents btnAdd As System.Windows.Forms.Button
     Friend WithEvents dgvExemption As System.Windows.Forms.DataGridView
     Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents msMain As System.Windows.Forms.MenuStrip
+    Friend WithEvents tsmiFile As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsmiNew As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator4 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents tsmiOpen As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents tsmiClose As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents tsmiSave As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsmiSaveAs As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents tsmiExit As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class
